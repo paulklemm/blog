@@ -28,7 +28,7 @@
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2016-03-06-watch-latex-documents-using-latexmk/textmate_watch_document.gif&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2016-03-06-watch-latex-documents-using-latexmk/textmate_watch_document.gif&#34; /&gt;
     
     
     &lt;figcaption&gt;
@@ -90,7 +90,7 @@ Hi!
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2016-03-06-watch-latex-documents-using-latexmk/synctex_sublime_skim.gif&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2016-03-06-watch-latex-documents-using-latexmk/synctex_sublime_skim.gif&#34; /&gt;
     
     
     &lt;figcaption&gt;
@@ -286,7 +286,7 @@ Error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; package or namesp
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/gitlab.png##floatright200&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/gitlab.png##floatright200&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -319,7 +319,7 @@ Error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; package or namesp
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/createNewRepo.png#floatright200&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/createNewRepo.png#floatright200&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -330,7 +330,7 @@ Error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; package or namesp
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/init.png&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/init.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -342,7 +342,7 @@ Error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; package or namesp
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/init-2.png&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/init-2.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -378,7 +378,7 @@ $ git clone &lt;a href=&#34;https://github.com/Powernap/My-Awesome-Paper.git&#34
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/folder.png#floatright200&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/folder.png#floatright200&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -448,7 +448,7 @@ $ git clone &lt;a href=&#34;https://github.com/Powernap/My-Awesome-Paper.git&#34
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/commits.png&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/commits.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -457,7 +457,7 @@ Here you can see the changes made to the repository in every commit. Each line c
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/diff.png#300&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/diff.png#300&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -496,7 +496,7 @@ Changes made to Tex files structured like this are well readable using the githu
 &lt;p&gt;
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/discussion.png#floatright300&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/discussion.png#floatright300&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -512,7 +512,7 @@ Having all authors of a scientific paper in one place is rare. Exchange of ideas
 &lt;p&gt;
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/branch.png#floatright200&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/branch.png#floatright200&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -552,7 +552,7 @@ Having all authors of a scientific paper in one place is rare. Exchange of ideas
 &lt;p&gt;
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/releases.png#floatright300&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/releases.png#floatright300&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -577,7 +577,7 @@ Having all authors of a scientific paper in one place is rare. Exchange of ideas
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/comparison.gif&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/comparison.gif&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -645,7 +645,7 @@ Here, &lt;code&gt;[quality]&lt;/code&gt; has to be a quality setting from the st
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2013-12-07-watch-twitch-using-vlc-in-osx/twitch-vlc-sc2_small.png&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2013-12-07-watch-twitch-using-vlc-in-osx/twitch-vlc-sc2_small.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -767,7 +767,7 @@ This took about 60 minutes on my early 2008 Macbook Pro, so take your time for a
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/selectPythonInterpreter.png&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/selectPythonInterpreter.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -776,7 +776,7 @@ Confirm the next Prompt which should look like the following screenshot and you 
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/selectPythonPackages.png&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/selectPythonPackages.png&#34; /&gt;
     
     
 &lt;/figure&gt;

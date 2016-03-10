@@ -24,7 +24,7 @@
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/gitlab.png##floatright200&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/gitlab.png##floatright200&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -57,7 +57,7 @@
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/createNewRepo.png#floatright200&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/createNewRepo.png#floatright200&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -68,7 +68,7 @@
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/init.png&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/init.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -80,7 +80,7 @@
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/init-2.png&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/init-2.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -116,7 +116,7 @@ $ git clone &lt;a href=&#34;https://github.com/Powernap/My-Awesome-Paper.git&#34
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/folder.png#floatright200&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/folder.png#floatright200&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -186,7 +186,7 @@ $ git clone &lt;a href=&#34;https://github.com/Powernap/My-Awesome-Paper.git&#34
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/commits.png&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/commits.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -195,7 +195,7 @@ Here you can see the changes made to the repository in every commit. Each line c
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/diff.png#300&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/diff.png#300&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -234,7 +234,7 @@ Changes made to Tex files structured like this are well readable using the githu
 &lt;p&gt;
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/discussion.png#floatright300&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/discussion.png#floatright300&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -250,7 +250,7 @@ Having all authors of a scientific paper in one place is rare. Exchange of ideas
 &lt;p&gt;
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/branch.png#floatright200&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/branch.png#floatright200&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -290,7 +290,7 @@ Having all authors of a scientific paper in one place is rare. Exchange of ideas
 &lt;p&gt;
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/releases.png#floatright300&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/releases.png#floatright300&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -315,7 +315,7 @@ Having all authors of a scientific paper in one place is rare. Exchange of ideas
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/comparison.gif&#34; /&gt;
+        &lt;img src=&#34;http://paulklemm.com/blog/blog/media/2014-07-16-use-github-for-scientific-writing/comparison.gif&#34; /&gt;
     
     
 &lt;/figure&gt;
