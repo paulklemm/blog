@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rstudio R Osx on Zenf</title>
+    <link>http://paulklemm.com/blog/categories/rstudio-r-osx/</link>
+    <description>Recent content in Rstudio R Osx on Zenf</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 Feb 2015 14:30:10 +0000</lastBuildDate>
+    <atom:link href="http://paulklemm.com/blog/categories/rstudio-r-osx/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Run rJava with RStudio under OSX 10.10</title>
+      <link>http://paulklemm.com/blog/2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10/</link>
+      <pubDate>Fri, 20 Feb 2015 14:30:10 +0000</pubDate>
+      
+      <guid>http://paulklemm.com/blog/2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10/</guid>
+      <description>
+
+&lt;h1 id=&#34;the-problem:8da0764efb91203229039753b3ed7caa&#34;&gt;The Problem&lt;/h1&gt;
+
+&lt;p&gt;I&amp;rsquo;ve had some trouble getting rJava to run with RStudio. My current solution is a small workaround based on &lt;a href=&#34;https://support.rstudio.com/hc/communities/public/questions/203781666-rJava-not-loading-in-RStudio-Mac-OS-X-10-10-but-loading-in-terminal&#34;&gt;this post on the RStudio support pages&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The first thing I did was installing and running &lt;code&gt;rJava&lt;/code&gt; through &lt;code&gt;RStudio&lt;/code&gt; and attempt to load it.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;install.packages&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;rJava&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# a bunch of output follows&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# ...&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# Now we want to load rJava, which yields an error&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;library&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;rJava&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+Error &lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;.&lt;/span&gt;onLoad failed &lt;span style=&#34;color: #66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;loadNamespace&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;rJava&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; details&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;call&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;dyn.load&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;file&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; DLLpath &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; DLLpath&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;...&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+  error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; unable to load shared object &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;/usr/local/Cellar/r/3.1.2_1/R.framework/Versions/3.1/Resources/library/rJava/libs/rJava.so&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt;
+  dlopen&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;Cellar&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;r&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.1.2&lt;/span&gt;_&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;R.framework&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;Versions&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;Resources&lt;span style=&#34;color: #f92672&#34;&gt;/library/&lt;/span&gt;rJava&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;libs&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;rJava.so&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;6&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; Library not loaded&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;@&lt;/span&gt;rpath&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;libjvm.dylib
+  Referenced from&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;Cellar&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;r&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.1.2&lt;/span&gt;_&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;R.framework&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;Versions&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;Resources&lt;span style=&#34;color: #f92672&#34;&gt;/library/&lt;/span&gt;rJava&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;libs&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;rJava.so
+  Reason&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; image not found
+Error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; package or namespace load failed &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; ‘rJava’
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;When I&amp;rsquo;ve ran &lt;code&gt;R&lt;/code&gt; through the Terminal and ran up &lt;code&gt;library(rJava)&lt;/code&gt;, everything worked just fine. Somehow, &lt;code&gt;RStudio&lt;/code&gt; is not able to properly load the java path. A small workaround helps here.&lt;/p&gt;
+
+&lt;h1 id=&#34;the-workaround:8da0764efb91203229039753b3ed7caa&#34;&gt;The Workaround&lt;/h1&gt;
+
+&lt;p&gt;We will launch &lt;code&gt;RStudio&lt;/code&gt; through the terminal with a custom call, which gives it the proper &lt;code&gt;Java&lt;/code&gt; path!&lt;/p&gt;
+
+&lt;h2 id=&#34;check-if-everything-works-as-expected:8da0764efb91203229039753b3ed7caa&#34;&gt;Check if everything works as expected&lt;/h2&gt;
+
+&lt;p&gt;At first we check a couple of things.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# `which java` should yield something like this: `/usr/bin/java`&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;which java
+/usr/bin/java
+&lt;span style=&#34;color: #75715e&#34;&gt;# `/usr/libexec/java_home` should yield the current jdk home folder&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;/usr/libexec/java_home
+/Library/Java/JavaVirtualMachines/jdk1.8.0_31.jdk/Contents/Home
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;By the way, you can also use &lt;a href=&#34;https://stackoverflow.com/questions/21964709/how-to-change-default-java-version&#34;&gt;&lt;code&gt;/usr/libexec/java_home&lt;/code&gt;&lt;/a&gt; to &lt;a href=&#34;https://stackoverflow.com/questions/21964709/how-to-change-default-java-version&#34;&gt;switch your java version&lt;/a&gt; if you wish. You can also download the newest &lt;code&gt;jre&lt;/code&gt; from the Oracle &lt;a href=&#34;http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If the output is similar to the one above you should be fine!&lt;/p&gt;
+
+&lt;h2 id=&#34;run-rstudio-through-the-terminal-using-a-custom-command:8da0764efb91203229039753b3ed7caa&#34;&gt;Run &lt;code&gt;RStudio&lt;/code&gt; through the Terminal using a custom command&lt;/h2&gt;
+
+&lt;p&gt;Now you open &lt;code&gt;RStudio&lt;/code&gt; through the terminal using the following command, which sets the &lt;code&gt;LD_LIBRARY_PATH&lt;/code&gt; by hard. &lt;em&gt;Make sure you quit all running instances of &lt;code&gt;RStudio&lt;/code&gt; before you do that!&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ LD_LIBRARY_PATH&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;$(&lt;/span&gt;/usr/libexec/java_home&lt;span style=&#34;color: #66d9ef&#34;&gt;)&lt;/span&gt;/jre/lib/server: open -a RStudio
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;RStudio&lt;/code&gt; launches. Loading &lt;code&gt;library(rJava)&lt;/code&gt; should work just fine! &lt;em&gt;If you want to use &lt;code&gt;rJava&lt;/code&gt; with &lt;code&gt;RStudio&lt;/code&gt;, you have to run it using this command (until they hopefully fix it!)&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;make-an-alias-for-the-new-command-with-your-shell:8da0764efb91203229039753b3ed7caa&#34;&gt;Make an Alias for the new Command with your Shell&lt;/h2&gt;
+
+&lt;p&gt;You can register an alias with your shell. For &lt;code&gt;bash&lt;/code&gt; you open the bash profile under &lt;code&gt;~/.bash_profile&lt;/code&gt; and add the following alias:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;alias rstudio&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;LD_LIBRARY_PATH=$(/usr/libexec/java_home)/jre/lib/server: open -a RStudio&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;h1 id=&#34;thats-it:8da0764efb91203229039753b3ed7caa&#34;&gt;Thats it&lt;/h1&gt;
+
+&lt;p&gt;I hope this gets fixed soon. Until then, hopefully my workaround works for you guys! See you :).&lt;/p&gt;
+
+&lt;h1 id=&#34;update-2015-12-09:8da0764efb91203229039753b3ed7caa&#34;&gt;Update 2015-12-09&lt;/h1&gt;
+
+&lt;p&gt;In my current setting of &lt;em&gt;OSX 10.11.2 (15C50)&lt;/em&gt;, &lt;em&gt;R version 3.2.2 (2015-08-14)&lt;/em&gt; and &lt;em&gt;rJava 0.9-8&lt;/em&gt;, this solution does not work. Unfortunately, I have no idea how to fix it. Here is my current situation.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing-the-rjava-from-cran-fails:8da0764efb91203229039753b3ed7caa&#34;&gt;Installing the rJava from CRAN fails&lt;/h2&gt;
+
+&lt;p&gt;Since &lt;a href=&#34;https://stat.ethz.ch/pipermail/r-sig-mac/2015-November/011712.html&#34;&gt;El Capitan seems to have problems with passing evironment variables&lt;/a&gt;, the current CRAN version of rJava will crash during the installation process. It yields the following error:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;install.packages&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;rJava&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# Output until error skipped&lt;/span&gt;
+configure&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; One or more JNI types differ from the corresponding native type. You may need to use non&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;standard compiler flags or a different compiler &lt;span style=&#34;color: #66d9ef&#34;&gt;in&lt;/span&gt; order to fix this.
+ERROR&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; configuration failed &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; package ‘rJava’
+&lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt; removing ‘&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;lib&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;R&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;site&lt;span style=&#34;color: #f92672&#34;&gt;-library/&lt;/span&gt;rJava’
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;This can, however, be easily fixed by installing &lt;a href=&#34;https://www.rforge.net/rJava/files/&#34;&gt;rJava from RForge.net&lt;/a&gt; as stated &lt;a href=&#34;https://stackoverflow.com/questions/33550437/install-rjava-one-or-more-jni-types-differ-from-the-corresponding-native-type&#34;&gt;here&lt;/a&gt;. Running &lt;code&gt;install.packages(&#39;&amp;lt;PATH TO DOWNLOAD&amp;gt;/rJava_0.9-8.tar.gz&#39;, repos = NULL, type=&amp;quot;source&amp;quot;)&lt;/code&gt; installed the current rJava version properly.&lt;/p&gt;
+
+&lt;h2 id=&#34;loading-rjava-in-rstudio-fails:8da0764efb91203229039753b3ed7caa&#34;&gt;Loading rJava in RStudio fails&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;ve set up my homebrew R version properly using &lt;code&gt;R CMD javareconf JAVA_CPPFLAGS=&amp;quot;-I/System/Library/Frameworks/JavaVM.framework/Headers -I/Library/Java/JavaVirtualMachines/jdk1.8.0_31.jdk/&amp;quot;&lt;/code&gt; as statet in the caveats of the install. Also, &lt;code&gt;/usr/libexec/java_home&lt;/code&gt; yields the proper path.&lt;/p&gt;
+
+&lt;p&gt;Loading rJava in R through the shell works fine. Loading RStudio with &lt;code&gt;LD_LIBRARY_PATH=$(/usr/libexec/java_home)/jre/lib/server: open -a RStudio&lt;/code&gt; and loading rJava does not. It yields the same error as before:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f92672&#34;&gt;library&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;rJava&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+Error &lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;.&lt;/span&gt;onLoad failed &lt;span style=&#34;color: #66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;loadNamespace&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;rJava&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; details&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;call&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;dyn.load&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;file&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; DLLpath &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; DLLpath&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;...&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+  error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; unable to load shared object &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;/usr/local/lib/R/3.2/site-library/rJava/libs/rJava.so&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt;
+  dlopen&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;lib&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;R&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;site&lt;span style=&#34;color: #f92672&#34;&gt;-library/&lt;/span&gt;rJava&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;libs&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;rJava.so&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;6&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; Library not loaded&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;@&lt;/span&gt;rpath&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;libjvm.dylib
+  Referenced from&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;lib&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;R&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;site&lt;span style=&#34;color: #f92672&#34;&gt;-library/&lt;/span&gt;rJava&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;libs&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;rJava.so
+  Reason&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; image not found
+Error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; package or namespace load failed &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; ‘rJava’
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&#34;the-solution:8da0764efb91203229039753b3ed7caa&#34;&gt;The Solution?&lt;/h2&gt;
+
+&lt;p&gt;If you have any ideas on how to solve this, please let me know.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

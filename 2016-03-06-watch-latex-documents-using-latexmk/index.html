@@ -1,0 +1,297 @@
+    <!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Paul Klemm">
+		<meta name="description" content="Paul puts in his two cents">
+		<meta name="generator" content="Hugo 0.15" />
+		<title>Watch LaTeX Documents using Latexmk &middot; Zenf</title>
+		<link rel="shortcut icon" href="http://paulklemm.com/blog/images/favicon.ico">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/style.css">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/highlight.css">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/monosocialiconsfont.css">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/custom-img.css">
+		
+		<link href="http://paulklemm.com/blog/index.xml" rel="alternate" type="application/rss+xml" title="Zenf" />
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://paulklemm.com/blog/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+		<a href='http://paulklemm.com/blog/about'>About</a>
+	
+
+	
+	<a class="cta" href="http://paulklemm.com/blog/index.xml">Subscribe</a>
+	
+</nav>
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>Watch LaTeX Documents using Latexmk</h1>
+                    <h2 class="headline">March 6, 2016</h2>
+                </header>
+                <section id="post-body">
+                    
+
+<p><em>The <code>Watch Document</code> functionality of Textmate automatically compiles Tex documents when saved. This post describes how to achieve this behavior with any editor. It works for Unix-based systems, such as OSX or Linux. An example repository can be found <a href="https://github.com/paulklemm/latexmk-synctex-example">here</a>.</em></p>
+
+<hr />
+
+<h2 id="introduction-switch-from-textmate:a3681b62dce4608201716bd3f606c883">Introduction: Switch from Textmate</h2>
+
+<p>I&rsquo;ve been using Textmate to write and compile my LaTeX Documents since 2007. <a href="http://jann.is/daily/archives/756-LaTex-Live-PDF-preview-with-TextMate-and-PDFView.html">This Blog post</a> by Jannis Hermanns basically defined my workflow since then. It&rsquo;s core is the neat <code>Watch Document</code> feature of Textmate, which compiles the document and looks for changes. It recompiles the document as soon as it is saved.</p>
+
+
+<figure >
+    
+        <img src="/zenf/media/2016-03-06-watch-latex-documents-using-latexmk/textmate_watch_document.gif" />
+    
+    
+    <figcaption>
+        <h4>The watch document command of Textmate previews changes when saving the document</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+<p>This also works with LaTeX projects consisting of multiple files. Simply put the watch on the project master file and it will also look for changes in the associated files. This even extends to included images.</p>
+
+<p>If you use a PDF viewer that supports <a href="http://itexmac.sourceforge.net/SyncTeX.html">SyncTeX</a>, such as <a href="http://skim-app.sourceforge.net/">Skim</a>, you can even jump to the current position of the cursor from the TeX document to the PDF and vice versa.</p>
+
+<p>Once I got used to this convenience, compiling LaTeX documents by hand felt like a chore. Unfortunately, using Textmate began to feel likewise. Since I do all my coding in Sublime Text, I <a href="http://tex.stackexchange.com/questions/276973/pendant-to-textmate-watch-document-function-in-sublime-text-latextools">looked for a similar workflow for that editor</a>.
+Turns out, it doesn&rsquo;t matter which editor you use, you can simply incorporate <a href="https://www.ctan.org/pkg/latexmk/"><code>latexmk</code></a> to achieve this functionality. Even better, <code>latexmk</code> is shipped per default with the most popular LaTeX distributions, so you should have it installed already.</p>
+
+<h2 id="compile-latex-projects-using-latexmk:a3681b62dce4608201716bd3f606c883">Compile LaTeX Projects using Latexmk</h2>
+
+<p>Consider the following LaTeX document <code>article.tex</code>:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #66d9ef">\documentclass</span><span style="color: #a6e22e">[12pt]</span><span style="color: #f8f8f2">{</span>article<span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">\begin</span><span style="color: #f8f8f2">{</span>document<span style="color: #f8f8f2">}</span>
+Hi!
+<span style="color: #66d9ef">\end</span><span style="color: #f8f8f2">{</span>document<span style="color: #f8f8f2">}</span>
+</pre></div>
+
+
+<p>Using <code>latexmk</code>, you can compile this into a PDF file by entering the following command:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%">latexmk -pdf article.tex
+</pre></div>
+
+
+<p>In order to watch for changes, you can simply add the <code>-pvc</code> option, which stands for &ldquo;preview continuously&rdquo;:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%">latexmk -pdf -pvc article.tex
+</pre></div>
+
+
+<p>As you can see, the command will not terminate back into the prompt, as <code>latexmk</code> watches for updated files (<em>targets</em>) associated with the previewed file. You have to shutdown it manually using <code>CTRL-C</code>. This is already close to the desired behavior. I suggest adding the following options:</p>
+
+<ul>
+<li><code>-bibtex</code> to compile associated BibTeX files,</li>
+<li><code>-f</code> to continue compiling albeit found errors,</li>
+<li><code>-quiet</code> to make <code>latexmk</code> less verbose and show only important messages,</li>
+<li><code>-use-make</code> to resolve missing files after the <code>pdflatex</code> call using custom dependencies, and</li>
+<li><code>-pdflatex=&quot;pdflatex -synctex=1 -interaction=nonstopmode&quot;</code>  to add options to the pdflatex command, most important the <code>synctex</code> command to allow jumping between the source PDF and the text editor.</li>
+</ul>
+
+<p>For a precise description of each command, refer to the <a href="http://ftp.fernuni-hagen.de/ftp-dir/pub/mirrors/www.ctan.org/support/latexmk/latexmk.pdf">latexmk readme</a>. All options together yield the following command:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%">latexmk -quiet -bibtex -pvc -f -pdf -pdflatex<span style="color: #f92672">=</span><span style="color: #e6db74">&quot;pdflatex -synctex=1 -interaction=nonstopmode&quot;</span> article.tex
+</pre></div>
+
+
+<p>This is exactly the behavior I was looking for. And as a big plus, it is independent of your editor choice. Using it with <a href="https://www.sublimetext.com/">Sublime Text</a> and the <a href="https://www.sublimetext.com/">LaTeXTools Plugin</a> along with a Skim even allows to jump between source and compiled PDF using the enabled <code>synctex</code> feature.</p>
+
+
+<figure >
+    
+        <img src="/zenf/media/2016-03-06-watch-latex-documents-using-latexmk/synctex_sublime_skim.gif" />
+    
+    
+    <figcaption>
+        <h4>Jump between the IDE (Sublime Text 3 with LatexTools) and the PDF Viewer (Skim) using the Synctex feature</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+<h2 id="use-the-power-of-make-with-latexmk:a3681b62dce4608201716bd3f606c883">Use the Power of <code>make</code> with <code>latexmk</code></h2>
+
+<p>Utilizing this knowledge with <code>makefiles</code> is easy. I know that makefiles often look scary due to their seemingly obscure syntax, but actually they are easy to set up and will spare you <em>a lot</em> of work. If you want to have a quick introduction to <code>make</code>, I strongly recommend Mike Bostocks <a href="https://bost.ocks.org/mike/make/">beautiful blog post on it</a>. The commands applied here, however, are basic and should be self explanatory.</p>
+
+<p>The <code>makefile</code> I propose is an adapted version from <a href="https://tex.stackexchange.com/questions/40738/how-to-properly-make-a-latex-project">this stackoverflow post</a>. I built the makefile to work as follows:</p>
+
+<ul>
+<li><code>make</code> compiles the document, but does not watch for changes,</li>
+<li><code>make watch</code> compiles the document and watches for changes using the <code>latexmk -pvc</code> command, and</li>
+<li><code>make clean</code> removes all files produced using the LaTeX compilation process, including the resulting PDF.</li>
+</ul>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># makefile</span>
+<span style="color: #75715e"># File adapted from this stackoverflow question: https://tex.stackexchange.com/questions/40738/how-to-properly-make-a-latex-project</span>
+
+<span style="color: #75715e"># The first rule in a Makefile is the one executed by default (&quot;make&quot;). It</span>
+<span style="color: #75715e"># should always be the &quot;all&quot; rule, so that &quot;make&quot; and &quot;make all&quot; are identical.</span>
+<span style="color: #a6e22e">all</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">article</span>.<span style="color: #f8f8f2">pdf</span>
+
+<span style="color: #75715e"># MAIN LATEXMK RULE</span>
+
+<span style="color: #75715e"># -pdf tells latexmk to generate a PDF instead of DVI.</span>
+<span style="color: #75715e"># -pdflatex=&quot;&quot; tells latexmk to call a specific backend with specific options.</span>
+<span style="color: #75715e"># -use-make tells latexmk to call make for generating missing files.</span>
+<span style="color: #75715e"># -interaction=nonstopmode keeps the pdflatex backend from stopping at a</span>
+<span style="color: #75715e"># missing file reference and interactively asking you for an alternative.</span>
+<span style="color: #75715e"># -synctex=1 is required to jump between the source PDF and the text editor.</span>
+<span style="color: #75715e"># -pvc (preview continuously) watches the directory for changes.</span>
+<span style="color: #75715e"># -quiet suppresses most status messages (https://tex.stackexchange.com/questions/40783/can-i-make-latexmk-quieter).</span>
+<span style="color: #a6e22e">article.pdf</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">article</span>.<span style="color: #f8f8f2">tex</span>
+    latexmk -quiet -bibtex <span style="color: #66d9ef">$(</span>PREVIEW_CONTINUOUSLY<span style="color: #66d9ef">)</span> -f -pdf -pdflatex<span style="color: #f92672">=</span><span style="color: #e6db74">&quot;pdflatex -synctex=1 -interaction=nonstopmode&quot;</span> -use-make article.tex
+
+<span style="color: #75715e"># The .PHONY rule keeps make from processing a file named &quot;watch&quot; or &quot;clean&quot;.</span>
+<span style="color: #a6e22e">.PHONY</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">watch</span>
+<span style="color: #75715e"># Set the PREVIEW_CONTINUOUSLY variable to -pvc to switch latexmk into the preview continuously mode</span>
+<span style="color: #a6e22e">watch</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">PREVIEW_CONTINUOUSLY</span>=-<span style="color: #f8f8f2">pvc</span>
+<span style="color: #a6e22e">watch</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">article</span>.<span style="color: #f8f8f2">pdf</span>
+
+<span style="color: #a6e22e">.PHONY</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">clean</span>
+<span style="color: #75715e"># -bibtex also removes the .bbl files (http://tex.stackexchange.com/a/83384/79184).</span>
+<span style="color: #a6e22e">clean</span><span style="color: #f92672">:</span>
+    latexmk -CA -bibtex
+</pre></div>
+</p>
+
+<p>The <code>all</code> task creates the target file &ldquo;article.pdf&rdquo; using <code>latexmk</code>. You&rsquo;ll notice the <code>$(PREVIEW_CONTINUOUSLY)</code> where the <code>-pvc</code> option should be. <code>$(PREVIEW_CONTINUOUSLY)</code> refers to the variable <code>PREVIEW_CONTINUOUSLY</code>, which is empty for all calls except for <code>make watch</code>, where <code>PREVIEW_CONTINUOUSLY</code> is set to <code>-pvc</code>. The <code>make clean</code> command removes all LaTeX output files, including the BibTeX files as well as the PDF.</p>
+
+<p>If you ran <code>make</code> and now want to run <code>make preview</code>, it will get the message &ldquo;Nothing to be done for <code>preview</code>&rdquo;, since make sees that the target PDF is up to date. The <code>-B</code> option <em>forces</em> make to create the targets, so <code>make -B preview</code> will work.</p>
+
+<h2 id="closing-remarks:a3681b62dce4608201716bd3f606c883">Closing Remarks</h2>
+
+<p>You can find a minimal example of a <code>LaTeX</code> project using this setup in this Github repository: <a href="https://github.com/paulklemm/latexmk-synctex-example">github.com/paulklemm/latexmk-synctex-example</a>. Feel free to play around with your own <code>makefile</code> rules and explore the possibilities.</p>
+
+                </section>
+            </article>
+            <footer id="post-meta" class="clearfix">
+                <a href="https://twitter.com/paul_klemm">
+                        <img class="avatar" src="http://paulklemm.com/blog/images/avatar.png">
+                        <div>
+                            <span class="dark">Paul Klemm</span>
+                            <span>Paul is a data scientist with focus on visualization</span>
+                        </div>
+                    </a>
+                <section id="sharing">
+                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fpaulklemm.com%2fblog%2f2016-03-06-watch-latex-documents-using-latexmk%2f - Watch%20LaTeX%20Documents%20using%20Latexmk by @paul_klemm"><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+                </section>
+            </footer>
+
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'Zenf';
+    var disqus_identifier = 'http:\/\/paulklemm.com\/blog\/2016-03-06-watch-latex-documents-using-latexmk\/';
+    var disqus_title = 'Watch LaTeX Documents using Latexmk';
+    var disqus_url = 'http:\/\/paulklemm.com\/blog\/2016-03-06-watch-latex-documents-using-latexmk\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+            <ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+    
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2016-03-06-watch-latex-documents-using-latexmk/">Watch LaTeX Documents using Latexmk<aside class="dates">Mar 6, 2016</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10/">Run rJava with RStudio under OSX 10.10<aside class="dates">Feb 20, 2015</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2014-07-16-use-github-for-scientific-writing/">Use Github for Scientific Writing<aside class="dates">Jul 16, 2014</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2013-12-07-watch-twitch-using-vlc-in-osx/">Watch Twitch using VLC in OS X<aside class="dates">Dec 7, 2013</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/">Install Python with VTK and Qt support for use with Eclipse in OS X Mountain Lion<aside class="dates">Aug 20, 2012</aside></a>
+        </li>
+        
+   
+</ul>
+            <footer id="footer">
+    
+        
+<div id="social">
+    
+    <a class="symbol" href="https://www.github.com/paulklemm">
+        circlegithub
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/paul_klemm">
+        circletwitterbird
+    </a>
+    
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2016 Paul Klemm
+    
+    </p>
+</footer>
+
+        </section>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://paulklemm.com/blog/js/main.js"></script>
+<script src="http://paulklemm.com/blog/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+    </body>
+</html>

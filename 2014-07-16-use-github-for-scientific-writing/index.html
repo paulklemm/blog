@@ -1,0 +1,464 @@
+    <!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Paul Klemm">
+		<meta name="description" content="Paul puts in his two cents">
+		<meta name="generator" content="Hugo 0.15" />
+		<title>Use Github for Scientific Writing &middot; Zenf</title>
+		<link rel="shortcut icon" href="http://paulklemm.com/blog/images/favicon.ico">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/style.css">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/highlight.css">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/monosocialiconsfont.css">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/custom-img.css">
+		
+		<link href="http://paulklemm.com/blog/index.xml" rel="alternate" type="application/rss+xml" title="Zenf" />
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://paulklemm.com/blog/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+		<a href='http://paulklemm.com/blog/about'>About</a>
+	
+
+	
+	<a class="cta" href="http://paulklemm.com/blog/index.xml">Subscribe</a>
+	
+</nav>
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>Use Github for Scientific Writing</h1>
+                    <h2 class="headline">July 16, 2014</h2>
+                </header>
+                <section id="post-body">
+                    
+
+<p><em><code>GIT</code> is a very good tool to manage scientific writing, either if you write it on your own or with collaborators. The rich set of tools supporting collaborative work makes <a href="https://github.com/">Github</a> a good place for storing all information there.</em></p>
+
+<hr />
+
+
+<figure >
+    
+        <img src="/zenf/media/2014-07-16-use-github-for-scientific-writing/gitlab.png##floatright200" />
+    
+    
+</figure>
+
+
+<p>There are many reasons why I adore <code>github</code>! For me, it stands for all the good things associated with open content &ndash; the beautiful mindset behind it where many people participate to create amazing things! Openness, which is still largely missing in scientific research.</p>
+
+<p>Collaborative work on a scientific paper is carried out in the worst case by emailing <code>LaTeX</code> code. I don&rsquo;t think I have to talk about the disadvantages of this approach. Tools like <a href="www.dropbox.com">Dropbox</a> allow to share folders with different users, but also have major disadvantages. They share everything in a folder, regardless of source files or auxiliary files created during the typesetting process. Many <code>LaTeX</code> editors store configuration files in the project folders and are therefore synced as well. And the constant dropbox pop-up informing me that someone currently works on a text is maddening.</p>
+
+<p><code>GIT</code> was designed for code-projects, but also works very well for the scientific writing process. If you are new to <code>GIT</code>, check out this great interactive tutorial, teaching you everything you need to know in about 15 minutes at <a href="https://try.github.io">try.github.io</a>.</p>
+
+<p>To clarify: <code>GIT</code> is the name of the <em>versioning system</em>, <code>github</code> is a web site for storing <code>GIT</code>-repositories and it comes with additional features. The major advantages of <code>GIT</code>/<code>github</code> include:</p>
+
+<ul>
+<li>ignoring auxiliary files created by <code>TeX</code> during the typesetting process or configuration files from the <code>LaTeX</code> editor,</li>
+<li>track changes using commit messages, creating DIFFs and using branches,</li>
+<li>discuss ideas using the build in <code>Wiki</code> and <code>bug tracking</code>/<code>milestone</code> system,</li>
+<li>modern Git-Clients, which make it easy to use for people too shy to use the command line (which is by far not as scary as you might assume).</li>
+</ul>
+
+<p><code>Github</code> repositories are by default open for everyone to see. If you don&rsquo;t want that, you have to create a private repository.
+<code>Github</code> offers <em>five free private repositories</em> for students or University associates (<a href="https://education.github.com/">https://education.github.com/</a>).</p>
+
+<p>In this blog post I show how to set up a git repository for a scientific paper, recommend a structure and give examples on how you can use features of <code>GIT</code> and <code>github</code> to boost your productivity! Note that I will demonstrate the use of <code>GIT</code> through the console. You can also use the github app (<a href="https://mac.github.com/">Mac</a>, <a href="https://windows.github.com/">Windows</a>) or any other <code>GIT</code> client for this.</p>
+
+<h2 id="setup:1c2add1e142e9fd20fe40d195fed0ef9">Setup</h2>
+
+<h3 id="creating-the-new-repository:1c2add1e142e9fd20fe40d195fed0ef9">Creating the New Repository</h3>
+
+
+<figure >
+    
+        <img src="/zenf/media/2014-07-16-use-github-for-scientific-writing/createNewRepo.png#floatright200" />
+    
+    
+</figure>
+
+
+<p>Creating a new repository at Github is easy as pie. When you are logged in, you can use the toolbar at the top right corner to create a new repository.</p>
+
+
+<figure >
+    
+        <img src="/zenf/media/2014-07-16-use-github-for-scientific-writing/init.png" />
+    
+    
+</figure>
+
+
+<p>In the next window you can create your new repository. Give it a meaningful title and make sure to select the <code>TeX</code> <code>.gitignore</code> template at the bottom. If you want to create a <em>private repository</em>, you can request it using this link: <a href="https://education.github.com/">https://education.github.com/</a>. The people at Github are pretty fast, it took them only a few hours to verify my account.</p>
+
+<p>After you&rsquo;ve created the repository it should look similar to this:
+
+<figure >
+    
+        <img src="/zenf/media/2014-07-16-use-github-for-scientific-writing/init-2.png" />
+    
+    
+</figure>
+</p>
+
+<h3 id="add-your-files-to-the-repository:1c2add1e142e9fd20fe40d195fed0ef9">Add your Files to the Repository</h3>
+
+<p>Chances are that you already wrote some stuff or have unpacked the authors packages of the conference or journal. <code>Git</code> makes it easy to add these files to the existing repository. At first, lets clone the newly created repository. You find the <code>http</code> address to your repository on the right bottom of its <code>github</code> page under <em>HTTPS clone URL</em>.</p>
+
+<p>{% codeblock lang:bash %}
+$ cd ~/Desktop
+$ git clone <a href="https://github.com/Powernap/My-Awesome-Paper.git">https://github.com/Powernap/My-Awesome-Paper.git</a>
+    Cloning into &lsquo;My-Awesome-Paper&rsquo;&hellip;
+    remote: Counting objects: 4, done.
+    remote: Compressing objects: 100% (<sup>3</sup>&frasl;<sub>3</sub>), done.
+    remote: Total 4 (delta 0), reused 0 (delta 0)
+    Unpacking objects: 100% (<sup>4</sup>&frasl;<sub>4</sub>), done.
+    Checking connectivity&hellip; done.
+{% endcodeblock %}</p>
+
+<p>Now you should have the repository on your desktop. You can add all existing files to the folder via drag and drop. Here are the commands you potentially need to add the new files to the repository:</p>
+
+<ul>
+<li><code>git status</code> is a useful command for checking the current status of a repository is . It also should ignore the files specified in the <code>.gitignore</code> file.</li>
+<li><code>git add &lt;someFile&gt;</code> adds files to a repository</li>
+<li><code>git add -A</code> adds all files and folders listed under <em>untracked files</em></li>
+<li><code>git commit</code> makes a commit to a repository. Note that these commits are still only part of your local copy of the repository &ndash; unlike other versioning systems, such as <code>SVN</code>, you can create commits while being offline.</li>
+<li><code>git push</code> uploads all changes to the repository stored at github.</li>
+</ul>
+
+<p>Here is an example for doing this:</p>
+
+
+<figure >
+    
+        <img src="/zenf/media/2014-07-16-use-github-for-scientific-writing/folder.png#floatright200" />
+    
+    
+</figure>
+
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># You can use any folder you want!</span>
+<span style="color: #f8f8f2">$ cd</span> ~/Desktop/My-Awesome-Paper
+<span style="color: #f8f8f2">$ </span>git status
+    On branch master
+    Your branch is up-to-date with <span style="color: #e6db74">&#39;origin/master&#39;</span>.
+
+    Untracked files:
+      <span style="color: #f92672">(</span>use <span style="color: #e6db74">&quot;git add &lt;file&gt;...&quot;</span> to include in what will be committed<span style="color: #f92672">)</span>
+
+        Example.tex
+        SCITEPRESS.eps
+        SCITEPRESS.sty
+        apalike.bst
+        apalike.sty
+        article.cls
+        example.bib
+
+    nothing added to commit but untracked files present <span style="color: #f92672">(</span>use <span style="color: #e6db74">&quot;git add&quot;</span> to track<span style="color: #f92672">)</span>
+<span style="color: #75715e"># Now add all files under `Untracked files`</span>
+<span style="color: #f8f8f2">$ </span>git add -A
+<span style="color: #75715e"># &#39;-m&#39; directly adds the commit message</span>
+<span style="color: #f8f8f2">$ </span>git commit -m <span style="color: #e6db74">&quot;Added conference style files&quot;</span>
+    <span style="color: #f92672">[</span>master f01710d<span style="color: #f92672">]</span> Added conference style files
+     <span style="color: #ae81ff">7</span> files changed, <span style="color: #ae81ff">2318</span> insertions<span style="color: #f92672">(</span>+<span style="color: #f92672">)</span>
+    create mode <span style="color: #ae81ff">100755</span> Example.tex
+    create mode <span style="color: #ae81ff">100755</span> SCITEPRESS.eps
+    create mode <span style="color: #ae81ff">100755</span> SCITEPRESS.sty
+    create mode <span style="color: #ae81ff">100755</span> apalike.bst
+    create mode <span style="color: #ae81ff">100755</span> apalike.sty
+    create mode <span style="color: #ae81ff">100755</span> article.cls
+    create mode <span style="color: #ae81ff">100755</span> example.bib
+<span style="color: #75715e"># Now everything is at the &#39;head&#39; of your local copy of the repository.</span>
+<span style="color: #75715e"># Time to push it to the github server!</span>
+<span style="color: #f8f8f2">$ </span>git push
+    Counting objects: 10, <span style="color: #66d9ef">done</span>.
+    Delta compression using up to <span style="color: #ae81ff">8</span> threads.
+    Compressing objects: 100% <span style="color: #f92672">(</span>9/9<span style="color: #f92672">)</span>, <span style="color: #66d9ef">done</span>.
+    Writing objects: 100% <span style="color: #f92672">(</span>9/9<span style="color: #f92672">)</span>, 382.59 KiB <span style="color: #f8f8f2">|</span> <span style="color: #ae81ff">0</span> bytes/s, <span style="color: #66d9ef">done</span>.
+    Total <span style="color: #ae81ff">9</span> <span style="color: #f92672">(</span>delta 0<span style="color: #f92672">)</span>, reused <span style="color: #ae81ff">0</span> <span style="color: #f92672">(</span>delta 0<span style="color: #f92672">)</span>
+    To https://github.com/Powernap/My-Awesome-Paper.git
+       0e07357..f01710d  master -&gt; master
+</pre></div>
+
+
+<p>If you find it hard to follow, you should look <a href="https://try.github.io">into this quick tutorial</a>.</p>
+
+<h3 id="the-gitignore-file:1c2add1e142e9fd20fe40d195fed0ef9">The <code>.gitignore</code> File</h3>
+
+<p>It is a good habit to add a <code>.gitignore</code> file to your repository, which contains a list of files ignored by <code>git</code>. <code>LaTeX</code> produces many auxiliary files during its typesetting process, which differ depending on the OS you use and the installed <code>TeX</code> version. It is a good idea to exclude them, especially when collaborating with other people on a paper. Adding files is straightforward, add file names and separate them using newlines. You can even use wildcards using the <code>*</code> symbol, or exclude entire folders (e.g. <code>output/</code>). Whether to add <code>PDF</code>-files to the repository is a matter of taste. I always commit the current state of my work as pdf because it makes it easy to look at versions of previous commits.</p>
+
+<h2 id="use-the-power-of-git-and-github:1c2add1e142e9fd20fe40d195fed0ef9">Use the Power of <code>GIT</code> and <code>github</code></h2>
+
+<p>Once set up, the full power of <code>git</code> and <code>github</code> lies beneath your fingertips.</p>
+
+<h3 id="commit-often:1c2add1e142e9fd20fe40d195fed0ef9">Commit often!</h3>
+
+<p>When working with versioning systems, it is recommended to <a href="http://www.databasically.com/2011/03/14/git-commit-early-commit-often/">commit early and often</a>! Changes to the text are by far more comprehensible and it avoids conflicts when working with multiple people on a text!</p>
+
+<p>Updating the repository is straightforward, just run <code>git add &lt;your File&gt;</code>, create a <code>git commit</code> and <code>git push</code> it to the server. If you just want to update all files in the repository, you can use <code>git commit -a</code> instead of tediously <code>git add</code>&lsquo;ing all changed files.</p>
+
+<p>All commits can be viewed at your projects <code>github</code> page.
+
+<figure >
+    
+        <img src="/zenf/media/2014-07-16-use-github-for-scientific-writing/commits.png" />
+    
+    
+</figure>
+
+Here you can see the changes made to the repository in every commit. Each line can also be commented to trigger a discussion or give feedback! These views are called <em>DIFFs</em>.
+
+<figure >
+    
+        <img src="/zenf/media/2014-07-16-use-github-for-scientific-writing/diff.png#300" />
+    
+    
+</figure>
+</p>
+
+<h3 id="structure-your-latex-documents:1c2add1e142e9fd20fe40d195fed0ef9">Structure your <code>LaTeX</code> Documents</h3>
+
+<p>It is often a good idea to divide your chapters or sections into individual files and include them in a master file via the <code>\input</code> command. A barebone <code>TeX</code> file could look like this:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #66d9ef">\documentclass</span><span style="color: #a6e22e">[12pt]</span><span style="color: #f8f8f2">{</span>article<span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">\begin</span><span style="color: #f8f8f2">{</span>document<span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">\input</span><span style="color: #f8f8f2">{</span>Chapter-1.tex<span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">\input</span><span style="color: #f8f8f2">{</span>Chapter-2.tex<span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">\end</span><span style="color: #f8f8f2">{</span>document<span style="color: #f8f8f2">}</span>
+</pre></div>
+</p>
+
+<p>Besides keeping the project structured, it reduces the number of conflicts when you also work with co-authors. I also found it useful to separate each sentence in the following way:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #66d9ef">\section</span><span style="color: #f8f8f2">{</span>Proof of Everything<span style="color: #f8f8f2">}</span>
+<span style="color: #75715e">%%</span>
+<span style="color: #66d9ef">\noindent</span> This is my introduction to this chapter.
+<span style="color: #75715e">%%</span>
+I divide every sentence with a comment.
+<span style="color: #75715e">%%</span>
+This way it is easy to identify huge sentences that are hard to read and to understand and everybody knows how hard these sentences are to find in the text when you have a lot of text and well you know what I mean.
+<span style="color: #75715e">%%</span>
+Sentences can also be easily commented out this way.
+<span style="color: #75715e">%%</span>
+Changes made to Tex files structured like this are well readable using the github diff view.
+</pre></div>
+</p>
+
+<h3 id="use-the-social-features:1c2add1e142e9fd20fe40d195fed0ef9">Use the Social Features!</h3>
+
+<p>
+<figure >
+    
+        <img src="/zenf/media/2014-07-16-use-github-for-scientific-writing/discussion.png#floatright300" />
+    
+    
+</figure>
+
+Having all authors of a scientific paper in one place is rare. Exchange of ideas and feedback via email is tedious. The build in <a href="https://help.github.com/articles/about-github-wikis"><code>Wiki</code></a> for each repository is a great way for collecting and summarizing ideas. Even in public repositories you can restrict access to the wiki to collaborators only if you want to keep it more private.</p>
+
+<p>The <code>issue</code> and <code>milestone</code> system is packed with useful features for discussing the current process of the work. Discussions can even be referenced to commits. All information is kept at one place, communication is synchronized and you don&rsquo;t need to look up old mails with chunks of information any more!</p>
+
+<h3 id="use-branches:1c2add1e142e9fd20fe40d195fed0ef9">Use Branches</h3>
+
+<p>Say you want to write a new section, but it will take a couple of days. At the same time, you do not want to change the repository all the time, forcing your co-authors to <code>git pull</code> every time they also want to edit the paper. <code>GIT</code> was designed with such cases in mind! You can simply create your own sub-repository, called a <code>branch</code>, edit it and merge it together with the master-branch.</p>
+
+<p>
+<figure >
+    
+        <img src="/zenf/media/2014-07-16-use-github-for-scientific-writing/branch.png#floatright200" />
+    
+    
+</figure>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># Create new &#39;my-section&#39; branch</span>
+<span style="color: #f8f8f2">$ </span>git branch my-section
+<span style="color: #75715e"># List all branches</span>
+<span style="color: #f8f8f2">$ </span>git branch
+  * master
+    my-section
+<span style="color: #75715e"># Switch to &#39;my-section&#39; branch</span>
+<span style="color: #f8f8f2">$ </span>git checkout my-section
+  Switched to branch <span style="color: #e6db74">&#39;my-section&#39;</span>
+<span style="color: #75715e"># Make changes and upload them (-a adds all locally changed files to the repo)</span>
+<span style="color: #f8f8f2">$ </span>git add my-section.tex
+<span style="color: #f8f8f2">$ </span>git commit -a -m <span style="color: #e6db74">&quot;added my new section&quot;</span>
+  <span style="color: #f92672">[</span>my-section fce493f<span style="color: #f92672">]</span> added my new section
+   <span style="color: #ae81ff">2</span> files changed, <span style="color: #ae81ff">9</span> insertions<span style="color: #f92672">(</span>+<span style="color: #f92672">)</span>
+   create mode <span style="color: #ae81ff">100644</span> my-section.tex
+<span style="color: #75715e"># Switch back to the Master branch and merge the sections</span>
+<span style="color: #f8f8f2">$ </span>git checkout master
+  Switched to branch <span style="color: #e6db74">&#39;master&#39;</span>
+  Your branch is up-to-date with <span style="color: #e6db74">&#39;origin/master&#39;</span>.
+<span style="color: #f8f8f2">$ </span>git merge my-section
+  Updating f01710d..fce493f
+  Fast-forward
+   Example.tex    <span style="color: #f8f8f2">|</span> <span style="color: #ae81ff">1</span> +
+   my-section.tex <span style="color: #f8f8f2">|</span> <span style="color: #ae81ff">8</span> ++++++++
+   <span style="color: #ae81ff">2</span> files changed, <span style="color: #ae81ff">9</span> insertions<span style="color: #f92672">(</span>+<span style="color: #f92672">)</span>
+   create mode <span style="color: #ae81ff">100644</span> my-section.tex
+<span style="color: #f8f8f2">$ </span>git push
+</pre></div>
+</p>
+
+<h3 id="create-releases:1c2add1e142e9fd20fe40d195fed0ef9">Create Releases</h3>
+
+<p>
+<figure >
+    
+        <img src="/zenf/media/2014-07-16-use-github-for-scientific-writing/releases.png#floatright300" />
+    
+    
+</figure>
+
+<code>Releases</code> are a great feature to freeze commits. I use it to save important milestones, such as the blind submission for reviewing.</p>
+
+<h3 id="use-all-the-features:1c2add1e142e9fd20fe40d195fed0ef9">Use All the Features!</h3>
+
+<p>Just kidding. But <code>github</code> offers a ton of other features I did not cover in this post. To get an impression about <code>githubs</code> power, head over to its <a href="https://github.com/features">feature page</a>.</p>
+
+<p>They even work on their own editor <a href="https://atom.io">Atom</a>, which <a href="http://discuss.atom.io/t/latex-language-support/541">supports LaTeX</a> but isn&rsquo;t as functional as the packages in <a href="https://github.com/textmate/textmate">Textmate</a> or <a href="http://www.sublimetext.com/">Sublime Text</a>.</p>
+
+<h2 id="closing-remarks:1c2add1e142e9fd20fe40d195fed0ef9">Closing Remarks</h2>
+
+<p>There is no <em>right</em> way to write. All these examples are based on my own experience, my own way to work and what I found enough to share it with you. Surely there are much more different ways to use <code>GIT</code> and <code>github</code> for writing. Also, there are great cloud-based LaTeX editors, which also allow collaborative editing (e.g. <a href="https://www.sharelatex.com/">ShareLaTeX</a>). Please feel free to make remarks in the comment section!</p>
+
+<p>Since I feel that openness plays a crucial role in scientific research, we do good in using these systems and break out of our isolated bubbles and have open discussions about our work and how it develops. Tools like <code>github</code> allow us to do so!</p>
+
+<h2 id="encore:1c2add1e142e9fd20fe40d195fed0ef9">Encore</h2>
+
+<p>This is what reviewing revisions can look like if your co-authors use this workflow. I find this pretty awesome 💙.
+
+<figure >
+    
+        <img src="/zenf/media/2014-07-16-use-github-for-scientific-writing/comparison.gif" />
+    
+    
+</figure>
+</p>
+
+                </section>
+            </article>
+            <footer id="post-meta" class="clearfix">
+                <a href="https://twitter.com/paul_klemm">
+                        <img class="avatar" src="http://paulklemm.com/blog/images/avatar.png">
+                        <div>
+                            <span class="dark">Paul Klemm</span>
+                            <span>Paul is a data scientist with focus on visualization</span>
+                        </div>
+                    </a>
+                <section id="sharing">
+                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fpaulklemm.com%2fblog%2f2014-07-16-use-github-for-scientific-writing%2f - Use%20Github%20for%20Scientific%20Writing by @paul_klemm"><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+                </section>
+            </footer>
+
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'Zenf';
+    var disqus_identifier = 'http:\/\/paulklemm.com\/blog\/2014-07-16-use-github-for-scientific-writing\/';
+    var disqus_title = 'Use Github for Scientific Writing';
+    var disqus_url = 'http:\/\/paulklemm.com\/blog\/2014-07-16-use-github-for-scientific-writing\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+            <ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+    
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2016-03-06-watch-latex-documents-using-latexmk/">Watch LaTeX Documents using Latexmk<aside class="dates">Mar 6, 2016</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10/">Run rJava with RStudio under OSX 10.10<aside class="dates">Feb 20, 2015</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2014-07-16-use-github-for-scientific-writing/">Use Github for Scientific Writing<aside class="dates">Jul 16, 2014</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2013-12-07-watch-twitch-using-vlc-in-osx/">Watch Twitch using VLC in OS X<aside class="dates">Dec 7, 2013</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/">Install Python with VTK and Qt support for use with Eclipse in OS X Mountain Lion<aside class="dates">Aug 20, 2012</aside></a>
+        </li>
+        
+   
+</ul>
+            <footer id="footer">
+    
+        
+<div id="social">
+    
+    <a class="symbol" href="https://www.github.com/paulklemm">
+        circlegithub
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/paul_klemm">
+        circletwitterbird
+    </a>
+    
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2016 Paul Klemm
+    
+    </p>
+</footer>
+
+        </section>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://paulklemm.com/blog/js/main.js"></script>
+<script src="http://paulklemm.com/blog/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+    </body>
+</html>

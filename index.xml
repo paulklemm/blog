@@ -1,0 +1,1013 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zenf</title>
+    <link>http://paulklemm.com/blog/</link>
+    <description>Recent content on Zenf</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 06 Mar 2016 20:16:04 +0100</lastBuildDate>
+    <atom:link href="http://paulklemm.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>about</title>
+      <link>http://paulklemm.com/blog/about/</link>
+      <pubDate>Sun, 06 Mar 2016 20:16:04 +0100</pubDate>
+      
+      <guid>http://paulklemm.com/blog/about/</guid>
+      <description>
+
+&lt;h1 id=&#34;hi-i-m-paul:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Hi! I&amp;rsquo;m Paul.&lt;/h1&gt;
+
+&lt;p&gt;I&amp;rsquo;m a PhD student at the computer science faculty of the University of Magdeburg. I develop visual analytics methods, which combine statistics and visual analysis. The goal is to derive insight into large scale data sets.&lt;/p&gt;
+
+&lt;p&gt;I write about day to day tech-problems I encounter as well good practices for certain bits of technology. Hopefully it will benefit you.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Watch LaTeX Documents using Latexmk</title>
+      <link>http://paulklemm.com/blog/2016-03-06-watch-latex-documents-using-latexmk/</link>
+      <pubDate>Sun, 06 Mar 2016 16:54:47 +0000</pubDate>
+      
+      <guid>http://paulklemm.com/blog/2016-03-06-watch-latex-documents-using-latexmk/</guid>
+      <description>
+
+&lt;p&gt;&lt;em&gt;The &lt;code&gt;Watch Document&lt;/code&gt; functionality of Textmate automatically compiles Tex documents when saved. This post describes how to achieve this behavior with any editor. It works for Unix-based systems, such as OSX or Linux. An example repository can be found &lt;a href=&#34;https://github.com/paulklemm/latexmk-synctex-example&#34;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;introduction-switch-from-textmate:a3681b62dce4608201716bd3f606c883&#34;&gt;Introduction: Switch from Textmate&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;ve been using Textmate to write and compile my LaTeX Documents since 2007. &lt;a href=&#34;http://jann.is/daily/archives/756-LaTex-Live-PDF-preview-with-TextMate-and-PDFView.html&#34;&gt;This Blog post&lt;/a&gt; by Jannis Hermanns basically defined my workflow since then. It&amp;rsquo;s core is the neat &lt;code&gt;Watch Document&lt;/code&gt; feature of Textmate, which compiles the document and looks for changes. It recompiles the document as soon as it is saved.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2016-03-06-watch-latex-documents-using-latexmk/textmate_watch_document.gif&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;The watch document command of Textmate previews changes when saving the document&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;This also works with LaTeX projects consisting of multiple files. Simply put the watch on the project master file and it will also look for changes in the associated files. This even extends to included images.&lt;/p&gt;
+
+&lt;p&gt;If you use a PDF viewer that supports &lt;a href=&#34;http://itexmac.sourceforge.net/SyncTeX.html&#34;&gt;SyncTeX&lt;/a&gt;, such as &lt;a href=&#34;http://skim-app.sourceforge.net/&#34;&gt;Skim&lt;/a&gt;, you can even jump to the current position of the cursor from the TeX document to the PDF and vice versa.&lt;/p&gt;
+
+&lt;p&gt;Once I got used to this convenience, compiling LaTeX documents by hand felt like a chore. Unfortunately, using Textmate began to feel likewise. Since I do all my coding in Sublime Text, I &lt;a href=&#34;http://tex.stackexchange.com/questions/276973/pendant-to-textmate-watch-document-function-in-sublime-text-latextools&#34;&gt;looked for a similar workflow for that editor&lt;/a&gt;.
+Turns out, it doesn&amp;rsquo;t matter which editor you use, you can simply incorporate &lt;a href=&#34;https://www.ctan.org/pkg/latexmk/&#34;&gt;&lt;code&gt;latexmk&lt;/code&gt;&lt;/a&gt; to achieve this functionality. Even better, &lt;code&gt;latexmk&lt;/code&gt; is shipped per default with the most popular LaTeX distributions, so you should have it installed already.&lt;/p&gt;
+
+&lt;h2 id=&#34;compile-latex-projects-using-latexmk:a3681b62dce4608201716bd3f606c883&#34;&gt;Compile LaTeX Projects using Latexmk&lt;/h2&gt;
+
+&lt;p&gt;Consider the following LaTeX document &lt;code&gt;article.tex&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;\documentclass&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;[12pt]&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;article&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;\begin&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;document&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+Hi!
+&lt;span style=&#34;color: #66d9ef&#34;&gt;\end&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;document&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Using &lt;code&gt;latexmk&lt;/code&gt;, you can compile this into a PDF file by entering the following command:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;latexmk -pdf article.tex
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In order to watch for changes, you can simply add the &lt;code&gt;-pvc&lt;/code&gt; option, which stands for &amp;ldquo;preview continuously&amp;rdquo;:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;latexmk -pdf -pvc article.tex
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see, the command will not terminate back into the prompt, as &lt;code&gt;latexmk&lt;/code&gt; watches for updated files (&lt;em&gt;targets&lt;/em&gt;) associated with the previewed file. You have to shutdown it manually using &lt;code&gt;CTRL-C&lt;/code&gt;. This is already close to the desired behavior. I suggest adding the following options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-bibtex&lt;/code&gt; to compile associated BibTeX files,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-f&lt;/code&gt; to continue compiling albeit found errors,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-quiet&lt;/code&gt; to make &lt;code&gt;latexmk&lt;/code&gt; less verbose and show only important messages,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-use-make&lt;/code&gt; to resolve missing files after the &lt;code&gt;pdflatex&lt;/code&gt; call using custom dependencies, and&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-pdflatex=&amp;quot;pdflatex -synctex=1 -interaction=nonstopmode&amp;quot;&lt;/code&gt;  to add options to the pdflatex command, most important the &lt;code&gt;synctex&lt;/code&gt; command to allow jumping between the source PDF and the text editor.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For a precise description of each command, refer to the &lt;a href=&#34;http://ftp.fernuni-hagen.de/ftp-dir/pub/mirrors/www.ctan.org/support/latexmk/latexmk.pdf&#34;&gt;latexmk readme&lt;/a&gt;. All options together yield the following command:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;latexmk -quiet -bibtex -pvc -f -pdf -pdflatex&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;pdflatex -synctex=1 -interaction=nonstopmode&amp;quot;&lt;/span&gt; article.tex
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This is exactly the behavior I was looking for. And as a big plus, it is independent of your editor choice. Using it with &lt;a href=&#34;https://www.sublimetext.com/&#34;&gt;Sublime Text&lt;/a&gt; and the &lt;a href=&#34;https://www.sublimetext.com/&#34;&gt;LaTeXTools Plugin&lt;/a&gt; along with a Skim even allows to jump between source and compiled PDF using the enabled &lt;code&gt;synctex&lt;/code&gt; feature.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2016-03-06-watch-latex-documents-using-latexmk/synctex_sublime_skim.gif&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Jump between the IDE (Sublime Text 3 with LatexTools) and the PDF Viewer (Skim) using the Synctex feature&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;h2 id=&#34;use-the-power-of-make-with-latexmk:a3681b62dce4608201716bd3f606c883&#34;&gt;Use the Power of &lt;code&gt;make&lt;/code&gt; with &lt;code&gt;latexmk&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Utilizing this knowledge with &lt;code&gt;makefiles&lt;/code&gt; is easy. I know that makefiles often look scary due to their seemingly obscure syntax, but actually they are easy to set up and will spare you &lt;em&gt;a lot&lt;/em&gt; of work. If you want to have a quick introduction to &lt;code&gt;make&lt;/code&gt;, I strongly recommend Mike Bostocks &lt;a href=&#34;https://bost.ocks.org/mike/make/&#34;&gt;beautiful blog post on it&lt;/a&gt;. The commands applied here, however, are basic and should be self explanatory.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;makefile&lt;/code&gt; I propose is an adapted version from &lt;a href=&#34;https://tex.stackexchange.com/questions/40738/how-to-properly-make-a-latex-project&#34;&gt;this stackoverflow post&lt;/a&gt;. I built the makefile to work as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;make&lt;/code&gt; compiles the document, but does not watch for changes,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;make watch&lt;/code&gt; compiles the document and watches for changes using the &lt;code&gt;latexmk -pvc&lt;/code&gt; command, and&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;make clean&lt;/code&gt; removes all files produced using the LaTeX compilation process, including the resulting PDF.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# makefile&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# File adapted from this stackoverflow question: https://tex.stackexchange.com/questions/40738/how-to-properly-make-a-latex-project&lt;/span&gt;
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# The first rule in a Makefile is the one executed by default (&amp;quot;make&amp;quot;). It&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# should always be the &amp;quot;all&amp;quot; rule, so that &amp;quot;make&amp;quot; and &amp;quot;make all&amp;quot; are identical.&lt;/span&gt;
+&lt;span style=&#34;color: #a6e22e&#34;&gt;all&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;article&lt;/span&gt;.&lt;span style=&#34;color: #f8f8f2&#34;&gt;pdf&lt;/span&gt;
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# MAIN LATEXMK RULE&lt;/span&gt;
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# -pdf tells latexmk to generate a PDF instead of DVI.&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -pdflatex=&amp;quot;&amp;quot; tells latexmk to call a specific backend with specific options.&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -use-make tells latexmk to call make for generating missing files.&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -interaction=nonstopmode keeps the pdflatex backend from stopping at a&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# missing file reference and interactively asking you for an alternative.&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -synctex=1 is required to jump between the source PDF and the text editor.&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -pvc (preview continuously) watches the directory for changes.&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -quiet suppresses most status messages (https://tex.stackexchange.com/questions/40783/can-i-make-latexmk-quieter).&lt;/span&gt;
+&lt;span style=&#34;color: #a6e22e&#34;&gt;article.pdf&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;article&lt;/span&gt;.&lt;span style=&#34;color: #f8f8f2&#34;&gt;tex&lt;/span&gt;
+    latexmk -quiet -bibtex &lt;span style=&#34;color: #66d9ef&#34;&gt;$(&lt;/span&gt;PREVIEW_CONTINUOUSLY&lt;span style=&#34;color: #66d9ef&#34;&gt;)&lt;/span&gt; -f -pdf -pdflatex&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;pdflatex -synctex=1 -interaction=nonstopmode&amp;quot;&lt;/span&gt; -use-make article.tex
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# The .PHONY rule keeps make from processing a file named &amp;quot;watch&amp;quot; or &amp;quot;clean&amp;quot;.&lt;/span&gt;
+&lt;span style=&#34;color: #a6e22e&#34;&gt;.PHONY&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;watch&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# Set the PREVIEW_CONTINUOUSLY variable to -pvc to switch latexmk into the preview continuously mode&lt;/span&gt;
+&lt;span style=&#34;color: #a6e22e&#34;&gt;watch&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PREVIEW_CONTINUOUSLY&lt;/span&gt;=-&lt;span style=&#34;color: #f8f8f2&#34;&gt;pvc&lt;/span&gt;
+&lt;span style=&#34;color: #a6e22e&#34;&gt;watch&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;article&lt;/span&gt;.&lt;span style=&#34;color: #f8f8f2&#34;&gt;pdf&lt;/span&gt;
+
+&lt;span style=&#34;color: #a6e22e&#34;&gt;.PHONY&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;clean&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -bibtex also removes the .bbl files (http://tex.stackexchange.com/a/83384/79184).&lt;/span&gt;
+&lt;span style=&#34;color: #a6e22e&#34;&gt;clean&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt;
+    latexmk -CA -bibtex
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;all&lt;/code&gt; task creates the target file &amp;ldquo;article.pdf&amp;rdquo; using &lt;code&gt;latexmk&lt;/code&gt;. You&amp;rsquo;ll notice the &lt;code&gt;$(PREVIEW_CONTINUOUSLY)&lt;/code&gt; where the &lt;code&gt;-pvc&lt;/code&gt; option should be. &lt;code&gt;$(PREVIEW_CONTINUOUSLY)&lt;/code&gt; refers to the variable &lt;code&gt;PREVIEW_CONTINUOUSLY&lt;/code&gt;, which is empty for all calls except for &lt;code&gt;make watch&lt;/code&gt;, where &lt;code&gt;PREVIEW_CONTINUOUSLY&lt;/code&gt; is set to &lt;code&gt;-pvc&lt;/code&gt;. The &lt;code&gt;make clean&lt;/code&gt; command removes all LaTeX output files, including the BibTeX files as well as the PDF.&lt;/p&gt;
+
+&lt;p&gt;If you ran &lt;code&gt;make&lt;/code&gt; and now want to run &lt;code&gt;make preview&lt;/code&gt;, it will get the message &amp;ldquo;Nothing to be done for &lt;code&gt;preview&lt;/code&gt;&amp;rdquo;, since make sees that the target PDF is up to date. The &lt;code&gt;-B&lt;/code&gt; option &lt;em&gt;forces&lt;/em&gt; make to create the targets, so &lt;code&gt;make -B preview&lt;/code&gt; will work.&lt;/p&gt;
+
+&lt;h2 id=&#34;closing-remarks:a3681b62dce4608201716bd3f606c883&#34;&gt;Closing Remarks&lt;/h2&gt;
+
+&lt;p&gt;You can find a minimal example of a &lt;code&gt;LaTeX&lt;/code&gt; project using this setup in this Github repository: &lt;a href=&#34;https://github.com/paulklemm/latexmk-synctex-example&#34;&gt;github.com/paulklemm/latexmk-synctex-example&lt;/a&gt;. Feel free to play around with your own &lt;code&gt;makefile&lt;/code&gt; rules and explore the possibilities.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Run rJava with RStudio under OSX 10.10</title>
+      <link>http://paulklemm.com/blog/2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10/</link>
+      <pubDate>Fri, 20 Feb 2015 14:30:10 +0000</pubDate>
+      
+      <guid>http://paulklemm.com/blog/2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10/</guid>
+      <description>
+
+&lt;h1 id=&#34;the-problem:8da0764efb91203229039753b3ed7caa&#34;&gt;The Problem&lt;/h1&gt;
+
+&lt;p&gt;I&amp;rsquo;ve had some trouble getting rJava to run with RStudio. My current solution is a small workaround based on &lt;a href=&#34;https://support.rstudio.com/hc/communities/public/questions/203781666-rJava-not-loading-in-RStudio-Mac-OS-X-10-10-but-loading-in-terminal&#34;&gt;this post on the RStudio support pages&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The first thing I did was installing and running &lt;code&gt;rJava&lt;/code&gt; through &lt;code&gt;RStudio&lt;/code&gt; and attempt to load it.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;install.packages&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;rJava&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# a bunch of output follows&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# ...&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# Now we want to load rJava, which yields an error&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;library&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;rJava&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+Error &lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;.&lt;/span&gt;onLoad failed &lt;span style=&#34;color: #66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;loadNamespace&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;rJava&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; details&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;call&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;dyn.load&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;file&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; DLLpath &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; DLLpath&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;...&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+  error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; unable to load shared object &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;/usr/local/Cellar/r/3.1.2_1/R.framework/Versions/3.1/Resources/library/rJava/libs/rJava.so&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt;
+  dlopen&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;Cellar&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;r&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.1.2&lt;/span&gt;_&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;R.framework&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;Versions&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;Resources&lt;span style=&#34;color: #f92672&#34;&gt;/library/&lt;/span&gt;rJava&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;libs&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;rJava.so&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;6&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; Library not loaded&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;@&lt;/span&gt;rpath&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;libjvm.dylib
+  Referenced from&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;Cellar&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;r&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.1.2&lt;/span&gt;_&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;R.framework&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;Versions&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;Resources&lt;span style=&#34;color: #f92672&#34;&gt;/library/&lt;/span&gt;rJava&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;libs&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;rJava.so
+  Reason&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; image not found
+Error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; package or namespace load failed &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; ‘rJava’
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;When I&amp;rsquo;ve ran &lt;code&gt;R&lt;/code&gt; through the Terminal and ran up &lt;code&gt;library(rJava)&lt;/code&gt;, everything worked just fine. Somehow, &lt;code&gt;RStudio&lt;/code&gt; is not able to properly load the java path. A small workaround helps here.&lt;/p&gt;
+
+&lt;h1 id=&#34;the-workaround:8da0764efb91203229039753b3ed7caa&#34;&gt;The Workaround&lt;/h1&gt;
+
+&lt;p&gt;We will launch &lt;code&gt;RStudio&lt;/code&gt; through the terminal with a custom call, which gives it the proper &lt;code&gt;Java&lt;/code&gt; path!&lt;/p&gt;
+
+&lt;h2 id=&#34;check-if-everything-works-as-expected:8da0764efb91203229039753b3ed7caa&#34;&gt;Check if everything works as expected&lt;/h2&gt;
+
+&lt;p&gt;At first we check a couple of things.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# `which java` should yield something like this: `/usr/bin/java`&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;which java
+/usr/bin/java
+&lt;span style=&#34;color: #75715e&#34;&gt;# `/usr/libexec/java_home` should yield the current jdk home folder&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;/usr/libexec/java_home
+/Library/Java/JavaVirtualMachines/jdk1.8.0_31.jdk/Contents/Home
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;By the way, you can also use &lt;a href=&#34;https://stackoverflow.com/questions/21964709/how-to-change-default-java-version&#34;&gt;&lt;code&gt;/usr/libexec/java_home&lt;/code&gt;&lt;/a&gt; to &lt;a href=&#34;https://stackoverflow.com/questions/21964709/how-to-change-default-java-version&#34;&gt;switch your java version&lt;/a&gt; if you wish. You can also download the newest &lt;code&gt;jre&lt;/code&gt; from the Oracle &lt;a href=&#34;http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If the output is similar to the one above you should be fine!&lt;/p&gt;
+
+&lt;h2 id=&#34;run-rstudio-through-the-terminal-using-a-custom-command:8da0764efb91203229039753b3ed7caa&#34;&gt;Run &lt;code&gt;RStudio&lt;/code&gt; through the Terminal using a custom command&lt;/h2&gt;
+
+&lt;p&gt;Now you open &lt;code&gt;RStudio&lt;/code&gt; through the terminal using the following command, which sets the &lt;code&gt;LD_LIBRARY_PATH&lt;/code&gt; by hard. &lt;em&gt;Make sure you quit all running instances of &lt;code&gt;RStudio&lt;/code&gt; before you do that!&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ LD_LIBRARY_PATH&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;$(&lt;/span&gt;/usr/libexec/java_home&lt;span style=&#34;color: #66d9ef&#34;&gt;)&lt;/span&gt;/jre/lib/server: open -a RStudio
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;RStudio&lt;/code&gt; launches. Loading &lt;code&gt;library(rJava)&lt;/code&gt; should work just fine! &lt;em&gt;If you want to use &lt;code&gt;rJava&lt;/code&gt; with &lt;code&gt;RStudio&lt;/code&gt;, you have to run it using this command (until they hopefully fix it!)&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;make-an-alias-for-the-new-command-with-your-shell:8da0764efb91203229039753b3ed7caa&#34;&gt;Make an Alias for the new Command with your Shell&lt;/h2&gt;
+
+&lt;p&gt;You can register an alias with your shell. For &lt;code&gt;bash&lt;/code&gt; you open the bash profile under &lt;code&gt;~/.bash_profile&lt;/code&gt; and add the following alias:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;alias rstudio&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;LD_LIBRARY_PATH=$(/usr/libexec/java_home)/jre/lib/server: open -a RStudio&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;h1 id=&#34;thats-it:8da0764efb91203229039753b3ed7caa&#34;&gt;Thats it&lt;/h1&gt;
+
+&lt;p&gt;I hope this gets fixed soon. Until then, hopefully my workaround works for you guys! See you :).&lt;/p&gt;
+
+&lt;h1 id=&#34;update-2015-12-09:8da0764efb91203229039753b3ed7caa&#34;&gt;Update 2015-12-09&lt;/h1&gt;
+
+&lt;p&gt;In my current setting of &lt;em&gt;OSX 10.11.2 (15C50)&lt;/em&gt;, &lt;em&gt;R version 3.2.2 (2015-08-14)&lt;/em&gt; and &lt;em&gt;rJava 0.9-8&lt;/em&gt;, this solution does not work. Unfortunately, I have no idea how to fix it. Here is my current situation.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing-the-rjava-from-cran-fails:8da0764efb91203229039753b3ed7caa&#34;&gt;Installing the rJava from CRAN fails&lt;/h2&gt;
+
+&lt;p&gt;Since &lt;a href=&#34;https://stat.ethz.ch/pipermail/r-sig-mac/2015-November/011712.html&#34;&gt;El Capitan seems to have problems with passing evironment variables&lt;/a&gt;, the current CRAN version of rJava will crash during the installation process. It yields the following error:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;install.packages&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;rJava&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# Output until error skipped&lt;/span&gt;
+configure&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; One or more JNI types differ from the corresponding native type. You may need to use non&lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;standard compiler flags or a different compiler &lt;span style=&#34;color: #66d9ef&#34;&gt;in&lt;/span&gt; order to fix this.
+ERROR&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; configuration failed &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; package ‘rJava’
+&lt;span style=&#34;color: #f92672&#34;&gt;*&lt;/span&gt; removing ‘&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;lib&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;R&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;site&lt;span style=&#34;color: #f92672&#34;&gt;-library/&lt;/span&gt;rJava’
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;This can, however, be easily fixed by installing &lt;a href=&#34;https://www.rforge.net/rJava/files/&#34;&gt;rJava from RForge.net&lt;/a&gt; as stated &lt;a href=&#34;https://stackoverflow.com/questions/33550437/install-rjava-one-or-more-jni-types-differ-from-the-corresponding-native-type&#34;&gt;here&lt;/a&gt;. Running &lt;code&gt;install.packages(&#39;&amp;lt;PATH TO DOWNLOAD&amp;gt;/rJava_0.9-8.tar.gz&#39;, repos = NULL, type=&amp;quot;source&amp;quot;)&lt;/code&gt; installed the current rJava version properly.&lt;/p&gt;
+
+&lt;h2 id=&#34;loading-rjava-in-rstudio-fails:8da0764efb91203229039753b3ed7caa&#34;&gt;Loading rJava in RStudio fails&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;ve set up my homebrew R version properly using &lt;code&gt;R CMD javareconf JAVA_CPPFLAGS=&amp;quot;-I/System/Library/Frameworks/JavaVM.framework/Headers -I/Library/Java/JavaVirtualMachines/jdk1.8.0_31.jdk/&amp;quot;&lt;/code&gt; as statet in the caveats of the install. Also, &lt;code&gt;/usr/libexec/java_home&lt;/code&gt; yields the proper path.&lt;/p&gt;
+
+&lt;p&gt;Loading rJava in R through the shell works fine. Loading RStudio with &lt;code&gt;LD_LIBRARY_PATH=$(/usr/libexec/java_home)/jre/lib/server: open -a RStudio&lt;/code&gt; and loading rJava does not. It yields the same error as before:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f92672&#34;&gt;library&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;rJava&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+Error &lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;.&lt;/span&gt;onLoad failed &lt;span style=&#34;color: #66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;loadNamespace&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;rJava&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; details&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;call&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;dyn.load&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;file&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; DLLpath &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; DLLpath&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;...&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+  error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; unable to load shared object &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;/usr/local/lib/R/3.2/site-library/rJava/libs/rJava.so&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt;
+  dlopen&lt;span style=&#34;color: #f8f8f2&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;lib&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;R&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;site&lt;span style=&#34;color: #f92672&#34;&gt;-library/&lt;/span&gt;rJava&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;libs&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;rJava.so&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;6&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; Library not loaded&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;@&lt;/span&gt;rpath&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;libjvm.dylib
+  Referenced from&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;local&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;lib&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;R&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3.2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;site&lt;span style=&#34;color: #f92672&#34;&gt;-library/&lt;/span&gt;rJava&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;libs&lt;span style=&#34;color: #f92672&#34;&gt;/&lt;/span&gt;rJava.so
+  Reason&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; image not found
+Error&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; package or namespace load failed &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; ‘rJava’
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&#34;the-solution:8da0764efb91203229039753b3ed7caa&#34;&gt;The Solution?&lt;/h2&gt;
+
+&lt;p&gt;If you have any ideas on how to solve this, please let me know.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Use Github for Scientific Writing</title>
+      <link>http://paulklemm.com/blog/2014-07-16-use-github-for-scientific-writing/</link>
+      <pubDate>Wed, 16 Jul 2014 16:36:35 +0000</pubDate>
+      
+      <guid>http://paulklemm.com/blog/2014-07-16-use-github-for-scientific-writing/</guid>
+      <description>
+
+&lt;p&gt;&lt;em&gt;&lt;code&gt;GIT&lt;/code&gt; is a very good tool to manage scientific writing, either if you write it on your own or with collaborators. The rich set of tools supporting collaborative work makes &lt;a href=&#34;https://github.com/&#34;&gt;Github&lt;/a&gt; a good place for storing all information there.&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/gitlab.png##floatright200&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;There are many reasons why I adore &lt;code&gt;github&lt;/code&gt;! For me, it stands for all the good things associated with open content &amp;ndash; the beautiful mindset behind it where many people participate to create amazing things! Openness, which is still largely missing in scientific research.&lt;/p&gt;
+
+&lt;p&gt;Collaborative work on a scientific paper is carried out in the worst case by emailing &lt;code&gt;LaTeX&lt;/code&gt; code. I don&amp;rsquo;t think I have to talk about the disadvantages of this approach. Tools like &lt;a href=&#34;www.dropbox.com&#34;&gt;Dropbox&lt;/a&gt; allow to share folders with different users, but also have major disadvantages. They share everything in a folder, regardless of source files or auxiliary files created during the typesetting process. Many &lt;code&gt;LaTeX&lt;/code&gt; editors store configuration files in the project folders and are therefore synced as well. And the constant dropbox pop-up informing me that someone currently works on a text is maddening.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;GIT&lt;/code&gt; was designed for code-projects, but also works very well for the scientific writing process. If you are new to &lt;code&gt;GIT&lt;/code&gt;, check out this great interactive tutorial, teaching you everything you need to know in about 15 minutes at &lt;a href=&#34;https://try.github.io&#34;&gt;try.github.io&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To clarify: &lt;code&gt;GIT&lt;/code&gt; is the name of the &lt;em&gt;versioning system&lt;/em&gt;, &lt;code&gt;github&lt;/code&gt; is a web site for storing &lt;code&gt;GIT&lt;/code&gt;-repositories and it comes with additional features. The major advantages of &lt;code&gt;GIT&lt;/code&gt;/&lt;code&gt;github&lt;/code&gt; include:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ignoring auxiliary files created by &lt;code&gt;TeX&lt;/code&gt; during the typesetting process or configuration files from the &lt;code&gt;LaTeX&lt;/code&gt; editor,&lt;/li&gt;
+&lt;li&gt;track changes using commit messages, creating DIFFs and using branches,&lt;/li&gt;
+&lt;li&gt;discuss ideas using the build in &lt;code&gt;Wiki&lt;/code&gt; and &lt;code&gt;bug tracking&lt;/code&gt;/&lt;code&gt;milestone&lt;/code&gt; system,&lt;/li&gt;
+&lt;li&gt;modern Git-Clients, which make it easy to use for people too shy to use the command line (which is by far not as scary as you might assume).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;Github&lt;/code&gt; repositories are by default open for everyone to see. If you don&amp;rsquo;t want that, you have to create a private repository.
+&lt;code&gt;Github&lt;/code&gt; offers &lt;em&gt;five free private repositories&lt;/em&gt; for students or University associates (&lt;a href=&#34;https://education.github.com/&#34;&gt;https://education.github.com/&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;In this blog post I show how to set up a git repository for a scientific paper, recommend a structure and give examples on how you can use features of &lt;code&gt;GIT&lt;/code&gt; and &lt;code&gt;github&lt;/code&gt; to boost your productivity! Note that I will demonstrate the use of &lt;code&gt;GIT&lt;/code&gt; through the console. You can also use the github app (&lt;a href=&#34;https://mac.github.com/&#34;&gt;Mac&lt;/a&gt;, &lt;a href=&#34;https://windows.github.com/&#34;&gt;Windows&lt;/a&gt;) or any other &lt;code&gt;GIT&lt;/code&gt; client for this.&lt;/p&gt;
+
+&lt;h2 id=&#34;setup:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Setup&lt;/h2&gt;
+
+&lt;h3 id=&#34;creating-the-new-repository:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Creating the New Repository&lt;/h3&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/createNewRepo.png#floatright200&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;Creating a new repository at Github is easy as pie. When you are logged in, you can use the toolbar at the top right corner to create a new repository.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/init.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;In the next window you can create your new repository. Give it a meaningful title and make sure to select the &lt;code&gt;TeX&lt;/code&gt; &lt;code&gt;.gitignore&lt;/code&gt; template at the bottom. If you want to create a &lt;em&gt;private repository&lt;/em&gt;, you can request it using this link: &lt;a href=&#34;https://education.github.com/&#34;&gt;https://education.github.com/&lt;/a&gt;. The people at Github are pretty fast, it took them only a few hours to verify my account.&lt;/p&gt;
+
+&lt;p&gt;After you&amp;rsquo;ve created the repository it should look similar to this:
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/init-2.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&#34;add-your-files-to-the-repository:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Add your Files to the Repository&lt;/h3&gt;
+
+&lt;p&gt;Chances are that you already wrote some stuff or have unpacked the authors packages of the conference or journal. &lt;code&gt;Git&lt;/code&gt; makes it easy to add these files to the existing repository. At first, lets clone the newly created repository. You find the &lt;code&gt;http&lt;/code&gt; address to your repository on the right bottom of its &lt;code&gt;github&lt;/code&gt; page under &lt;em&gt;HTTPS clone URL&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;{% codeblock lang:bash %}
+$ cd ~/Desktop
+$ git clone &lt;a href=&#34;https://github.com/Powernap/My-Awesome-Paper.git&#34;&gt;https://github.com/Powernap/My-Awesome-Paper.git&lt;/a&gt;
+    Cloning into &amp;lsquo;My-Awesome-Paper&amp;rsquo;&amp;hellip;
+    remote: Counting objects: 4, done.
+    remote: Compressing objects: 100% (&lt;sup&gt;3&lt;/sup&gt;&amp;frasl;&lt;sub&gt;3&lt;/sub&gt;), done.
+    remote: Total 4 (delta 0), reused 0 (delta 0)
+    Unpacking objects: 100% (&lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;4&lt;/sub&gt;), done.
+    Checking connectivity&amp;hellip; done.
+{% endcodeblock %}&lt;/p&gt;
+
+&lt;p&gt;Now you should have the repository on your desktop. You can add all existing files to the folder via drag and drop. Here are the commands you potentially need to add the new files to the repository:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;git status&lt;/code&gt; is a useful command for checking the current status of a repository is . It also should ignore the files specified in the &lt;code&gt;.gitignore&lt;/code&gt; file.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git add &amp;lt;someFile&amp;gt;&lt;/code&gt; adds files to a repository&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git add -A&lt;/code&gt; adds all files and folders listed under &lt;em&gt;untracked files&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git commit&lt;/code&gt; makes a commit to a repository. Note that these commits are still only part of your local copy of the repository &amp;ndash; unlike other versioning systems, such as &lt;code&gt;SVN&lt;/code&gt;, you can create commits while being offline.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git push&lt;/code&gt; uploads all changes to the repository stored at github.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here is an example for doing this:&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/folder.png#floatright200&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# You can use any folder you want!&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ cd&lt;/span&gt; ~/Desktop/My-Awesome-Paper
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git status
+    On branch master
+    Your branch is up-to-date with &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;origin/master&amp;#39;&lt;/span&gt;.
+
+    Untracked files:
+      &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;use &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;git add &amp;lt;file&amp;gt;...&amp;quot;&lt;/span&gt; to include in what will be committed&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+
+        Example.tex
+        SCITEPRESS.eps
+        SCITEPRESS.sty
+        apalike.bst
+        apalike.sty
+        article.cls
+        example.bib
+
+    nothing added to commit but untracked files present &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;use &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;git add&amp;quot;&lt;/span&gt; to track&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# Now add all files under `Untracked files`&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git add -A
+&lt;span style=&#34;color: #75715e&#34;&gt;# &amp;#39;-m&amp;#39; directly adds the commit message&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git commit -m &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Added conference style files&amp;quot;&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;master f01710d&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; Added conference style files
+     &lt;span style=&#34;color: #ae81ff&#34;&gt;7&lt;/span&gt; files changed, &lt;span style=&#34;color: #ae81ff&#34;&gt;2318&lt;/span&gt; insertions&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;+&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+    create mode &lt;span style=&#34;color: #ae81ff&#34;&gt;100755&lt;/span&gt; Example.tex
+    create mode &lt;span style=&#34;color: #ae81ff&#34;&gt;100755&lt;/span&gt; SCITEPRESS.eps
+    create mode &lt;span style=&#34;color: #ae81ff&#34;&gt;100755&lt;/span&gt; SCITEPRESS.sty
+    create mode &lt;span style=&#34;color: #ae81ff&#34;&gt;100755&lt;/span&gt; apalike.bst
+    create mode &lt;span style=&#34;color: #ae81ff&#34;&gt;100755&lt;/span&gt; apalike.sty
+    create mode &lt;span style=&#34;color: #ae81ff&#34;&gt;100755&lt;/span&gt; article.cls
+    create mode &lt;span style=&#34;color: #ae81ff&#34;&gt;100755&lt;/span&gt; example.bib
+&lt;span style=&#34;color: #75715e&#34;&gt;# Now everything is at the &amp;#39;head&amp;#39; of your local copy of the repository.&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# Time to push it to the github server!&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git push
+    Counting objects: 10, &lt;span style=&#34;color: #66d9ef&#34;&gt;done&lt;/span&gt;.
+    Delta compression using up to &lt;span style=&#34;color: #ae81ff&#34;&gt;8&lt;/span&gt; threads.
+    Compressing objects: 100% &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;9/9&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;, &lt;span style=&#34;color: #66d9ef&#34;&gt;done&lt;/span&gt;.
+    Writing objects: 100% &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;9/9&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;, 382.59 KiB &lt;span style=&#34;color: #f8f8f2&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt; bytes/s, &lt;span style=&#34;color: #66d9ef&#34;&gt;done&lt;/span&gt;.
+    Total &lt;span style=&#34;color: #ae81ff&#34;&gt;9&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;delta 0&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;, reused &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;delta 0&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+    To https://github.com/Powernap/My-Awesome-Paper.git
+       0e07357..f01710d  master -&amp;gt; master
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you find it hard to follow, you should look &lt;a href=&#34;https://try.github.io&#34;&gt;into this quick tutorial&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;the-gitignore-file:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;The &lt;code&gt;.gitignore&lt;/code&gt; File&lt;/h3&gt;
+
+&lt;p&gt;It is a good habit to add a &lt;code&gt;.gitignore&lt;/code&gt; file to your repository, which contains a list of files ignored by &lt;code&gt;git&lt;/code&gt;. &lt;code&gt;LaTeX&lt;/code&gt; produces many auxiliary files during its typesetting process, which differ depending on the OS you use and the installed &lt;code&gt;TeX&lt;/code&gt; version. It is a good idea to exclude them, especially when collaborating with other people on a paper. Adding files is straightforward, add file names and separate them using newlines. You can even use wildcards using the &lt;code&gt;*&lt;/code&gt; symbol, or exclude entire folders (e.g. &lt;code&gt;output/&lt;/code&gt;). Whether to add &lt;code&gt;PDF&lt;/code&gt;-files to the repository is a matter of taste. I always commit the current state of my work as pdf because it makes it easy to look at versions of previous commits.&lt;/p&gt;
+
+&lt;h2 id=&#34;use-the-power-of-git-and-github:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Use the Power of &lt;code&gt;GIT&lt;/code&gt; and &lt;code&gt;github&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Once set up, the full power of &lt;code&gt;git&lt;/code&gt; and &lt;code&gt;github&lt;/code&gt; lies beneath your fingertips.&lt;/p&gt;
+
+&lt;h3 id=&#34;commit-often:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Commit often!&lt;/h3&gt;
+
+&lt;p&gt;When working with versioning systems, it is recommended to &lt;a href=&#34;http://www.databasically.com/2011/03/14/git-commit-early-commit-often/&#34;&gt;commit early and often&lt;/a&gt;! Changes to the text are by far more comprehensible and it avoids conflicts when working with multiple people on a text!&lt;/p&gt;
+
+&lt;p&gt;Updating the repository is straightforward, just run &lt;code&gt;git add &amp;lt;your File&amp;gt;&lt;/code&gt;, create a &lt;code&gt;git commit&lt;/code&gt; and &lt;code&gt;git push&lt;/code&gt; it to the server. If you just want to update all files in the repository, you can use &lt;code&gt;git commit -a&lt;/code&gt; instead of tediously &lt;code&gt;git add&lt;/code&gt;&amp;lsquo;ing all changed files.&lt;/p&gt;
+
+&lt;p&gt;All commits can be viewed at your projects &lt;code&gt;github&lt;/code&gt; page.
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/commits.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+Here you can see the changes made to the repository in every commit. Each line can also be commented to trigger a discussion or give feedback! These views are called &lt;em&gt;DIFFs&lt;/em&gt;.
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/diff.png#300&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&#34;structure-your-latex-documents:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Structure your &lt;code&gt;LaTeX&lt;/code&gt; Documents&lt;/h3&gt;
+
+&lt;p&gt;It is often a good idea to divide your chapters or sections into individual files and include them in a master file via the &lt;code&gt;\input&lt;/code&gt; command. A barebone &lt;code&gt;TeX&lt;/code&gt; file could look like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;\documentclass&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;[12pt]&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;article&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;\begin&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;document&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;\input&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;Chapter-1.tex&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;\input&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;Chapter-2.tex&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;\end&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;document&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Besides keeping the project structured, it reduces the number of conflicts when you also work with co-authors. I also found it useful to separate each sentence in the following way:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;\section&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;Proof of Everything&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;%%&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;\noindent&lt;/span&gt; This is my introduction to this chapter.
+&lt;span style=&#34;color: #75715e&#34;&gt;%%&lt;/span&gt;
+I divide every sentence with a comment.
+&lt;span style=&#34;color: #75715e&#34;&gt;%%&lt;/span&gt;
+This way it is easy to identify huge sentences that are hard to read and to understand and everybody knows how hard these sentences are to find in the text when you have a lot of text and well you know what I mean.
+&lt;span style=&#34;color: #75715e&#34;&gt;%%&lt;/span&gt;
+Sentences can also be easily commented out this way.
+&lt;span style=&#34;color: #75715e&#34;&gt;%%&lt;/span&gt;
+Changes made to Tex files structured like this are well readable using the github diff view.
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&#34;use-the-social-features:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Use the Social Features!&lt;/h3&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/discussion.png#floatright300&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+Having all authors of a scientific paper in one place is rare. Exchange of ideas and feedback via email is tedious. The build in &lt;a href=&#34;https://help.github.com/articles/about-github-wikis&#34;&gt;&lt;code&gt;Wiki&lt;/code&gt;&lt;/a&gt; for each repository is a great way for collecting and summarizing ideas. Even in public repositories you can restrict access to the wiki to collaborators only if you want to keep it more private.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;issue&lt;/code&gt; and &lt;code&gt;milestone&lt;/code&gt; system is packed with useful features for discussing the current process of the work. Discussions can even be referenced to commits. All information is kept at one place, communication is synchronized and you don&amp;rsquo;t need to look up old mails with chunks of information any more!&lt;/p&gt;
+
+&lt;h3 id=&#34;use-branches:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Use Branches&lt;/h3&gt;
+
+&lt;p&gt;Say you want to write a new section, but it will take a couple of days. At the same time, you do not want to change the repository all the time, forcing your co-authors to &lt;code&gt;git pull&lt;/code&gt; every time they also want to edit the paper. &lt;code&gt;GIT&lt;/code&gt; was designed with such cases in mind! You can simply create your own sub-repository, called a &lt;code&gt;branch&lt;/code&gt;, edit it and merge it together with the master-branch.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/branch.png#floatright200&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# Create new &amp;#39;my-section&amp;#39; branch&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git branch my-section
+&lt;span style=&#34;color: #75715e&#34;&gt;# List all branches&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git branch
+  * master
+    my-section
+&lt;span style=&#34;color: #75715e&#34;&gt;# Switch to &amp;#39;my-section&amp;#39; branch&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git checkout my-section
+  Switched to branch &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;my-section&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# Make changes and upload them (-a adds all locally changed files to the repo)&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git add my-section.tex
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git commit -a -m &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;added my new section&amp;quot;&lt;/span&gt;
+  &lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;my-section fce493f&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; added my new section
+   &lt;span style=&#34;color: #ae81ff&#34;&gt;2&lt;/span&gt; files changed, &lt;span style=&#34;color: #ae81ff&#34;&gt;9&lt;/span&gt; insertions&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;+&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+   create mode &lt;span style=&#34;color: #ae81ff&#34;&gt;100644&lt;/span&gt; my-section.tex
+&lt;span style=&#34;color: #75715e&#34;&gt;# Switch back to the Master branch and merge the sections&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git checkout master
+  Switched to branch &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;master&amp;#39;&lt;/span&gt;
+  Your branch is up-to-date with &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;origin/master&amp;#39;&lt;/span&gt;.
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git merge my-section
+  Updating f01710d..fce493f
+  Fast-forward
+   Example.tex    &lt;span style=&#34;color: #f8f8f2&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt; +
+   my-section.tex &lt;span style=&#34;color: #f8f8f2&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;8&lt;/span&gt; ++++++++
+   &lt;span style=&#34;color: #ae81ff&#34;&gt;2&lt;/span&gt; files changed, &lt;span style=&#34;color: #ae81ff&#34;&gt;9&lt;/span&gt; insertions&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;+&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+   create mode &lt;span style=&#34;color: #ae81ff&#34;&gt;100644&lt;/span&gt; my-section.tex
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git push
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;h3 id=&#34;create-releases:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Create Releases&lt;/h3&gt;
+
+&lt;p&gt;
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/releases.png#floatright300&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+&lt;code&gt;Releases&lt;/code&gt; are a great feature to freeze commits. I use it to save important milestones, such as the blind submission for reviewing.&lt;/p&gt;
+
+&lt;h3 id=&#34;use-all-the-features:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Use All the Features!&lt;/h3&gt;
+
+&lt;p&gt;Just kidding. But &lt;code&gt;github&lt;/code&gt; offers a ton of other features I did not cover in this post. To get an impression about &lt;code&gt;githubs&lt;/code&gt; power, head over to its &lt;a href=&#34;https://github.com/features&#34;&gt;feature page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;They even work on their own editor &lt;a href=&#34;https://atom.io&#34;&gt;Atom&lt;/a&gt;, which &lt;a href=&#34;http://discuss.atom.io/t/latex-language-support/541&#34;&gt;supports LaTeX&lt;/a&gt; but isn&amp;rsquo;t as functional as the packages in &lt;a href=&#34;https://github.com/textmate/textmate&#34;&gt;Textmate&lt;/a&gt; or &lt;a href=&#34;http://www.sublimetext.com/&#34;&gt;Sublime Text&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;closing-remarks:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Closing Remarks&lt;/h2&gt;
+
+&lt;p&gt;There is no &lt;em&gt;right&lt;/em&gt; way to write. All these examples are based on my own experience, my own way to work and what I found enough to share it with you. Surely there are much more different ways to use &lt;code&gt;GIT&lt;/code&gt; and &lt;code&gt;github&lt;/code&gt; for writing. Also, there are great cloud-based LaTeX editors, which also allow collaborative editing (e.g. &lt;a href=&#34;https://www.sharelatex.com/&#34;&gt;ShareLaTeX&lt;/a&gt;). Please feel free to make remarks in the comment section!&lt;/p&gt;
+
+&lt;p&gt;Since I feel that openness plays a crucial role in scientific research, we do good in using these systems and break out of our isolated bubbles and have open discussions about our work and how it develops. Tools like &lt;code&gt;github&lt;/code&gt; allow us to do so!&lt;/p&gt;
+
+&lt;h2 id=&#34;encore:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Encore&lt;/h2&gt;
+
+&lt;p&gt;This is what reviewing revisions can look like if your co-authors use this workflow. I find this pretty awesome 💙.
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2014-07-16-use-github-for-scientific-writing/comparison.gif&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Watch Twitch using VLC in OS X</title>
+      <link>http://paulklemm.com/blog/2013-12-07-watch-twitch-using-vlc-in-osx/</link>
+      <pubDate>Sat, 07 Dec 2013 00:20:42 +0000</pubDate>
+      
+      <guid>http://paulklemm.com/blog/2013-12-07-watch-twitch-using-vlc-in-osx/</guid>
+      <description>
+
+&lt;p&gt;If you own a Retina-Macbook you problably struggle with fairly high CPU load and bad performance when watching Twitch-channels using the standard flash-based player in the browser.&lt;/p&gt;
+
+&lt;p&gt;A tool called &lt;code&gt;livestreamer&lt;/code&gt; can be used to bring Twitch streams to the beloved VLC player (which also uses the GPU to process videos). This way you are not just able to reduce the used resources, the streams also feel much smoother, especially for high resolutions.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Twitch will not be able to stream ads if you use this solution.&lt;/em&gt;
+&lt;em&gt;Please be fair and subscribe to channels you like and you support.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;[Update 2014-02-20]&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;If you are using the glorious &lt;a href=&#34;http://www.alfredapp.com&#34;&gt;Alfred App&lt;/a&gt; you might be interested in this workflow, which allows for the same thing: &lt;a href=&#34;http://www.packal.org/workflow/twitchstreamer&#34;&gt;http://www.packal.org/workflow/twitchstreamer&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;[Update 2014-03-06]&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Added updating instructions.&lt;/p&gt;
+
+&lt;h2 id=&#34;install-livestreamer:066f95779e6bf58a9b9a530d54af1e81&#34;&gt;Install Livestreamer&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Download and install &lt;code&gt;rtmpdump&lt;/code&gt; from &lt;a href=&#34;http://trick77.com/wp-content/uploads/2008/01/rtmpdump-2.4_mac_os.zip&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Download &lt;code&gt;python-setuptools&lt;/code&gt; from &lt;a href=&#34;https://pypi.python.org/packages/2.7/s/setuptools/setuptools-0.6c11-py2.7.egg#md5=fe1f997bc722265116870bc7919059ea&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Open &lt;code&gt;Terminal.app&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Navigate to the folder where you downloaded the Egg-File and install it
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;cd&lt;/span&gt; ~/Downloads
+sh setuptools-0.6c11-py2.7.egg
+&lt;span style=&#34;color: #75715e&#34;&gt;# Maybe you need to run it as sudo - `sudo sh setuptools-0.6c11-py2.7.egg`&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;% endcodeblock %&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+- Clone &lt;span style=&#34;color: #e6db74&#34;&gt;`&lt;/span&gt;Livestreamer&lt;span style=&#34;color: #e6db74&#34;&gt;`&lt;/span&gt; GIT Repository and install &lt;span style=&#34;color: #e6db74&#34;&gt;`&lt;/span&gt;Livestreamer&lt;span style=&#34;color: #e6db74&#34;&gt;`&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;% codeblock lang:bash %&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+git clone git://github.com/chrippa/livestreamer.git
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;cd &lt;/span&gt;livestreamer
+python setup.py install
+&lt;span style=&#34;color: #75715e&#34;&gt;# Again, maybe you need to run it as sudo - `sudo python setup.py install`&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Now you should be able to view Twitch channels in VLC&lt;/p&gt;
+
+&lt;h2 id=&#34;using-livestreamer:066f95779e6bf58a9b9a530d54af1e81&#34;&gt;Using Livestreamer&lt;/h2&gt;
+
+&lt;p&gt;Say you want to view this Twitch channel in VLC: &lt;a href=&#34;http://www.twitch.tv/wcs_europe&#34;&gt;http://www.twitch.tv/wcs_europe&lt;/a&gt;.
+All you have to to is go into the &lt;code&gt;Terminal.app&lt;/code&gt; and type
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;livestreamer http://www.twitch.tv/wcs_europe &lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;quality&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# You might as well skip the `http://www.` part&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+Here, &lt;code&gt;[quality]&lt;/code&gt; has to be a quality setting from the stream, usually ranging between &lt;code&gt;low&lt;/code&gt;, &lt;code&gt;medium&lt;/code&gt;, &lt;code&gt;high&lt;/code&gt; and &lt;code&gt;source&lt;/code&gt;. If you leave it empty, &lt;code&gt;livestreamer&lt;/code&gt; will tell you, which options you can choose from. Setting the parameter to &lt;code&gt;best&lt;/code&gt; tells &lt;code&gt;livestreamer&lt;/code&gt; to use the highest quality available.&lt;/p&gt;
+
+&lt;p&gt;Et voilá. Enjoy your stream.
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2013-12-07-watch-twitch-using-vlc-in-osx/twitch-vlc-sc2_small.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&#34;update-livestreamer:066f95779e6bf58a9b9a530d54af1e81&#34;&gt;Update Livestreamer&lt;/h2&gt;
+
+&lt;p&gt;If you see a message like this when launching &lt;code&gt;livestreamer&lt;/code&gt; you might update to the latest version:
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;cli&lt;span style=&#34;color: #f92672&#34;&gt;][&lt;/span&gt;info&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; A new version of Livestreamer &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;1.7.4&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; is available!
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To do so, navigate to any folder, for example &lt;code&gt;~/Downloads&lt;/code&gt;, and run the following commands:
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;cd&lt;/span&gt; ~/Downloads
+git clone git://github.com/chrippa/livestreamer.git
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;cd &lt;/span&gt;livestreamer
+python setup.py install
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;After that you can remove the livestreamer folder from the folder you cloned the GIT repository to (&lt;code&gt;~/Downloads/livestreamer&lt;/code&gt; in our example).&lt;/p&gt;
+
+&lt;h1 id=&#34;references:066f95779e6bf58a9b9a530d54af1e81&#34;&gt;References&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Links and instructions how to install everything is taken from different Posts in this &lt;a href=&#34;http://forum.gamesports.net/dota/showthread.php?45027-How-to-watch-Twitch-TV-in-VLC-player-(MAC-OSX-HOW-TO&#34;&gt;Gamespot Thread&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;For further information, visit &lt;a href=&#34;http://livestreamer.tanuki.se/en/latest/&#34;&gt;this site from the livestreamer developer&lt;/a&gt;, which offers more detailed instructions&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Python with VTK and Qt support for use with Eclipse in OS X Mountain Lion</title>
+      <link>http://paulklemm.com/blog/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/</link>
+      <pubDate>Mon, 20 Aug 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://paulklemm.com/blog/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/</guid>
+      <description>
+
+&lt;p&gt;In this post I&amp;rsquo;d like to show you how to install &lt;code&gt;Python&lt;/code&gt; with support for &lt;code&gt;VTK&lt;/code&gt; and &lt;code&gt;Qt&lt;/code&gt; using Apple OS X 10.8 Mountain Lion. Then I set up &lt;code&gt;Eclipse&lt;/code&gt; with the new &lt;code&gt;Python&lt;/code&gt; installation in order to use all of it&amp;rsquo;s auto-completion and debugging capabilities. Please leave a comment with your experiences using this.&lt;/p&gt;
+
+&lt;p&gt;The instructions for the installation of &lt;code&gt;Python&lt;/code&gt; and &lt;code&gt;Qt&lt;/code&gt; consists mostly of information from these two posts &lt;a href=&#34;http://www.thisisthegreenroom.com/2011/installing-python-numpy-scipy-matplotlib-and-ipython-on-lion/&#34;&gt;[1]&lt;/a&gt; &lt;a href=&#34;http://jbowles.github.com/blog/2012/04/22/python/&#34;&gt;[2]&lt;/a&gt;, so please credit these guys for this, not me.&lt;/p&gt;
+
+&lt;p&gt;If you run a Windows or Linux machine and you might want to do yourself a favor and use the &lt;a href=&#34;http://graphics.tudelft.nl/Projects/DeVIDE&#34;&gt;DRE which is included in DeVIDE&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;install-and-configure-homebrew:cfbe69256acc54306cb213691b28d252&#34;&gt;Install and configure Homebrew&lt;/h2&gt;
+
+&lt;p&gt;As a very first step you need to install &lt;em&gt;Homebrew&lt;/em&gt;, the friendly packet manager for Mac OS X &lt;a href=&#34;http://mxcl.github.com/homebrew/&#34;&gt;[3]&lt;/a&gt;. This makes it really easy to install all the necessary stuff. While OS X already ships with versions of &lt;code&gt;Python&lt;/code&gt;, &lt;code&gt;Ruby&lt;/code&gt; and other stuff, the versions they provide are often deprecated and installing own packages can be quite frustrating. Homebrew installs all it&amp;rsquo;s stuff isolated from the system under &lt;code&gt;/usr/local/cellar&lt;/code&gt;. This way you can install your own libraries without touching the components installed from Apple.&lt;/p&gt;
+
+&lt;p&gt;In order make sure that Terminal searches the &lt;code&gt;bin&lt;/code&gt; folder of Homebrew first before the System &lt;code&gt;bin&lt;/code&gt; folder (which is &lt;code&gt;/usr/bin&lt;/code&gt;), you need to add it to the &lt;code&gt;PATH&lt;/code&gt;-variable. This can be done by editing the &lt;code&gt;.bash_profile&lt;/code&gt; file in you user root folder &lt;code&gt;/Users/&amp;lt;your username&amp;gt;/.bash_profile&lt;/code&gt; (further referenced as &lt;code&gt;~/&lt;/code&gt;). If this file doesn&amp;rsquo;t exist, create it! Now you add
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# ~/.bash_profile&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;export PATH&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;/usr/local/bin:&lt;span style=&#34;color: #f8f8f2&#34;&gt;$PATH&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;export PATH&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;/usr/local/share/python:&lt;span style=&#34;color: #f8f8f2&#34;&gt;$PATH&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+to the file. The second entry is later used to get the right version of &lt;code&gt;PIP&lt;/code&gt;.
+Note: If you have a Terminal session up and running you need to restart it in order to apply the changes to the &lt;code&gt;PATH&lt;/code&gt;. If you have trouble with hidden files on the system, &lt;a href=&#34;http://totalfinder.binaryage.com/&#34;&gt;this Tool&lt;/a&gt; can come in handy for you!&lt;/p&gt;
+
+&lt;p&gt;Before you install anything to Homebrew, be sure to run &lt;code&gt;brew doctor&lt;/code&gt; and &lt;code&gt;brew update&lt;/code&gt; to check if all dependencies are installed (&lt;code&gt;xCode&lt;/code&gt;, &lt;code&gt;Command Line Tools&lt;/code&gt; and &lt;code&gt;x11&lt;/code&gt;). When &lt;code&gt;brew doctor&lt;/code&gt; gives you green light you are good to go!&lt;/p&gt;
+
+&lt;h2 id=&#34;install-python:cfbe69256acc54306cb213691b28d252&#34;&gt;Install Python&lt;/h2&gt;
+
+&lt;p&gt;The very first step is that you install your own version of &lt;code&gt;Python&lt;/code&gt; by running the following command:
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;brew install python --framework --universal
+&lt;/pre&gt;&lt;/div&gt;
+
+In order to make it the default &lt;code&gt;Python&lt;/code&gt; installation of the system you need to execute
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;cd&lt;/span&gt; /System/Library/Frameworks/Python.framework/Versions
+sudo rm Current
+ln -s /usr/local/Cellar/python/2.7.2/Frameworks/Python.framework/Versions/Current
+&lt;/pre&gt;&lt;/div&gt;
+
+This changes the symlink to our new &lt;code&gt;Python&lt;/code&gt; installation. You will be promted for you password since this is an action which requires admin rights.&lt;/p&gt;
+
+&lt;p&gt;If everything worked, &lt;code&gt;which python&lt;/code&gt; should return &lt;code&gt;/usr/local/bin/python&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Next step is the installation of &lt;code&gt;PIP&lt;/code&gt; using the command
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;easy_install pip
+&lt;/pre&gt;&lt;/div&gt;
+
+Now &lt;code&gt;which pip&lt;/code&gt; should return &lt;code&gt;/usr/local/share/python/pip&lt;/code&gt; - otherwise the &lt;code&gt;PATH&lt;/code&gt; is not properly set as described above.&lt;/p&gt;
+
+&lt;p&gt;Now you can install other Packages like &lt;code&gt;Numpy&lt;/code&gt; or &lt;code&gt;Scipy&lt;/code&gt; - depending on what you need. Note: If you want to install &lt;code&gt;Scipy&lt;/code&gt; you need to install the &lt;code&gt;gfortran&lt;/code&gt; compiler.
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;pip install numpy
+brew install gfortran
+pip install scipy
+&lt;/pre&gt;&lt;/div&gt;
+
+Note: To date of this post, you have to use the developer version of &lt;code&gt;Scipy&lt;/code&gt; to make it work under Mountain Lion. This can be done using
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;pip install -e git+https://github.com/scipy/scipy#egg&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;scipy-dev
+&lt;/pre&gt;&lt;/div&gt;
+
+This will create a folder &lt;code&gt;~/src&lt;/code&gt; and install &lt;code&gt;Scipy&lt;/code&gt; from there.&lt;/p&gt;
+
+&lt;h2 id=&#34;install-qt:cfbe69256acc54306cb213691b28d252&#34;&gt;Install Qt&lt;/h2&gt;
+
+&lt;p&gt;To install &lt;code&gt;Qt&lt;/code&gt; and &lt;code&gt;Pyqt&lt;/code&gt;-bindings you execute
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;brew install qt
+brew install pyqt
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&#34;install-vtk:cfbe69256acc54306cb213691b28d252&#34;&gt;Install VTK&lt;/h2&gt;
+
+&lt;p&gt;To install VTK you need to run
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;brew install vtk --tcl --qt --python --pyqt --examples
+&lt;/pre&gt;&lt;/div&gt;
+
+This took about 60 minutes on my early 2008 Macbook Pro, so take your time for a well-earned rest.&lt;/p&gt;
+
+&lt;p&gt;When this is done you should be able to &lt;code&gt;import vtk&lt;/code&gt; into your &lt;code&gt;Python&lt;/code&gt; environment without any errors.&lt;/p&gt;
+
+&lt;h2 id=&#34;setup-python-for-use-with-eclipse:cfbe69256acc54306cb213691b28d252&#34;&gt;Setup Python for use with Eclipse&lt;/h2&gt;
+
+&lt;p&gt;This part is oriented on the introduction on how to include the &lt;code&gt;DRE&lt;/code&gt; into &lt;code&gt;Eclipse&lt;/code&gt;, which can be found under &lt;a href=&#34;http://code.google.com/p/devide/wiki/EclipseDRE&#34;&gt;[4]&lt;/a&gt; and in the following screencast. I just made a few enhancements to make it work for this application. Note that the steps of the screencast don&amp;rsquo;t work exactly on our installation!
+&lt;iframe width=&#34;420&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/-b1zS536R2M&#34; frameborder=&#34;0&#34; allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+
+&lt;p&gt;To use &lt;code&gt;Python&lt;/code&gt; together with &lt;code&gt;Eclipse&lt;/code&gt; you have to install the &lt;em&gt;Classic&lt;/em&gt; Version from &lt;a href=&#34;http://www.eclipse.org/downloads/&#34;&gt;the official homepage&lt;/a&gt;. Next, &lt;a href=&#34;http://pydev.org/manual_101_install.html&#34;&gt;install PyDev into Eclipse&lt;/a&gt;. Now you need to tell &lt;code&gt;Eclipse&lt;/code&gt; which &lt;code&gt;Python&lt;/code&gt; installation it should use. This can be done in &lt;code&gt;Eclipse → Settings → Pydev → Interpreter-Python → New&lt;/code&gt;. In the next Dialog you have to add Path to the Homebrew &lt;code&gt;Python&lt;/code&gt;.
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/selectPythonInterpreter.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+Confirm the next Prompt which should look like the following screenshot and you are done.
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/selectPythonPackages.png&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Now you are good to go. Create a new PyDev Project, select the new created interpreter and play around with &lt;code&gt;VTK&lt;/code&gt; - it all should be working with auto completion and the other neat &lt;code&gt;Eclipse&lt;/code&gt; features. The Code example Charl used in the Screencast should compile:
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# vtkDonutTest.py&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# create a donut polydata source&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkSuperquadricSource()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;s&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;ToroidalOn()&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# connect it to a polydatamapper&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;m&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkPolyDataMapper()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;m&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;SetInput(s&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;GetOutput())&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# and finally create an actor to represent the donut in the scene&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkActor()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;a&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;SetMapper(m)&lt;/span&gt;
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# the renderer is the 3D scene&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;ren&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkRenderer()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;ren&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;AddActor(a)&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# renderwindow to contain the 3D scene&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;rw&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkRenderWindow()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;rw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;AddRenderer(ren)&lt;/span&gt;
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# we want the user to interact&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;iren&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkRenderWindowInteractor()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;iren&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;SetRenderWindow(rw)&lt;/span&gt;
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# get the whole business going&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;iren&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Initialize()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;rw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Render()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;iren&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Start()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;To test the Qt-Support you can run the following code &lt;a href=&#34;https://svn.enthought.com/svn/enthought/Mayavi/trunk/enthought/tvtk/pyface/ui/qt4/QVTKRenderWindowInteractor.py&#34;&gt;[5]&lt;/a&gt;:
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# vtkQtTest.py&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PyQt4&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QtGui&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk.qt4.QVTKRenderWindowInteractor&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKRenderWindowInteractor&lt;/span&gt;
+
+&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;&amp;quot;&amp;quot;A simple example that uses the QVTKRenderWindowInteractor class.&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# every QT app needs an app&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;app&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QtGui&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;QApplication([&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;QVTKRenderWindowInteractor&amp;#39;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;])&lt;/span&gt;
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# create the widget&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;widget&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKRenderWindowInteractor()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;widget&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Initialize()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;widget&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Start()&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# if you dont want the &amp;#39;q&amp;#39; key to exit comment this.&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;widget&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;AddObserver(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;ExitEvent&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;lambda&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;o,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;e,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;a&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;app:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;a&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;quit())&lt;/span&gt;
+
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;ren&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkRenderer()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;widget&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;GetRenderWindow()&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;AddRenderer(ren)&lt;/span&gt;
+
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;cone&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkConeSource()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;cone&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;SetResolution(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;8&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;coneMapper&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkPolyDataMapper()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;coneMapper&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;SetInput(cone&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;GetOutput())&lt;/span&gt;
+
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;coneActor&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkActor()&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;coneActor&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;SetMapper(coneMapper)&lt;/span&gt;
+
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;ren&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;AddActor(coneActor)&lt;/span&gt;
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# show the widget&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;widget&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;show()&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# start event processing&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;app&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exec_()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;h2 id=&#34;add-vtk-module-to-qt-designer:cfbe69256acc54306cb213691b28d252&#34;&gt;Add VTK-Module to Qt-Designer&lt;/h2&gt;
+
+&lt;p&gt;If you want to use the &lt;code&gt;Qt-Designer&lt;/code&gt; for the use with &lt;code&gt;VTK&lt;/code&gt;, things get a little bit tricky. The &lt;code&gt;Qt-Designer&lt;/code&gt; comes with our installation of &lt;code&gt;Qt&lt;/code&gt; under &lt;code&gt;/usr/local/Cellar/qt/4.8.2/Designer.app&lt;/code&gt; and is a &lt;em&gt;WYSISWYG&lt;/em&gt;-Editor for &lt;code&gt;Qt&lt;/code&gt;-UIs. &lt;code&gt;VTK&lt;/code&gt; already has installed a plugin for it, it just has to be sym-linked into the &lt;code&gt;Qt-Designer&lt;/code&gt;-Path. You can do this using the following commands, but check your current versions before running these.
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;cd&lt;/span&gt; /usr/local/Cellar/qt/4.8.2/plugins/designer
+ln -s /usr/local/Cellar/vtk/5.10.0/plugins/designer/libQVTKWidgetPlugin.dylib libQVTKWidgetPlugin.dylib
+&lt;/pre&gt;&lt;/div&gt;
+
+Now you should have a QVTKWidget available in the &lt;code&gt;Qt-Designer&lt;/code&gt;. The tricky part begins now. Unfortunately when you try to include a &lt;code&gt;Qt&lt;/code&gt;-UI which contains a &lt;code&gt;QVTKWidget&lt;/code&gt;, it fails to compile, because &lt;code&gt;QVTKWidget&lt;/code&gt; belongs to the Class &lt;code&gt;QVTKWidget.QVTKWidget&lt;/code&gt;, while the correct class is &lt;code&gt;vtk.QVTKWidget&lt;/code&gt;. You can fix this using the following workaround.&lt;/p&gt;
+
+&lt;p&gt;When you have created your UI using the &lt;code&gt;Qt-Designer&lt;/code&gt; you can convert it to &lt;code&gt;Python&lt;/code&gt;-Code using the command
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;pyuic4 myTestApp.ui &amp;gt; myTestApp_ui.py
+&lt;/pre&gt;&lt;/div&gt;
+
+Import the new file into your Project and change the line
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKWidget&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKWidget&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+to
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKWidget&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+Now it will compile and run. The tradeoff is that you have to manually change this line every time you want to make changes to the UI using the &lt;code&gt;Qt-Designer&lt;/code&gt;.
+To give an example for a converted UI file which runs, look at the following code.
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# pythonQtVTKTest.py&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PyQt4&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QtGui&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;pythonQtVTKTest_ui&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;Ui_Form_Main&lt;/span&gt;
+
+&lt;span style=&#34;color: #66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;StartQT4&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(QtGui&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;QMainWindow):&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;__init__&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(self,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;parent&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;None):&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;QtGui&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;QWidget&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;__init__(self,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;parent)&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;ui&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;Ui_Form_Main()&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;ui&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;setupUi(self)&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;draw_stuff()&lt;/span&gt;    
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;draw_stuff&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(self):&lt;/span&gt;
+        &lt;span style=&#34;color: #75715e&#34;&gt;# create a donut polydata source&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkSuperquadricSource()&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;s&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;ToroidalOn()&lt;/span&gt;
+        &lt;span style=&#34;color: #75715e&#34;&gt;# connect it to a polydatamapper&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;m&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkPolyDataMapper()&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;m&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;SetInput(s&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;GetOutput())&lt;/span&gt;
+        &lt;span style=&#34;color: #75715e&#34;&gt;# and finally create an actor to represent the donut in the scene&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkActor()&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;a&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;SetMapper(m)&lt;/span&gt;
+
+        &lt;span style=&#34;color: #75715e&#34;&gt;# the renderer is the 3D scene&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;ren&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkRenderer()&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;ren&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;AddActor(a)&lt;/span&gt;
+        &lt;span style=&#34;color: #75715e&#34;&gt;# renderwindow to contain the 3D scene&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;rw&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkRenderWindow()&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;rw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;AddRenderer(ren)&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;ui&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;qvtkWidget&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;GetRenderWindow()&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;AddRenderer(ren)&lt;/span&gt;
+
+        &lt;span style=&#34;color: #75715e&#34;&gt;# we want the user to interact&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;iren&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkRenderWindowInteractor()&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;iren&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;SetRenderWindow(rw)&lt;/span&gt;
+
+        &lt;span style=&#34;color: #75715e&#34;&gt;# get the whole business going&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;iren&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Initialize()&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;rw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;Render()&lt;/span&gt;
+        &lt;span style=&#34;color: #75715e&#34;&gt;#iren.Start()&lt;/span&gt;
+
+&lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;__name__&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;app&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QtGui&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;QApplication(sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;argv)&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;myapp&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;StartQT4()&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;myapp&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;show()&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exit(app&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;exec_())&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# pythonQtVTKTest_UI.py&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -*- coding: utf-8 -*-&lt;/span&gt;
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# Form implementation generated from reading ui file &amp;#39;pythonQtVTKTest.ui&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;#&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# Created: Tue Aug 21 15:40:57 2012&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;#      by: PyQt4 UI code generator 4.9.4&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;#&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# WARNING! All changes made in this file will be lost!&lt;/span&gt;
+
+&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PyQt4&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QtCore,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QtGui&lt;/span&gt;
+
+&lt;span style=&#34;color: #66d9ef&#34;&gt;try&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;_fromUtf8&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QtCore&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;QString&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;fromUtf8&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;AttributeError&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;:&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;_fromUtf8&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;lambda&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;s:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;s&lt;/span&gt;
+
+&lt;span style=&#34;color: #66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Ui_Form_Main&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(object):&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;setupUi&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(self,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;Form_Main):&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;Form_Main&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;setObjectName(_fromUtf8(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Form_Main&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;))&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;Form_Main&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;setEnabled(True)&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;Form_Main&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;resize(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;623&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;462&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;)&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;qvtkWidget&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKWidget(Form_Main)&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;qvtkWidget&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;setGeometry(QtCore&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;QRect(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;601&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;441&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;))&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;qvtkWidget&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;setObjectName(_fromUtf8(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;qvtkWidget&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;))&lt;/span&gt;
+
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;retranslateUi(Form_Main)&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;QtCore&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;QMetaObject&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;connectSlotsByName(Form_Main)&lt;/span&gt;
+
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;retranslateUi&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;(self,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;Form_Main):&lt;/span&gt;
+        &lt;span style=&#34;color: #f8f8f2&#34;&gt;Form_Main&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;setWindowTitle(QtGui&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;QApplication&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;translate(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Form_Main&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;VTK Test&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;None,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QtGui&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;QApplication&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;UnicodeUTF8))&lt;/span&gt;
+
+&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKWidget&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;strong&gt;If anyone knows a simpler solution to this, please post it in the comments!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;using-mactex-and-homebrew:cfbe69256acc54306cb213691b28d252&#34;&gt;Using MacTeX and Homebrew&lt;/h2&gt;
+
+&lt;p&gt;Just a short footnote for those of you who use &lt;code&gt;MacTeX&lt;/code&gt;. &lt;code&gt;MacTeX&lt;/code&gt; stores it&amp;rsquo;s files under &lt;code&gt;/usr/local/texlive&lt;/code&gt; next to the &lt;code&gt;Homebrew&lt;/code&gt; stuff. They coexist peaceful next to each other, you just have to apply some diplomacy using the following command &lt;a href=&#34;https://github.com/ThinkRuby/thinkruby/wiki/&#34;&gt;[6]&lt;/a&gt;.
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;sudo chown -R &lt;span style=&#34;color: #f8f8f2&#34;&gt;$USER&lt;/span&gt;:staff /usr/local
+&lt;/pre&gt;&lt;/div&gt;
+
+You might also consult the &lt;code&gt;brew doctor&lt;/code&gt;, he will tell you what to do.&lt;/p&gt;
+
+&lt;h2 id=&#34;thats-it:cfbe69256acc54306cb213691b28d252&#34;&gt;Thats it&lt;/h2&gt;
+
+&lt;p&gt;Thank you for reading, I hope these instructions help you in some way. Please feel free to leave a comment. Have a nice day!&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;references:cfbe69256acc54306cb213691b28d252&#34;&gt;References&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.thisisthegreenroom.com/2011/installing-python-numpy-scipy-matplotlib-and-ipython-on-lion/&#34;&gt;[1] http://www.thisisthegreenroom.com/2011/installing-python-numpy-scipy-matplotlib-and-ipython-on-lion/&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://jbowles.github.com/blog/2012/04/22/python/&#34;&gt;[2] http://jbowles.github.com/blog/2012/04/22/python/&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://mxcl.github.com/homebrew/&#34;&gt;[3] http://mxcl.github.com/homebrew/&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://code.google.com/p/devide/wiki/EclipseDRE&#34;&gt;[4] http://code.google.com/p/devide/wiki/EclipseDRE&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://svn.enthought.com/svn/enthought/Mayavi/trunk/enthought/tvtk/pyface/ui/qt4/QVTKRenderWindowInteractor.py&#34;&gt;[5] https://svn.enthought.com/svn/enthought/Mayavi/trunk/enthought/tvtk/pyface/ui/qt4/QVTKRenderWindowInteractor.py&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://github.com/ThinkRuby/thinkruby/wiki/&#34;&gt;[6] https://github.com/ThinkRuby/thinkruby/wiki/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;this-might-also-be-useful-for-you:cfbe69256acc54306cb213691b28d252&#34;&gt;This might also be useful for you&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://graphics.tudelft.nl/Projects/DeVIDE&#34;&gt;DeVIDE/DRE from the University of Delft&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://totalfinder.binaryage.com/&#34;&gt;Total Finder&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://macromates.com/&#34;&gt;My favorite Editor: Textmate&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.rkblog.rk.edu.pl/w/p/introduction-pyqt4/&#34;&gt;Great collection of Python/Qt Tutorials&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

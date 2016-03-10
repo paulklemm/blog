@@ -1,0 +1,265 @@
+    <!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Paul Klemm">
+		<meta name="description" content="Paul puts in his two cents">
+		<meta name="generator" content="Hugo 0.15" />
+		<title>Run rJava with RStudio under OSX 10.10 &middot; Zenf</title>
+		<link rel="shortcut icon" href="http://paulklemm.com/blog/images/favicon.ico">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/style.css">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/highlight.css">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/monosocialiconsfont.css">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/custom-img.css">
+		
+		<link href="http://paulklemm.com/blog/index.xml" rel="alternate" type="application/rss+xml" title="Zenf" />
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://paulklemm.com/blog/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+		<a href='http://paulklemm.com/blog/about'>About</a>
+	
+
+	
+	<a class="cta" href="http://paulklemm.com/blog/index.xml">Subscribe</a>
+	
+</nav>
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>Run rJava with RStudio under OSX 10.10</h1>
+                    <h2 class="headline">February 20, 2015</h2>
+                </header>
+                <section id="post-body">
+                    
+
+<h1 id="the-problem:8da0764efb91203229039753b3ed7caa">The Problem</h1>
+
+<p>I&rsquo;ve had some trouble getting rJava to run with RStudio. My current solution is a small workaround based on <a href="https://support.rstudio.com/hc/communities/public/questions/203781666-rJava-not-loading-in-RStudio-Mac-OS-X-10-10-but-loading-in-terminal">this post on the RStudio support pages</a>.</p>
+
+<p>The first thing I did was installing and running <code>rJava</code> through <code>RStudio</code> and attempt to load it.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%">install.packages<span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;rJava&#39;</span><span style="color: #f8f8f2">)</span>
+<span style="color: #75715e"># a bunch of output follows</span>
+<span style="color: #75715e"># ...</span>
+<span style="color: #75715e"># Now we want to load rJava, which yields an error</span>
+<span style="color: #f92672">library</span><span style="color: #f8f8f2">(</span>rJava<span style="color: #f8f8f2">)</span>
+Error <span style="color: #f92672">:</span> <span style="color: #ae81ff">.</span>onLoad failed <span style="color: #66d9ef">in</span> <span style="color: #66d9ef">loadNamespace</span><span style="color: #f8f8f2">()</span> <span style="color: #66d9ef">for</span> <span style="color: #e6db74">&#39;rJava&#39;</span><span style="color: #f8f8f2">,</span> details<span style="color: #f92672">:</span>
+  <span style="color: #66d9ef">call</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">dyn.load</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">file</span><span style="color: #f8f8f2">,</span> DLLpath <span style="color: #f92672">=</span> DLLpath<span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">...</span><span style="color: #f8f8f2">)</span>
+  error<span style="color: #f92672">:</span> unable to load shared object <span style="color: #e6db74">&#39;/usr/local/Cellar/r/3.1.2_1/R.framework/Versions/3.1/Resources/library/rJava/libs/rJava.so&#39;</span><span style="color: #f92672">:</span>
+  dlopen<span style="color: #f8f8f2">(</span><span style="color: #f92672">/</span>usr<span style="color: #f92672">/</span><span style="color: #66d9ef">local</span><span style="color: #f92672">/</span>Cellar<span style="color: #f92672">/</span>r<span style="color: #f92672">/</span><span style="color: #ae81ff">3.1.2</span>_<span style="color: #ae81ff">1</span><span style="color: #f92672">/</span>R.framework<span style="color: #f92672">/</span>Versions<span style="color: #f92672">/</span><span style="color: #ae81ff">3.1</span><span style="color: #f92672">/</span>Resources<span style="color: #f92672">/library/</span>rJava<span style="color: #f92672">/</span>libs<span style="color: #f92672">/</span>rJava.so<span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">6</span><span style="color: #f8f8f2">)</span><span style="color: #f92672">:</span> Library not loaded<span style="color: #f92672">:</span> <span style="color: #f92672">@</span>rpath<span style="color: #f92672">/</span>libjvm.dylib
+  Referenced from<span style="color: #f92672">:</span> <span style="color: #f92672">/</span>usr<span style="color: #f92672">/</span><span style="color: #66d9ef">local</span><span style="color: #f92672">/</span>Cellar<span style="color: #f92672">/</span>r<span style="color: #f92672">/</span><span style="color: #ae81ff">3.1.2</span>_<span style="color: #ae81ff">1</span><span style="color: #f92672">/</span>R.framework<span style="color: #f92672">/</span>Versions<span style="color: #f92672">/</span><span style="color: #ae81ff">3.1</span><span style="color: #f92672">/</span>Resources<span style="color: #f92672">/library/</span>rJava<span style="color: #f92672">/</span>libs<span style="color: #f92672">/</span>rJava.so
+  Reason<span style="color: #f92672">:</span> image not found
+Error<span style="color: #f92672">:</span> package or namespace load failed <span style="color: #66d9ef">for</span> ‘rJava’
+</pre></div>
+
+
+<p>When I&rsquo;ve ran <code>R</code> through the Terminal and ran up <code>library(rJava)</code>, everything worked just fine. Somehow, <code>RStudio</code> is not able to properly load the java path. A small workaround helps here.</p>
+
+<h1 id="the-workaround:8da0764efb91203229039753b3ed7caa">The Workaround</h1>
+
+<p>We will launch <code>RStudio</code> through the terminal with a custom call, which gives it the proper <code>Java</code> path!</p>
+
+<h2 id="check-if-everything-works-as-expected:8da0764efb91203229039753b3ed7caa">Check if everything works as expected</h2>
+
+<p>At first we check a couple of things.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># `which java` should yield something like this: `/usr/bin/java`</span>
+<span style="color: #f8f8f2">$ </span>which java
+/usr/bin/java
+<span style="color: #75715e"># `/usr/libexec/java_home` should yield the current jdk home folder</span>
+<span style="color: #f8f8f2">$ </span>/usr/libexec/java_home
+/Library/Java/JavaVirtualMachines/jdk1.8.0_31.jdk/Contents/Home
+</pre></div>
+
+
+<p>By the way, you can also use <a href="https://stackoverflow.com/questions/21964709/how-to-change-default-java-version"><code>/usr/libexec/java_home</code></a> to <a href="https://stackoverflow.com/questions/21964709/how-to-change-default-java-version">switch your java version</a> if you wish. You can also download the newest <code>jre</code> from the Oracle <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">here</a>.</p>
+
+<p>If the output is similar to the one above you should be fine!</p>
+
+<h2 id="run-rstudio-through-the-terminal-using-a-custom-command:8da0764efb91203229039753b3ed7caa">Run <code>RStudio</code> through the Terminal using a custom command</h2>
+
+<p>Now you open <code>RStudio</code> through the terminal using the following command, which sets the <code>LD_LIBRARY_PATH</code> by hard. <em>Make sure you quit all running instances of <code>RStudio</code> before you do that!</em></p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f8f8f2">$ LD_LIBRARY_PATH</span><span style="color: #f92672">=</span><span style="color: #66d9ef">$(</span>/usr/libexec/java_home<span style="color: #66d9ef">)</span>/jre/lib/server: open -a RStudio
+</pre></div>
+</p>
+
+<p><code>RStudio</code> launches. Loading <code>library(rJava)</code> should work just fine! <em>If you want to use <code>rJava</code> with <code>RStudio</code>, you have to run it using this command (until they hopefully fix it!)</em></p>
+
+<h2 id="make-an-alias-for-the-new-command-with-your-shell:8da0764efb91203229039753b3ed7caa">Make an Alias for the new Command with your Shell</h2>
+
+<p>You can register an alias with your shell. For <code>bash</code> you open the bash profile under <code>~/.bash_profile</code> and add the following alias:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f8f8f2">alias rstudio</span><span style="color: #f92672">=</span><span style="color: #e6db74">&#39;LD_LIBRARY_PATH=$(/usr/libexec/java_home)/jre/lib/server: open -a RStudio&#39;</span>
+</pre></div>
+</p>
+
+<h1 id="thats-it:8da0764efb91203229039753b3ed7caa">Thats it</h1>
+
+<p>I hope this gets fixed soon. Until then, hopefully my workaround works for you guys! See you :).</p>
+
+<h1 id="update-2015-12-09:8da0764efb91203229039753b3ed7caa">Update 2015-12-09</h1>
+
+<p>In my current setting of <em>OSX 10.11.2 (15C50)</em>, <em>R version 3.2.2 (2015-08-14)</em> and <em>rJava 0.9-8</em>, this solution does not work. Unfortunately, I have no idea how to fix it. Here is my current situation.</p>
+
+<h2 id="installing-the-rjava-from-cran-fails:8da0764efb91203229039753b3ed7caa">Installing the rJava from CRAN fails</h2>
+
+<p>Since <a href="https://stat.ethz.ch/pipermail/r-sig-mac/2015-November/011712.html">El Capitan seems to have problems with passing evironment variables</a>, the current CRAN version of rJava will crash during the installation process. It yields the following error:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%">install.packages<span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;rJava&quot;</span><span style="color: #f8f8f2">)</span>
+<span style="color: #75715e"># Output until error skipped</span>
+configure<span style="color: #f92672">:</span> error<span style="color: #f92672">:</span> One or more JNI types differ from the corresponding native type. You may need to use non<span style="color: #f92672">-</span>standard compiler flags or a different compiler <span style="color: #66d9ef">in</span> order to fix this.
+ERROR<span style="color: #f92672">:</span> configuration failed <span style="color: #66d9ef">for</span> package ‘rJava’
+<span style="color: #f92672">*</span> removing ‘<span style="color: #f92672">/</span>usr<span style="color: #f92672">/</span><span style="color: #66d9ef">local</span><span style="color: #f92672">/</span>lib<span style="color: #f92672">/</span>R<span style="color: #f92672">/</span><span style="color: #ae81ff">3.2</span><span style="color: #f92672">/</span>site<span style="color: #f92672">-library/</span>rJava’
+</pre></div>
+</p>
+
+<p>This can, however, be easily fixed by installing <a href="https://www.rforge.net/rJava/files/">rJava from RForge.net</a> as stated <a href="https://stackoverflow.com/questions/33550437/install-rjava-one-or-more-jni-types-differ-from-the-corresponding-native-type">here</a>. Running <code>install.packages('&lt;PATH TO DOWNLOAD&gt;/rJava_0.9-8.tar.gz', repos = NULL, type=&quot;source&quot;)</code> installed the current rJava version properly.</p>
+
+<h2 id="loading-rjava-in-rstudio-fails:8da0764efb91203229039753b3ed7caa">Loading rJava in RStudio fails</h2>
+
+<p>I&rsquo;ve set up my homebrew R version properly using <code>R CMD javareconf JAVA_CPPFLAGS=&quot;-I/System/Library/Frameworks/JavaVM.framework/Headers -I/Library/Java/JavaVirtualMachines/jdk1.8.0_31.jdk/&quot;</code> as statet in the caveats of the install. Also, <code>/usr/libexec/java_home</code> yields the proper path.</p>
+
+<p>Loading rJava in R through the shell works fine. Loading RStudio with <code>LD_LIBRARY_PATH=$(/usr/libexec/java_home)/jre/lib/server: open -a RStudio</code> and loading rJava does not. It yields the same error as before:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f92672">library</span><span style="color: #f8f8f2">(</span>rJava<span style="color: #f8f8f2">)</span>
+Error <span style="color: #f92672">:</span> <span style="color: #ae81ff">.</span>onLoad failed <span style="color: #66d9ef">in</span> <span style="color: #66d9ef">loadNamespace</span><span style="color: #f8f8f2">()</span> <span style="color: #66d9ef">for</span> <span style="color: #e6db74">&#39;rJava&#39;</span><span style="color: #f8f8f2">,</span> details<span style="color: #f92672">:</span>
+  <span style="color: #66d9ef">call</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">dyn.load</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">file</span><span style="color: #f8f8f2">,</span> DLLpath <span style="color: #f92672">=</span> DLLpath<span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">...</span><span style="color: #f8f8f2">)</span>
+  error<span style="color: #f92672">:</span> unable to load shared object <span style="color: #e6db74">&#39;/usr/local/lib/R/3.2/site-library/rJava/libs/rJava.so&#39;</span><span style="color: #f92672">:</span>
+  dlopen<span style="color: #f8f8f2">(</span><span style="color: #f92672">/</span>usr<span style="color: #f92672">/</span><span style="color: #66d9ef">local</span><span style="color: #f92672">/</span>lib<span style="color: #f92672">/</span>R<span style="color: #f92672">/</span><span style="color: #ae81ff">3.2</span><span style="color: #f92672">/</span>site<span style="color: #f92672">-library/</span>rJava<span style="color: #f92672">/</span>libs<span style="color: #f92672">/</span>rJava.so<span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">6</span><span style="color: #f8f8f2">)</span><span style="color: #f92672">:</span> Library not loaded<span style="color: #f92672">:</span> <span style="color: #f92672">@</span>rpath<span style="color: #f92672">/</span>libjvm.dylib
+  Referenced from<span style="color: #f92672">:</span> <span style="color: #f92672">/</span>usr<span style="color: #f92672">/</span><span style="color: #66d9ef">local</span><span style="color: #f92672">/</span>lib<span style="color: #f92672">/</span>R<span style="color: #f92672">/</span><span style="color: #ae81ff">3.2</span><span style="color: #f92672">/</span>site<span style="color: #f92672">-library/</span>rJava<span style="color: #f92672">/</span>libs<span style="color: #f92672">/</span>rJava.so
+  Reason<span style="color: #f92672">:</span> image not found
+Error<span style="color: #f92672">:</span> package or namespace load failed <span style="color: #66d9ef">for</span> ‘rJava’
+</pre></div>
+</p>
+
+<h2 id="the-solution:8da0764efb91203229039753b3ed7caa">The Solution?</h2>
+
+<p>If you have any ideas on how to solve this, please let me know.</p>
+
+                </section>
+            </article>
+            <footer id="post-meta" class="clearfix">
+                <a href="https://twitter.com/paul_klemm">
+                        <img class="avatar" src="http://paulklemm.com/blog/images/avatar.png">
+                        <div>
+                            <span class="dark">Paul Klemm</span>
+                            <span>Paul is a data scientist with focus on visualization</span>
+                        </div>
+                    </a>
+                <section id="sharing">
+                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fpaulklemm.com%2fblog%2f2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10%2f - Run%20rJava%20with%20RStudio%20under%20OSX%2010.10 by @paul_klemm"><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+                </section>
+            </footer>
+
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'Zenf';
+    var disqus_identifier = 'http:\/\/paulklemm.com\/blog\/2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10\/';
+    var disqus_title = 'Run rJava with RStudio under OSX 10.10';
+    var disqus_url = 'http:\/\/paulklemm.com\/blog\/2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+            <ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+    
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2016-03-06-watch-latex-documents-using-latexmk/">Watch LaTeX Documents using Latexmk<aside class="dates">Mar 6, 2016</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10/">Run rJava with RStudio under OSX 10.10<aside class="dates">Feb 20, 2015</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2014-07-16-use-github-for-scientific-writing/">Use Github for Scientific Writing<aside class="dates">Jul 16, 2014</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2013-12-07-watch-twitch-using-vlc-in-osx/">Watch Twitch using VLC in OS X<aside class="dates">Dec 7, 2013</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/">Install Python with VTK and Qt support for use with Eclipse in OS X Mountain Lion<aside class="dates">Aug 20, 2012</aside></a>
+        </li>
+        
+   
+</ul>
+            <footer id="footer">
+    
+        
+<div id="social">
+    
+    <a class="symbol" href="https://www.github.com/paulklemm">
+        circlegithub
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/paul_klemm">
+        circletwitterbird
+    </a>
+    
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2016 Paul Klemm
+    
+    </p>
+</footer>
+
+        </section>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://paulklemm.com/blog/js/main.js"></script>
+<script src="http://paulklemm.com/blog/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+    </body>
+</html>

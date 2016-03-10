@@ -1,0 +1,466 @@
+    <!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Paul Klemm">
+		<meta name="description" content="Paul puts in his two cents">
+		<meta name="generator" content="Hugo 0.15" />
+		<title>Install Python with VTK and Qt support for use with Eclipse in OS X Mountain Lion &middot; Zenf</title>
+		<link rel="shortcut icon" href="http://paulklemm.com/blog/images/favicon.ico">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/style.css">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/highlight.css">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/monosocialiconsfont.css">
+		<link rel="stylesheet" href="http://paulklemm.com/blog/css/custom-img.css">
+		
+		<link href="http://paulklemm.com/blog/index.xml" rel="alternate" type="application/rss+xml" title="Zenf" />
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='http://paulklemm.com/blog/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+		<a href='http://paulklemm.com/blog/about'>About</a>
+	
+
+	
+	<a class="cta" href="http://paulklemm.com/blog/index.xml">Subscribe</a>
+	
+</nav>
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>Install Python with VTK and Qt support for use with Eclipse in OS X Mountain Lion</h1>
+                    <h2 class="headline">August 20, 2012</h2>
+                </header>
+                <section id="post-body">
+                    
+
+<p>In this post I&rsquo;d like to show you how to install <code>Python</code> with support for <code>VTK</code> and <code>Qt</code> using Apple OS X 10.8 Mountain Lion. Then I set up <code>Eclipse</code> with the new <code>Python</code> installation in order to use all of it&rsquo;s auto-completion and debugging capabilities. Please leave a comment with your experiences using this.</p>
+
+<p>The instructions for the installation of <code>Python</code> and <code>Qt</code> consists mostly of information from these two posts <a href="http://www.thisisthegreenroom.com/2011/installing-python-numpy-scipy-matplotlib-and-ipython-on-lion/">[1]</a> <a href="http://jbowles.github.com/blog/2012/04/22/python/">[2]</a>, so please credit these guys for this, not me.</p>
+
+<p>If you run a Windows or Linux machine and you might want to do yourself a favor and use the <a href="http://graphics.tudelft.nl/Projects/DeVIDE">DRE which is included in DeVIDE</a>.</p>
+
+<h2 id="install-and-configure-homebrew:cfbe69256acc54306cb213691b28d252">Install and configure Homebrew</h2>
+
+<p>As a very first step you need to install <em>Homebrew</em>, the friendly packet manager for Mac OS X <a href="http://mxcl.github.com/homebrew/">[3]</a>. This makes it really easy to install all the necessary stuff. While OS X already ships with versions of <code>Python</code>, <code>Ruby</code> and other stuff, the versions they provide are often deprecated and installing own packages can be quite frustrating. Homebrew installs all it&rsquo;s stuff isolated from the system under <code>/usr/local/cellar</code>. This way you can install your own libraries without touching the components installed from Apple.</p>
+
+<p>In order make sure that Terminal searches the <code>bin</code> folder of Homebrew first before the System <code>bin</code> folder (which is <code>/usr/bin</code>), you need to add it to the <code>PATH</code>-variable. This can be done by editing the <code>.bash_profile</code> file in you user root folder <code>/Users/&lt;your username&gt;/.bash_profile</code> (further referenced as <code>~/</code>). If this file doesn&rsquo;t exist, create it! Now you add
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># ~/.bash_profile</span>
+<span style="color: #f8f8f2">export PATH</span><span style="color: #f92672">=</span>/usr/local/bin:<span style="color: #f8f8f2">$PATH</span>
+<span style="color: #f8f8f2">export PATH</span><span style="color: #f92672">=</span>/usr/local/share/python:<span style="color: #f8f8f2">$PATH</span>
+</pre></div>
+
+to the file. The second entry is later used to get the right version of <code>PIP</code>.
+Note: If you have a Terminal session up and running you need to restart it in order to apply the changes to the <code>PATH</code>. If you have trouble with hidden files on the system, <a href="http://totalfinder.binaryage.com/">this Tool</a> can come in handy for you!</p>
+
+<p>Before you install anything to Homebrew, be sure to run <code>brew doctor</code> and <code>brew update</code> to check if all dependencies are installed (<code>xCode</code>, <code>Command Line Tools</code> and <code>x11</code>). When <code>brew doctor</code> gives you green light you are good to go!</p>
+
+<h2 id="install-python:cfbe69256acc54306cb213691b28d252">Install Python</h2>
+
+<p>The very first step is that you install your own version of <code>Python</code> by running the following command:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%">brew install python --framework --universal
+</pre></div>
+
+In order to make it the default <code>Python</code> installation of the system you need to execute
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f8f8f2">cd</span> /System/Library/Frameworks/Python.framework/Versions
+sudo rm Current
+ln -s /usr/local/Cellar/python/2.7.2/Frameworks/Python.framework/Versions/Current
+</pre></div>
+
+This changes the symlink to our new <code>Python</code> installation. You will be promted for you password since this is an action which requires admin rights.</p>
+
+<p>If everything worked, <code>which python</code> should return <code>/usr/local/bin/python</code>.</p>
+
+<p>Next step is the installation of <code>PIP</code> using the command
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%">easy_install pip
+</pre></div>
+
+Now <code>which pip</code> should return <code>/usr/local/share/python/pip</code> - otherwise the <code>PATH</code> is not properly set as described above.</p>
+
+<p>Now you can install other Packages like <code>Numpy</code> or <code>Scipy</code> - depending on what you need. Note: If you want to install <code>Scipy</code> you need to install the <code>gfortran</code> compiler.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%">pip install numpy
+brew install gfortran
+pip install scipy
+</pre></div>
+
+Note: To date of this post, you have to use the developer version of <code>Scipy</code> to make it work under Mountain Lion. This can be done using
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%">pip install -e git+https://github.com/scipy/scipy#egg<span style="color: #f92672">=</span>scipy-dev
+</pre></div>
+
+This will create a folder <code>~/src</code> and install <code>Scipy</code> from there.</p>
+
+<h2 id="install-qt:cfbe69256acc54306cb213691b28d252">Install Qt</h2>
+
+<p>To install <code>Qt</code> and <code>Pyqt</code>-bindings you execute
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%">brew install qt
+brew install pyqt
+</pre></div>
+</p>
+
+<h2 id="install-vtk:cfbe69256acc54306cb213691b28d252">Install VTK</h2>
+
+<p>To install VTK you need to run
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%">brew install vtk --tcl --qt --python --pyqt --examples
+</pre></div>
+
+This took about 60 minutes on my early 2008 Macbook Pro, so take your time for a well-earned rest.</p>
+
+<p>When this is done you should be able to <code>import vtk</code> into your <code>Python</code> environment without any errors.</p>
+
+<h2 id="setup-python-for-use-with-eclipse:cfbe69256acc54306cb213691b28d252">Setup Python for use with Eclipse</h2>
+
+<p>This part is oriented on the introduction on how to include the <code>DRE</code> into <code>Eclipse</code>, which can be found under <a href="http://code.google.com/p/devide/wiki/EclipseDRE">[4]</a> and in the following screencast. I just made a few enhancements to make it work for this application. Note that the steps of the screencast don&rsquo;t work exactly on our installation!
+<iframe width="420" height="315" src="https://www.youtube.com/embed/-b1zS536R2M" frameborder="0" allowfullscreen></iframe></p>
+
+<p>To use <code>Python</code> together with <code>Eclipse</code> you have to install the <em>Classic</em> Version from <a href="http://www.eclipse.org/downloads/">the official homepage</a>. Next, <a href="http://pydev.org/manual_101_install.html">install PyDev into Eclipse</a>. Now you need to tell <code>Eclipse</code> which <code>Python</code> installation it should use. This can be done in <code>Eclipse → Settings → Pydev → Interpreter-Python → New</code>. In the next Dialog you have to add Path to the Homebrew <code>Python</code>.
+
+<figure >
+    
+        <img src="/zenf/media/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/selectPythonInterpreter.png" />
+    
+    
+</figure>
+
+Confirm the next Prompt which should look like the following screenshot and you are done.
+
+<figure >
+    
+        <img src="/zenf/media/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/selectPythonPackages.png" />
+    
+    
+</figure>
+</p>
+
+<p>Now you are good to go. Create a new PyDev Project, select the new created interpreter and play around with <code>VTK</code> - it all should be working with auto completion and the other neat <code>Eclipse</code> features. The Code example Charl used in the Screencast should compile:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># vtkDonutTest.py</span>
+<span style="color: #f92672">import</span> <span style="color: #f8f8f2">vtk</span>
+<span style="color: #75715e"># create a donut polydata source</span>
+<span style="color: #f8f8f2">s</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkSuperquadricSource()</span>
+<span style="color: #f8f8f2">s</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">ToroidalOn()</span>
+<span style="color: #75715e"># connect it to a polydatamapper</span>
+<span style="color: #f8f8f2">m</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkPolyDataMapper()</span>
+<span style="color: #f8f8f2">m</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">SetInput(s</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">GetOutput())</span>
+<span style="color: #75715e"># and finally create an actor to represent the donut in the scene</span>
+<span style="color: #f8f8f2">a</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkActor()</span>
+<span style="color: #f8f8f2">a</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">SetMapper(m)</span>
+
+<span style="color: #75715e"># the renderer is the 3D scene</span>
+<span style="color: #f8f8f2">ren</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkRenderer()</span>
+<span style="color: #f8f8f2">ren</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">AddActor(a)</span>
+<span style="color: #75715e"># renderwindow to contain the 3D scene</span>
+<span style="color: #f8f8f2">rw</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkRenderWindow()</span>
+<span style="color: #f8f8f2">rw</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">AddRenderer(ren)</span>
+
+<span style="color: #75715e"># we want the user to interact</span>
+<span style="color: #f8f8f2">iren</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkRenderWindowInteractor()</span>
+<span style="color: #f8f8f2">iren</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">SetRenderWindow(rw)</span>
+
+<span style="color: #75715e"># get the whole business going</span>
+<span style="color: #f8f8f2">iren</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">Initialize()</span>
+<span style="color: #f8f8f2">rw</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">Render()</span>
+<span style="color: #f8f8f2">iren</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">Start()</span>
+</pre></div>
+</p>
+
+<p>To test the Qt-Support you can run the following code <a href="https://svn.enthought.com/svn/enthought/Mayavi/trunk/enthought/tvtk/pyface/ui/qt4/QVTKRenderWindowInteractor.py">[5]</a>:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># vtkQtTest.py</span>
+<span style="color: #f92672">import</span> <span style="color: #f8f8f2">vtk</span>
+<span style="color: #f92672">from</span> <span style="color: #f8f8f2">PyQt4</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QtGui</span>
+<span style="color: #f92672">from</span> <span style="color: #f8f8f2">vtk.qt4.QVTKRenderWindowInteractor</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QVTKRenderWindowInteractor</span>
+
+<span style="color: #e6db74">&quot;&quot;&quot;A simple example that uses the QVTKRenderWindowInteractor class.&quot;&quot;&quot;</span>
+<span style="color: #75715e"># every QT app needs an app</span>
+<span style="color: #f8f8f2">app</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">QtGui</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">QApplication([</span><span style="color: #e6db74">&#39;QVTKRenderWindowInteractor&#39;</span><span style="color: #f8f8f2">])</span>
+
+<span style="color: #75715e"># create the widget</span>
+<span style="color: #f8f8f2">widget</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">QVTKRenderWindowInteractor()</span>
+<span style="color: #f8f8f2">widget</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">Initialize()</span>
+<span style="color: #f8f8f2">widget</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">Start()</span>
+<span style="color: #75715e"># if you dont want the &#39;q&#39; key to exit comment this.</span>
+<span style="color: #f8f8f2">widget</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">AddObserver(</span><span style="color: #e6db74">&quot;ExitEvent&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #66d9ef">lambda</span> <span style="color: #f8f8f2">o,</span> <span style="color: #f8f8f2">e,</span> <span style="color: #f8f8f2">a</span><span style="color: #f92672">=</span><span style="color: #f8f8f2">app:</span> <span style="color: #f8f8f2">a</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">quit())</span>
+
+<span style="color: #f8f8f2">ren</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkRenderer()</span>
+<span style="color: #f8f8f2">widget</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">GetRenderWindow()</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">AddRenderer(ren)</span>
+
+<span style="color: #f8f8f2">cone</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkConeSource()</span>
+<span style="color: #f8f8f2">cone</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">SetResolution(</span><span style="color: #ae81ff">8</span><span style="color: #f8f8f2">)</span>
+
+<span style="color: #f8f8f2">coneMapper</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkPolyDataMapper()</span>
+<span style="color: #f8f8f2">coneMapper</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">SetInput(cone</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">GetOutput())</span>
+
+<span style="color: #f8f8f2">coneActor</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkActor()</span>
+<span style="color: #f8f8f2">coneActor</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">SetMapper(coneMapper)</span>
+
+<span style="color: #f8f8f2">ren</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">AddActor(coneActor)</span>
+
+<span style="color: #75715e"># show the widget</span>
+<span style="color: #f8f8f2">widget</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">show()</span>
+<span style="color: #75715e"># start event processing</span>
+<span style="color: #f8f8f2">app</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">exec_()</span>
+</pre></div>
+</p>
+
+<h2 id="add-vtk-module-to-qt-designer:cfbe69256acc54306cb213691b28d252">Add VTK-Module to Qt-Designer</h2>
+
+<p>If you want to use the <code>Qt-Designer</code> for the use with <code>VTK</code>, things get a little bit tricky. The <code>Qt-Designer</code> comes with our installation of <code>Qt</code> under <code>/usr/local/Cellar/qt/4.8.2/Designer.app</code> and is a <em>WYSISWYG</em>-Editor for <code>Qt</code>-UIs. <code>VTK</code> already has installed a plugin for it, it just has to be sym-linked into the <code>Qt-Designer</code>-Path. You can do this using the following commands, but check your current versions before running these.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f8f8f2">cd</span> /usr/local/Cellar/qt/4.8.2/plugins/designer
+ln -s /usr/local/Cellar/vtk/5.10.0/plugins/designer/libQVTKWidgetPlugin.dylib libQVTKWidgetPlugin.dylib
+</pre></div>
+
+Now you should have a QVTKWidget available in the <code>Qt-Designer</code>. The tricky part begins now. Unfortunately when you try to include a <code>Qt</code>-UI which contains a <code>QVTKWidget</code>, it fails to compile, because <code>QVTKWidget</code> belongs to the Class <code>QVTKWidget.QVTKWidget</code>, while the correct class is <code>vtk.QVTKWidget</code>. You can fix this using the following workaround.</p>
+
+<p>When you have created your UI using the <code>Qt-Designer</code> you can convert it to <code>Python</code>-Code using the command
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%">pyuic4 myTestApp.ui &gt; myTestApp_ui.py
+</pre></div>
+
+Import the new file into your Project and change the line
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f92672">from</span> <span style="color: #f8f8f2">QVTKWidget</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QVTKWidget</span>
+</pre></div>
+
+to
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f92672">from</span> <span style="color: #f8f8f2">vtk</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QVTKWidget</span>
+</pre></div>
+
+Now it will compile and run. The tradeoff is that you have to manually change this line every time you want to make changes to the UI using the <code>Qt-Designer</code>.
+To give an example for a converted UI file which runs, look at the following code.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># pythonQtVTKTest.py</span>
+<span style="color: #f92672">import</span> <span style="color: #f8f8f2">sys</span>
+<span style="color: #f92672">import</span> <span style="color: #f8f8f2">vtk</span>
+<span style="color: #f92672">from</span> <span style="color: #f8f8f2">PyQt4</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QtGui</span>
+<span style="color: #f92672">from</span> <span style="color: #f8f8f2">pythonQtVTKTest_ui</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">Ui_Form_Main</span>
+
+<span style="color: #66d9ef">class</span> <span style="color: #a6e22e">StartQT4</span><span style="color: #f8f8f2">(QtGui</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">QMainWindow):</span>
+    <span style="color: #66d9ef">def</span> <span style="color: #a6e22e">__init__</span><span style="color: #f8f8f2">(self,</span> <span style="color: #f8f8f2">parent</span><span style="color: #f92672">=</span><span style="color: #f8f8f2">None):</span>
+        <span style="color: #f8f8f2">QtGui</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">QWidget</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">__init__(self,</span> <span style="color: #f8f8f2">parent)</span>
+        <span style="color: #f8f8f2">self</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">ui</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">Ui_Form_Main()</span>
+        <span style="color: #f8f8f2">self</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">ui</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">setupUi(self)</span>
+        <span style="color: #f8f8f2">self</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">draw_stuff()</span>    
+    <span style="color: #66d9ef">def</span> <span style="color: #a6e22e">draw_stuff</span><span style="color: #f8f8f2">(self):</span>
+        <span style="color: #75715e"># create a donut polydata source</span>
+        <span style="color: #f8f8f2">s</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkSuperquadricSource()</span>
+        <span style="color: #f8f8f2">s</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">ToroidalOn()</span>
+        <span style="color: #75715e"># connect it to a polydatamapper</span>
+        <span style="color: #f8f8f2">m</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkPolyDataMapper()</span>
+        <span style="color: #f8f8f2">m</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">SetInput(s</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">GetOutput())</span>
+        <span style="color: #75715e"># and finally create an actor to represent the donut in the scene</span>
+        <span style="color: #f8f8f2">a</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkActor()</span>
+        <span style="color: #f8f8f2">a</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">SetMapper(m)</span>
+
+        <span style="color: #75715e"># the renderer is the 3D scene</span>
+        <span style="color: #f8f8f2">ren</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkRenderer()</span>
+        <span style="color: #f8f8f2">ren</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">AddActor(a)</span>
+        <span style="color: #75715e"># renderwindow to contain the 3D scene</span>
+        <span style="color: #f8f8f2">rw</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkRenderWindow()</span>
+        <span style="color: #f8f8f2">rw</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">AddRenderer(ren)</span>
+        <span style="color: #f8f8f2">self</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">ui</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">qvtkWidget</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">GetRenderWindow()</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">AddRenderer(ren)</span>
+
+        <span style="color: #75715e"># we want the user to interact</span>
+        <span style="color: #f8f8f2">iren</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkRenderWindowInteractor()</span>
+        <span style="color: #f8f8f2">iren</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">SetRenderWindow(rw)</span>
+
+        <span style="color: #75715e"># get the whole business going</span>
+        <span style="color: #f8f8f2">iren</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">Initialize()</span>
+        <span style="color: #f8f8f2">rw</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">Render()</span>
+        <span style="color: #75715e">#iren.Start()</span>
+
+<span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">__name__</span> <span style="color: #f92672">==</span> <span style="color: #e6db74">&quot;__main__&quot;</span><span style="color: #f8f8f2">:</span>
+    <span style="color: #f8f8f2">app</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">QtGui</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">QApplication(sys</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">argv)</span>
+    <span style="color: #f8f8f2">myapp</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">StartQT4()</span>
+    <span style="color: #f8f8f2">myapp</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">show()</span>
+    <span style="color: #f8f8f2">sys</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">exit(app</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">exec_())</span>
+</pre></div>
+</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># pythonQtVTKTest_UI.py</span>
+<span style="color: #75715e"># -*- coding: utf-8 -*-</span>
+
+<span style="color: #75715e"># Form implementation generated from reading ui file &#39;pythonQtVTKTest.ui&#39;</span>
+<span style="color: #75715e">#</span>
+<span style="color: #75715e"># Created: Tue Aug 21 15:40:57 2012</span>
+<span style="color: #75715e">#      by: PyQt4 UI code generator 4.9.4</span>
+<span style="color: #75715e">#</span>
+<span style="color: #75715e"># WARNING! All changes made in this file will be lost!</span>
+
+<span style="color: #f92672">from</span> <span style="color: #f8f8f2">PyQt4</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QtCore,</span> <span style="color: #f8f8f2">QtGui</span>
+
+<span style="color: #66d9ef">try</span><span style="color: #f8f8f2">:</span>
+    <span style="color: #f8f8f2">_fromUtf8</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">QtCore</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">QString</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">fromUtf8</span>
+<span style="color: #66d9ef">except</span> <span style="color: #a6e22e">AttributeError</span><span style="color: #f8f8f2">:</span>
+    <span style="color: #f8f8f2">_fromUtf8</span> <span style="color: #f92672">=</span> <span style="color: #66d9ef">lambda</span> <span style="color: #f8f8f2">s:</span> <span style="color: #f8f8f2">s</span>
+
+<span style="color: #66d9ef">class</span> <span style="color: #a6e22e">Ui_Form_Main</span><span style="color: #f8f8f2">(object):</span>
+    <span style="color: #66d9ef">def</span> <span style="color: #a6e22e">setupUi</span><span style="color: #f8f8f2">(self,</span> <span style="color: #f8f8f2">Form_Main):</span>
+        <span style="color: #f8f8f2">Form_Main</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">setObjectName(_fromUtf8(</span><span style="color: #e6db74">&quot;Form_Main&quot;</span><span style="color: #f8f8f2">))</span>
+        <span style="color: #f8f8f2">Form_Main</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">setEnabled(True)</span>
+        <span style="color: #f8f8f2">Form_Main</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">resize(</span><span style="color: #ae81ff">623</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">462</span><span style="color: #f8f8f2">)</span>
+        <span style="color: #f8f8f2">self</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">qvtkWidget</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">QVTKWidget(Form_Main)</span>
+        <span style="color: #f8f8f2">self</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">qvtkWidget</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">setGeometry(QtCore</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">QRect(</span><span style="color: #ae81ff">10</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">10</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">601</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">441</span><span style="color: #f8f8f2">))</span>
+        <span style="color: #f8f8f2">self</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">qvtkWidget</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">setObjectName(_fromUtf8(</span><span style="color: #e6db74">&quot;qvtkWidget&quot;</span><span style="color: #f8f8f2">))</span>
+
+        <span style="color: #f8f8f2">self</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">retranslateUi(Form_Main)</span>
+        <span style="color: #f8f8f2">QtCore</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">QMetaObject</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">connectSlotsByName(Form_Main)</span>
+
+    <span style="color: #66d9ef">def</span> <span style="color: #a6e22e">retranslateUi</span><span style="color: #f8f8f2">(self,</span> <span style="color: #f8f8f2">Form_Main):</span>
+        <span style="color: #f8f8f2">Form_Main</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">setWindowTitle(QtGui</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">QApplication</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">translate(</span><span style="color: #e6db74">&quot;Form_Main&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #e6db74">&quot;VTK Test&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">None,</span> <span style="color: #f8f8f2">QtGui</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">QApplication</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">UnicodeUTF8))</span>
+
+<span style="color: #f92672">from</span> <span style="color: #f8f8f2">vtk</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QVTKWidget</span>
+</pre></div>
+
+<strong>If anyone knows a simpler solution to this, please post it in the comments!</strong></p>
+
+<h2 id="using-mactex-and-homebrew:cfbe69256acc54306cb213691b28d252">Using MacTeX and Homebrew</h2>
+
+<p>Just a short footnote for those of you who use <code>MacTeX</code>. <code>MacTeX</code> stores it&rsquo;s files under <code>/usr/local/texlive</code> next to the <code>Homebrew</code> stuff. They coexist peaceful next to each other, you just have to apply some diplomacy using the following command <a href="https://github.com/ThinkRuby/thinkruby/wiki/">[6]</a>.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%">sudo chown -R <span style="color: #f8f8f2">$USER</span>:staff /usr/local
+</pre></div>
+
+You might also consult the <code>brew doctor</code>, he will tell you what to do.</p>
+
+<h2 id="thats-it:cfbe69256acc54306cb213691b28d252">Thats it</h2>
+
+<p>Thank you for reading, I hope these instructions help you in some way. Please feel free to leave a comment. Have a nice day!</p>
+
+<hr />
+
+<h1 id="references:cfbe69256acc54306cb213691b28d252">References</h1>
+
+<p><a href="http://www.thisisthegreenroom.com/2011/installing-python-numpy-scipy-matplotlib-and-ipython-on-lion/">[1] http://www.thisisthegreenroom.com/2011/installing-python-numpy-scipy-matplotlib-and-ipython-on-lion/</a><br />
+<a href="http://jbowles.github.com/blog/2012/04/22/python/">[2] http://jbowles.github.com/blog/2012/04/22/python/</a><br />
+<a href="http://mxcl.github.com/homebrew/">[3] http://mxcl.github.com/homebrew/</a><br />
+<a href="http://code.google.com/p/devide/wiki/EclipseDRE">[4] http://code.google.com/p/devide/wiki/EclipseDRE</a><br />
+<a href="https://svn.enthought.com/svn/enthought/Mayavi/trunk/enthought/tvtk/pyface/ui/qt4/QVTKRenderWindowInteractor.py">[5] https://svn.enthought.com/svn/enthought/Mayavi/trunk/enthought/tvtk/pyface/ui/qt4/QVTKRenderWindowInteractor.py</a><br />
+<a href="https://github.com/ThinkRuby/thinkruby/wiki/">[6] https://github.com/ThinkRuby/thinkruby/wiki/</a>.</p>
+
+<h2 id="this-might-also-be-useful-for-you:cfbe69256acc54306cb213691b28d252">This might also be useful for you</h2>
+
+<ul>
+<li><a href="http://graphics.tudelft.nl/Projects/DeVIDE">DeVIDE/DRE from the University of Delft</a><br /></li>
+<li><a href="http://totalfinder.binaryage.com/">Total Finder</a><br /></li>
+<li><a href="http://macromates.com/">My favorite Editor: Textmate</a><br /></li>
+<li><a href="http://www.rkblog.rk.edu.pl/w/p/introduction-pyqt4/">Great collection of Python/Qt Tutorials</a></li>
+</ul>
+
+                </section>
+            </article>
+            <footer id="post-meta" class="clearfix">
+                <a href="https://twitter.com/paul_klemm">
+                        <img class="avatar" src="http://paulklemm.com/blog/images/avatar.png">
+                        <div>
+                            <span class="dark">Paul Klemm</span>
+                            <span>Paul is a data scientist with focus on visualization</span>
+                        </div>
+                    </a>
+                <section id="sharing">
+                    <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fpaulklemm.com%2fblog%2f2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion%2f - Install%20Python%20with%20VTK%20and%20Qt%20support%20for%20use%20with%20Eclipse%20in%20OS%20X%20Mountain%20Lion by @paul_klemm"><span class="icon-twitter"> Tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+                </section>
+            </footer>
+
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'Zenf';
+    var disqus_identifier = 'http:\/\/paulklemm.com\/blog\/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion\/';
+    var disqus_title = 'Install Python with VTK and Qt support for use with Eclipse in OS X Mountain Lion';
+    var disqus_url = 'http:\/\/paulklemm.com\/blog\/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+            <ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+    
+    
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2016-03-06-watch-latex-documents-using-latexmk/">Watch LaTeX Documents using Latexmk<aside class="dates">Mar 6, 2016</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10/">Run rJava with RStudio under OSX 10.10<aside class="dates">Feb 20, 2015</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2014-07-16-use-github-for-scientific-writing/">Use Github for Scientific Writing<aside class="dates">Jul 16, 2014</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2013-12-07-watch-twitch-using-vlc-in-osx/">Watch Twitch using VLC in OS X<aside class="dates">Dec 7, 2013</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/">Install Python with VTK and Qt support for use with Eclipse in OS X Mountain Lion<aside class="dates">Aug 20, 2012</aside></a>
+        </li>
+        
+   
+</ul>
+            <footer id="footer">
+    
+        
+<div id="social">
+    
+    <a class="symbol" href="https://www.github.com/paulklemm">
+        circlegithub
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/paul_klemm">
+        circletwitterbird
+    </a>
+    
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2016 Paul Klemm
+    
+    </p>
+</footer>
+
+        </section>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://paulklemm.com/blog/js/main.js"></script>
+<script src="http://paulklemm.com/blog/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+    </body>
+</html>

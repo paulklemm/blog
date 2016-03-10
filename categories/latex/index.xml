@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Latex on Zenf</title>
+    <link>http://paulklemm.com/blog/categories/latex/</link>
+    <description>Recent content in Latex on Zenf</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 06 Mar 2016 16:54:47 +0000</lastBuildDate>
+    <atom:link href="http://paulklemm.com/blog/categories/latex/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Watch LaTeX Documents using Latexmk</title>
+      <link>http://paulklemm.com/blog/2016-03-06-watch-latex-documents-using-latexmk/</link>
+      <pubDate>Sun, 06 Mar 2016 16:54:47 +0000</pubDate>
+      
+      <guid>http://paulklemm.com/blog/2016-03-06-watch-latex-documents-using-latexmk/</guid>
+      <description>
+
+&lt;p&gt;&lt;em&gt;The &lt;code&gt;Watch Document&lt;/code&gt; functionality of Textmate automatically compiles Tex documents when saved. This post describes how to achieve this behavior with any editor. It works for Unix-based systems, such as OSX or Linux. An example repository can be found &lt;a href=&#34;https://github.com/paulklemm/latexmk-synctex-example&#34;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;introduction-switch-from-textmate:a3681b62dce4608201716bd3f606c883&#34;&gt;Introduction: Switch from Textmate&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;ve been using Textmate to write and compile my LaTeX Documents since 2007. &lt;a href=&#34;http://jann.is/daily/archives/756-LaTex-Live-PDF-preview-with-TextMate-and-PDFView.html&#34;&gt;This Blog post&lt;/a&gt; by Jannis Hermanns basically defined my workflow since then. It&amp;rsquo;s core is the neat &lt;code&gt;Watch Document&lt;/code&gt; feature of Textmate, which compiles the document and looks for changes. It recompiles the document as soon as it is saved.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2016-03-06-watch-latex-documents-using-latexmk/textmate_watch_document.gif&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;The watch document command of Textmate previews changes when saving the document&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;This also works with LaTeX projects consisting of multiple files. Simply put the watch on the project master file and it will also look for changes in the associated files. This even extends to included images.&lt;/p&gt;
+
+&lt;p&gt;If you use a PDF viewer that supports &lt;a href=&#34;http://itexmac.sourceforge.net/SyncTeX.html&#34;&gt;SyncTeX&lt;/a&gt;, such as &lt;a href=&#34;http://skim-app.sourceforge.net/&#34;&gt;Skim&lt;/a&gt;, you can even jump to the current position of the cursor from the TeX document to the PDF and vice versa.&lt;/p&gt;
+
+&lt;p&gt;Once I got used to this convenience, compiling LaTeX documents by hand felt like a chore. Unfortunately, using Textmate began to feel likewise. Since I do all my coding in Sublime Text, I &lt;a href=&#34;http://tex.stackexchange.com/questions/276973/pendant-to-textmate-watch-document-function-in-sublime-text-latextools&#34;&gt;looked for a similar workflow for that editor&lt;/a&gt;.
+Turns out, it doesn&amp;rsquo;t matter which editor you use, you can simply incorporate &lt;a href=&#34;https://www.ctan.org/pkg/latexmk/&#34;&gt;&lt;code&gt;latexmk&lt;/code&gt;&lt;/a&gt; to achieve this functionality. Even better, &lt;code&gt;latexmk&lt;/code&gt; is shipped per default with the most popular LaTeX distributions, so you should have it installed already.&lt;/p&gt;
+
+&lt;h2 id=&#34;compile-latex-projects-using-latexmk:a3681b62dce4608201716bd3f606c883&#34;&gt;Compile LaTeX Projects using Latexmk&lt;/h2&gt;
+
+&lt;p&gt;Consider the following LaTeX document &lt;code&gt;article.tex&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;\documentclass&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;[12pt]&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;article&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;\begin&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;document&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+Hi!
+&lt;span style=&#34;color: #66d9ef&#34;&gt;\end&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;document&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Using &lt;code&gt;latexmk&lt;/code&gt;, you can compile this into a PDF file by entering the following command:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;latexmk -pdf article.tex
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In order to watch for changes, you can simply add the &lt;code&gt;-pvc&lt;/code&gt; option, which stands for &amp;ldquo;preview continuously&amp;rdquo;:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;latexmk -pdf -pvc article.tex
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see, the command will not terminate back into the prompt, as &lt;code&gt;latexmk&lt;/code&gt; watches for updated files (&lt;em&gt;targets&lt;/em&gt;) associated with the previewed file. You have to shutdown it manually using &lt;code&gt;CTRL-C&lt;/code&gt;. This is already close to the desired behavior. I suggest adding the following options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-bibtex&lt;/code&gt; to compile associated BibTeX files,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-f&lt;/code&gt; to continue compiling albeit found errors,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-quiet&lt;/code&gt; to make &lt;code&gt;latexmk&lt;/code&gt; less verbose and show only important messages,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-use-make&lt;/code&gt; to resolve missing files after the &lt;code&gt;pdflatex&lt;/code&gt; call using custom dependencies, and&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-pdflatex=&amp;quot;pdflatex -synctex=1 -interaction=nonstopmode&amp;quot;&lt;/code&gt;  to add options to the pdflatex command, most important the &lt;code&gt;synctex&lt;/code&gt; command to allow jumping between the source PDF and the text editor.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For a precise description of each command, refer to the &lt;a href=&#34;http://ftp.fernuni-hagen.de/ftp-dir/pub/mirrors/www.ctan.org/support/latexmk/latexmk.pdf&#34;&gt;latexmk readme&lt;/a&gt;. All options together yield the following command:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;latexmk -quiet -bibtex -pvc -f -pdf -pdflatex&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;pdflatex -synctex=1 -interaction=nonstopmode&amp;quot;&lt;/span&gt; article.tex
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This is exactly the behavior I was looking for. And as a big plus, it is independent of your editor choice. Using it with &lt;a href=&#34;https://www.sublimetext.com/&#34;&gt;Sublime Text&lt;/a&gt; and the &lt;a href=&#34;https://www.sublimetext.com/&#34;&gt;LaTeXTools Plugin&lt;/a&gt; along with a Skim even allows to jump between source and compiled PDF using the enabled &lt;code&gt;synctex&lt;/code&gt; feature.&lt;/p&gt;
+
+
+&lt;figure &gt;
+    
+        &lt;img src=&#34;http://paulklemm.com/blog/zenf/media/2016-03-06-watch-latex-documents-using-latexmk/synctex_sublime_skim.gif&#34; /&gt;
+    
+    
+    &lt;figcaption&gt;
+        &lt;h4&gt;Jump between the IDE (Sublime Text 3 with LatexTools) and the PDF Viewer (Skim) using the Synctex feature&lt;/h4&gt;
+        
+    &lt;/figcaption&gt;
+    
+&lt;/figure&gt;
+
+
+&lt;h2 id=&#34;use-the-power-of-make-with-latexmk:a3681b62dce4608201716bd3f606c883&#34;&gt;Use the Power of &lt;code&gt;make&lt;/code&gt; with &lt;code&gt;latexmk&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Utilizing this knowledge with &lt;code&gt;makefiles&lt;/code&gt; is easy. I know that makefiles often look scary due to their seemingly obscure syntax, but actually they are easy to set up and will spare you &lt;em&gt;a lot&lt;/em&gt; of work. If you want to have a quick introduction to &lt;code&gt;make&lt;/code&gt;, I strongly recommend Mike Bostocks &lt;a href=&#34;https://bost.ocks.org/mike/make/&#34;&gt;beautiful blog post on it&lt;/a&gt;. The commands applied here, however, are basic and should be self explanatory.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;makefile&lt;/code&gt; I propose is an adapted version from &lt;a href=&#34;https://tex.stackexchange.com/questions/40738/how-to-properly-make-a-latex-project&#34;&gt;this stackoverflow post&lt;/a&gt;. I built the makefile to work as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;make&lt;/code&gt; compiles the document, but does not watch for changes,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;make watch&lt;/code&gt; compiles the document and watches for changes using the &lt;code&gt;latexmk -pvc&lt;/code&gt; command, and&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;make clean&lt;/code&gt; removes all files produced using the LaTeX compilation process, including the resulting PDF.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# makefile&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# File adapted from this stackoverflow question: https://tex.stackexchange.com/questions/40738/how-to-properly-make-a-latex-project&lt;/span&gt;
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# The first rule in a Makefile is the one executed by default (&amp;quot;make&amp;quot;). It&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# should always be the &amp;quot;all&amp;quot; rule, so that &amp;quot;make&amp;quot; and &amp;quot;make all&amp;quot; are identical.&lt;/span&gt;
+&lt;span style=&#34;color: #a6e22e&#34;&gt;all&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;article&lt;/span&gt;.&lt;span style=&#34;color: #f8f8f2&#34;&gt;pdf&lt;/span&gt;
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# MAIN LATEXMK RULE&lt;/span&gt;
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# -pdf tells latexmk to generate a PDF instead of DVI.&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -pdflatex=&amp;quot;&amp;quot; tells latexmk to call a specific backend with specific options.&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -use-make tells latexmk to call make for generating missing files.&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -interaction=nonstopmode keeps the pdflatex backend from stopping at a&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# missing file reference and interactively asking you for an alternative.&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -synctex=1 is required to jump between the source PDF and the text editor.&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -pvc (preview continuously) watches the directory for changes.&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -quiet suppresses most status messages (https://tex.stackexchange.com/questions/40783/can-i-make-latexmk-quieter).&lt;/span&gt;
+&lt;span style=&#34;color: #a6e22e&#34;&gt;article.pdf&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;article&lt;/span&gt;.&lt;span style=&#34;color: #f8f8f2&#34;&gt;tex&lt;/span&gt;
+    latexmk -quiet -bibtex &lt;span style=&#34;color: #66d9ef&#34;&gt;$(&lt;/span&gt;PREVIEW_CONTINUOUSLY&lt;span style=&#34;color: #66d9ef&#34;&gt;)&lt;/span&gt; -f -pdf -pdflatex&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;pdflatex -synctex=1 -interaction=nonstopmode&amp;quot;&lt;/span&gt; -use-make article.tex
+
+&lt;span style=&#34;color: #75715e&#34;&gt;# The .PHONY rule keeps make from processing a file named &amp;quot;watch&amp;quot; or &amp;quot;clean&amp;quot;.&lt;/span&gt;
+&lt;span style=&#34;color: #a6e22e&#34;&gt;.PHONY&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;watch&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# Set the PREVIEW_CONTINUOUSLY variable to -pvc to switch latexmk into the preview continuously mode&lt;/span&gt;
+&lt;span style=&#34;color: #a6e22e&#34;&gt;watch&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PREVIEW_CONTINUOUSLY&lt;/span&gt;=-&lt;span style=&#34;color: #f8f8f2&#34;&gt;pvc&lt;/span&gt;
+&lt;span style=&#34;color: #a6e22e&#34;&gt;watch&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;article&lt;/span&gt;.&lt;span style=&#34;color: #f8f8f2&#34;&gt;pdf&lt;/span&gt;
+
+&lt;span style=&#34;color: #a6e22e&#34;&gt;.PHONY&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;clean&lt;/span&gt;
+&lt;span style=&#34;color: #75715e&#34;&gt;# -bibtex also removes the .bbl files (http://tex.stackexchange.com/a/83384/79184).&lt;/span&gt;
+&lt;span style=&#34;color: #a6e22e&#34;&gt;clean&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;:&lt;/span&gt;
+    latexmk -CA -bibtex
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;all&lt;/code&gt; task creates the target file &amp;ldquo;article.pdf&amp;rdquo; using &lt;code&gt;latexmk&lt;/code&gt;. You&amp;rsquo;ll notice the &lt;code&gt;$(PREVIEW_CONTINUOUSLY)&lt;/code&gt; where the &lt;code&gt;-pvc&lt;/code&gt; option should be. &lt;code&gt;$(PREVIEW_CONTINUOUSLY)&lt;/code&gt; refers to the variable &lt;code&gt;PREVIEW_CONTINUOUSLY&lt;/code&gt;, which is empty for all calls except for &lt;code&gt;make watch&lt;/code&gt;, where &lt;code&gt;PREVIEW_CONTINUOUSLY&lt;/code&gt; is set to &lt;code&gt;-pvc&lt;/code&gt;. The &lt;code&gt;make clean&lt;/code&gt; command removes all LaTeX output files, including the BibTeX files as well as the PDF.&lt;/p&gt;
+
+&lt;p&gt;If you ran &lt;code&gt;make&lt;/code&gt; and now want to run &lt;code&gt;make preview&lt;/code&gt;, it will get the message &amp;ldquo;Nothing to be done for &lt;code&gt;preview&lt;/code&gt;&amp;rdquo;, since make sees that the target PDF is up to date. The &lt;code&gt;-B&lt;/code&gt; option &lt;em&gt;forces&lt;/em&gt; make to create the targets, so &lt;code&gt;make -B preview&lt;/code&gt; will work.&lt;/p&gt;
+
+&lt;h2 id=&#34;closing-remarks:a3681b62dce4608201716bd3f606c883&#34;&gt;Closing Remarks&lt;/h2&gt;
+
+&lt;p&gt;You can find a minimal example of a &lt;code&gt;LaTeX&lt;/code&gt; project using this setup in this Github repository: &lt;a href=&#34;https://github.com/paulklemm/latexmk-synctex-example&#34;&gt;github.com/paulklemm/latexmk-synctex-example&lt;/a&gt;. Feel free to play around with your own &lt;code&gt;makefile&lt;/code&gt; rules and explore the possibilities.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
