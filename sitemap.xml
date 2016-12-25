@@ -2,12 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://paulklemm.com/blog/</loc>
-    <lastmod>2016-03-06T20:16:04+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>http://paulklemm.com/blog/about/</loc>
     <lastmod>2016-03-06T20:16:04+01:00</lastmod>
   </url>
@@ -35,6 +29,131 @@
   <url>
     <loc>http://paulklemm.com/blog/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/</loc>
     <lastmod>2012-08-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/eclipse/</loc>
+    <lastmod>2012-08-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/git/</loc>
+    <lastmod>2014-07-16T16:36:35+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/github/</loc>
+    <lastmod>2014-07-16T16:36:35+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/homebrew/</loc>
+    <lastmod>2013-12-07T00:20:42+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/latex/</loc>
+    <lastmod>2016-03-06T16:54:47+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/livestreamer/</loc>
+    <lastmod>2013-12-07T00:20:42+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/mountain-lion/</loc>
+    <lastmod>2012-08-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/os-x/</loc>
+    <lastmod>2012-08-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/osx/</loc>
+    <lastmod>2013-12-07T00:20:42+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/posts/</loc>
+    <lastmod>2016-03-06T16:54:47+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/python/</loc>
+    <lastmod>2012-08-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/qt/</loc>
+    <lastmod>2012-08-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/rstudio-r-osx/</loc>
+    <lastmod>2015-02-20T14:30:10+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/rtmpdump/</loc>
+    <lastmod>2013-12-07T00:20:42+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/scientific-writing/</loc>
+    <lastmod>2014-07-16T16:36:35+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/streaming/</loc>
+    <lastmod>2013-12-07T00:20:42+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/twitch/</loc>
+    <lastmod>2013-12-07T00:20:42+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/vlc/</loc>
+    <lastmod>2013-12-07T00:20:42+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/categories/vtk/</loc>
+    <lastmod>2012-08-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://paulklemm.com/blog/</loc>
+    <lastmod>2016-03-06T20:16:04+01:00</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>

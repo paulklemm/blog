@@ -6,16 +6,67 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="author" content="Paul Klemm">
 		<meta name="description" content="Paul puts in his two cents">
-		<meta name="generator" content="Hugo 0.15" />
+		<meta name="generator" content="Hugo 0.18" />
 		<title>Watch LaTeX Documents using Latexmk &middot; Zenf</title>
 		<link rel="shortcut icon" href="http://paulklemm.com/blog/images/favicon.ico">
 		<link rel="stylesheet" href="http://paulklemm.com/blog/css/style.css">
 		<link rel="stylesheet" href="http://paulklemm.com/blog/css/highlight.css">
+		
+
+		
 		<link rel="stylesheet" href="http://paulklemm.com/blog/css/monosocialiconsfont.css">
 		<link rel="stylesheet" href="http://paulklemm.com/blog/css/custom-img.css">
 		
+
+		
 		<link href="http://paulklemm.com/blog/index.xml" rel="alternate" type="application/rss+xml" title="Zenf" />
 		
+
+		<meta property="og:title" content="Watch LaTeX Documents using Latexmk" />
+<meta property="og:description" content="The Watch Document functionality of Textmate automatically compiles Tex documents when saved. This post describes how to achieve this behavior with any editor. It works for Unix-based systems, such as OSX or Linux. An example repository can be found here.
+Introduction: Switch from Textmate I&rsquo;ve been using Textmate to write and compile my LaTeX Documents since 2007. This Blog post by Jannis Hermanns basically defined my workflow since then. It&rsquo;s core is the neat Watch Document feature of Textmate, which compiles the document and looks for changes." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://paulklemm.com/blog/2016-03-06-watch-latex-documents-using-latexmk/" />
+
+
+<meta property="og:updated_time" content="2016-03-06T16:54:47&#43;00:00"/>
+<meta property="og:site_name" content="Zenf" />
+
+
+
+
+
+
+
+
+
+
+	    
+	    
+<meta itemprop="name" content="Watch LaTeX Documents using Latexmk">
+<meta itemprop="description" content="The Watch Document functionality of Textmate automatically compiles Tex documents when saved. This post describes how to achieve this behavior with any editor. It works for Unix-based systems, such as OSX or Linux. An example repository can be found here.
+Introduction: Switch from Textmate I&rsquo;ve been using Textmate to write and compile my LaTeX Documents since 2007. This Blog post by Jannis Hermanns basically defined my workflow since then. It&rsquo;s core is the neat Watch Document feature of Textmate, which compiles the document and looks for changes.">
+
+
+<meta itemprop="dateModified" content="2016-03-06T16:54:47&#43;00:00" />
+<meta itemprop="wordCount" content="987">
+
+
+
+<meta itemprop="keywords" content="eclipse,git,github,homebrew,latex,livestreamer,mountain-lion,os-x,osx,python,qt,rstudio-r-osx,rtmpdump,scientific-writing,streaming,twitch,vlc,vtk," />
+
+	    
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:title" content="Watch LaTeX Documents using Latexmk"/>
+<meta name="twitter:description" content="The Watch Document functionality of Textmate automatically compiles Tex documents when saved. This post describes how to achieve this behavior with any editor. It works for Unix-based systems, such as OSX or Linux. An example repository can be found here.
+Introduction: Switch from Textmate I&rsquo;ve been using Textmate to write and compile my LaTeX Documents since 2007. This Blog post by Jannis Hermanns basically defined my workflow since then. It&rsquo;s core is the neat Watch Document feature of Textmate, which compiles the document and looks for changes."/>
+<meta name="twitter:site" content="@https://www.twitter.com/paul_klemm"/>
+
+
 	</head>
 
     <body>
@@ -38,7 +89,11 @@
             <article class="post">
                 <header>
                     <h1>Watch LaTeX Documents using Latexmk</h1>
-                    <h2 class="headline">March 6, 2016</h2>
+                    <h2 class="headline">
+                    March 6, 2016 
+                    <br>
+                    
+                    </h2>
                 </header>
                 <section id="post-body">
                     
@@ -47,7 +102,7 @@
 
 <hr />
 
-<h2 id="introduction-switch-from-textmate:a3681b62dce4608201716bd3f606c883">Introduction: Switch from Textmate</h2>
+<h2 id="introduction-switch-from-textmate">Introduction: Switch from Textmate</h2>
 
 <p>I&rsquo;ve been using Textmate to write and compile my LaTeX Documents since 2007. <a href="http://jann.is/daily/archives/756-LaTex-Live-PDF-preview-with-TextMate-and-PDFView.html">This Blog post</a> by Jannis Hermanns basically defined my workflow since then. It&rsquo;s core is the neat <code>Watch Document</code> feature of Textmate, which compiles the document and looks for changes. It recompiles the document as soon as it is saved.</p>
 
@@ -72,11 +127,11 @@
 <p>Once I got used to this convenience, compiling LaTeX documents by hand felt like a chore. Unfortunately, using Textmate began to feel likewise. Since I do all my coding in Sublime Text, I <a href="http://tex.stackexchange.com/questions/276973/pendant-to-textmate-watch-document-function-in-sublime-text-latextools">looked for a similar workflow for that editor</a>.
 Turns out, it doesn&rsquo;t matter which editor you use, you can simply incorporate <a href="https://www.ctan.org/pkg/latexmk/"><code>latexmk</code></a> to achieve this functionality. Even better, <code>latexmk</code> is shipped per default with the most popular LaTeX distributions, so you should have it installed already.</p>
 
-<h2 id="compile-latex-projects-using-latexmk:a3681b62dce4608201716bd3f606c883">Compile LaTeX Projects using Latexmk</h2>
+<h2 id="compile-latex-projects-using-latexmk">Compile LaTeX Projects using Latexmk</h2>
 
 <p>Consider the following LaTeX document <code>article.tex</code>:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #66d9ef">\documentclass</span><span style="color: #a6e22e">[12pt]</span><span style="color: #f8f8f2">{</span>article<span style="color: #f8f8f2">}</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">\documentclass</span><span style="color: #a6e22e">[12pt]</span><span style="color: #f8f8f2">{</span>article<span style="color: #f8f8f2">}</span>
 <span style="color: #66d9ef">\begin</span><span style="color: #f8f8f2">{</span>document<span style="color: #f8f8f2">}</span>
 Hi!
 <span style="color: #66d9ef">\end</span><span style="color: #f8f8f2">{</span>document<span style="color: #f8f8f2">}</span>
@@ -85,13 +140,13 @@ Hi!
 
 <p>Using <code>latexmk</code>, you can compile this into a PDF file by entering the following command:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%">latexmk -pdf article.tex
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>latexmk -pdf article.tex
 </pre></div>
 
 
 <p>In order to watch for changes, you can simply add the <code>-pvc</code> option, which stands for &ldquo;preview continuously&rdquo;:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%">latexmk -pdf -pvc article.tex
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>latexmk -pdf -pvc article.tex
 </pre></div>
 
 
@@ -107,7 +162,7 @@ Hi!
 
 <p>For a precise description of each command, refer to the <a href="http://ftp.fernuni-hagen.de/ftp-dir/pub/mirrors/www.ctan.org/support/latexmk/latexmk.pdf">latexmk readme</a>. All options together yield the following command:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%">latexmk -quiet -bibtex -pvc -f -pdf -pdflatex<span style="color: #f92672">=</span><span style="color: #e6db74">&quot;pdflatex -synctex=1 -interaction=nonstopmode&quot;</span> article.tex
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>latexmk -quiet -bibtex -pvc -f -pdf -pdflatex<span style="color: #f92672">=</span><span style="color: #e6db74">&quot;pdflatex -synctex=1 -interaction=nonstopmode&quot;</span> article.tex
 </pre></div>
 
 
@@ -127,7 +182,7 @@ Hi!
 </figure>
 
 
-<h2 id="use-the-power-of-make-with-latexmk:a3681b62dce4608201716bd3f606c883">Use the Power of <code>make</code> with <code>latexmk</code></h2>
+<h2 id="use-the-power-of-make-with-latexmk">Use the Power of <code>make</code> with <code>latexmk</code></h2>
 
 <p>Utilizing this knowledge with <code>makefiles</code> is easy. I know that makefiles often look scary due to their seemingly obscure syntax, but actually they are easy to set up and will spare you <em>a lot</em> of work. If you want to have a quick introduction to <code>make</code>, I strongly recommend Mike Bostocks <a href="https://bost.ocks.org/mike/make/">beautiful blog post on it</a>. The commands applied here, however, are basic and should be self explanatory.</p>
 
@@ -139,7 +194,7 @@ Hi!
 <li><code>make clean</code> removes all files produced using the LaTeX compilation process, including the resulting PDF.</li>
 </ul>
 
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># makefile</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e"># makefile</span>
 <span style="color: #75715e"># File adapted from this stackoverflow question: https://tex.stackexchange.com/questions/40738/how-to-properly-make-a-latex-project</span>
 
 <span style="color: #75715e"># The first rule in a Makefile is the one executed by default (&quot;make&quot;). It</span>
@@ -170,13 +225,13 @@ Hi!
 <span style="color: #a6e22e">clean</span><span style="color: #f92672">:</span>
     latexmk -CA -bibtex
 </pre></div>
-</p>
+
 
 <p>The <code>all</code> task creates the target file &ldquo;article.pdf&rdquo; using <code>latexmk</code>. You&rsquo;ll notice the <code>$(PREVIEW_CONTINUOUSLY)</code> where the <code>-pvc</code> option should be. <code>$(PREVIEW_CONTINUOUSLY)</code> refers to the variable <code>PREVIEW_CONTINUOUSLY</code>, which is empty for all calls except for <code>make watch</code>, where <code>PREVIEW_CONTINUOUSLY</code> is set to <code>-pvc</code>. The <code>make clean</code> command removes all LaTeX output files, including the BibTeX files as well as the PDF.</p>
 
 <p>If you ran <code>make</code> and now want to run <code>make preview</code>, it will get the message &ldquo;Nothing to be done for <code>preview</code>&rdquo;, since make sees that the target PDF is up to date. The <code>-B</code> option <em>forces</em> make to create the targets, so <code>make -B preview</code> will work.</p>
 
-<h2 id="closing-remarks:a3681b62dce4608201716bd3f606c883">Closing Remarks</h2>
+<h2 id="closing-remarks">Closing Remarks</h2>
 
 <p>You can find a minimal example of a <code>LaTeX</code> project using this setup in this Github repository: <a href="https://github.com/paulklemm/latexmk-synctex-example">github.com/paulklemm/latexmk-synctex-example</a>. Feel free to play around with your own <code>makefile</code> rules and explore the possibilities.</p>
 
@@ -261,11 +316,41 @@ Hi!
         </li>
         
    
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/categories/">Categories<aside class="dates">Jan 1, 0001</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/categories/eclipse/">Eclipse<aside class="dates">Aug 20, 2012</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/categories/git/">Git<aside class="dates">Jul 16, 2014</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/categories/github/">Github<aside class="dates">Jul 16, 2014</aside></a>
+        </li>
+        
+   
 </ul>
             <footer id="footer">
     
-        
-<div id="social">
+        <div id="social">
+
+	
+	
     
     <a class="symbol" href="https://www.github.com/paulklemm">
         circlegithub
@@ -275,6 +360,8 @@ Hi!
         circletwitterbird
     </a>
     
+
+
 </div>
 
     
@@ -291,6 +378,9 @@ Hi!
 <script src="http://paulklemm.com/blog/js/main.js"></script>
 <script src="http://paulklemm.com/blog/js/highlight.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
+
+
+
 
 
     </body>

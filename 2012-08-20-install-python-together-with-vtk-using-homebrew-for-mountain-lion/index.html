@@ -6,16 +6,67 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="author" content="Paul Klemm">
 		<meta name="description" content="Paul puts in his two cents">
-		<meta name="generator" content="Hugo 0.15" />
+		<meta name="generator" content="Hugo 0.18" />
 		<title>Install Python with VTK and Qt support for use with Eclipse in OS X Mountain Lion &middot; Zenf</title>
 		<link rel="shortcut icon" href="http://paulklemm.com/blog/images/favicon.ico">
 		<link rel="stylesheet" href="http://paulklemm.com/blog/css/style.css">
 		<link rel="stylesheet" href="http://paulklemm.com/blog/css/highlight.css">
+		
+
+		
 		<link rel="stylesheet" href="http://paulklemm.com/blog/css/monosocialiconsfont.css">
 		<link rel="stylesheet" href="http://paulklemm.com/blog/css/custom-img.css">
 		
+
+		
 		<link href="http://paulklemm.com/blog/index.xml" rel="alternate" type="application/rss+xml" title="Zenf" />
 		
+
+		<meta property="og:title" content="Install Python with VTK and Qt support for use with Eclipse in OS X Mountain Lion" />
+<meta property="og:description" content="In this post I&rsquo;d like to show you how to install Python with support for VTK and Qt using Apple OS X 10.8 Mountain Lion. Then I set up Eclipse with the new Python installation in order to use all of it&rsquo;s auto-completion and debugging capabilities. Please leave a comment with your experiences using this.
+The instructions for the installation of Python and Qt consists mostly of information from these two posts [1] [2], so please credit these guys for this, not me." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://paulklemm.com/blog/2012-08-20-install-python-together-with-vtk-using-homebrew-for-mountain-lion/" />
+
+
+<meta property="og:updated_time" content="2012-08-20T00:00:00&#43;00:00"/>
+<meta property="og:site_name" content="Zenf" />
+
+
+
+
+
+
+
+
+
+
+	    
+	    
+<meta itemprop="name" content="Install Python with VTK and Qt support for use with Eclipse in OS X Mountain Lion">
+<meta itemprop="description" content="In this post I&rsquo;d like to show you how to install Python with support for VTK and Qt using Apple OS X 10.8 Mountain Lion. Then I set up Eclipse with the new Python installation in order to use all of it&rsquo;s auto-completion and debugging capabilities. Please leave a comment with your experiences using this.
+The instructions for the installation of Python and Qt consists mostly of information from these two posts [1] [2], so please credit these guys for this, not me.">
+
+
+<meta itemprop="dateModified" content="2012-08-20T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1547">
+
+
+
+<meta itemprop="keywords" content="eclipse,git,github,homebrew,latex,livestreamer,mountain-lion,os-x,osx,python,qt,rstudio-r-osx,rtmpdump,scientific-writing,streaming,twitch,vlc,vtk," />
+
+	    
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:title" content="Install Python with VTK and Qt support for use with Eclipse in OS X Mountain Lion"/>
+<meta name="twitter:description" content="In this post I&rsquo;d like to show you how to install Python with support for VTK and Qt using Apple OS X 10.8 Mountain Lion. Then I set up Eclipse with the new Python installation in order to use all of it&rsquo;s auto-completion and debugging capabilities. Please leave a comment with your experiences using this.
+The instructions for the installation of Python and Qt consists mostly of information from these two posts [1] [2], so please credit these guys for this, not me."/>
+<meta name="twitter:site" content="@https://www.twitter.com/paul_klemm"/>
+
+
 	</head>
 
     <body>
@@ -38,7 +89,11 @@
             <article class="post">
                 <header>
                     <h1>Install Python with VTK and Qt support for use with Eclipse in OS X Mountain Lion</h1>
-                    <h2 class="headline">August 20, 2012</h2>
+                    <h2 class="headline">
+                    August 20, 2012 
+                    <br>
+                    
+                    </h2>
                 </header>
                 <section id="post-body">
                     
@@ -49,14 +104,14 @@
 
 <p>If you run a Windows or Linux machine and you might want to do yourself a favor and use the <a href="http://graphics.tudelft.nl/Projects/DeVIDE">DRE which is included in DeVIDE</a>.</p>
 
-<h2 id="install-and-configure-homebrew:cfbe69256acc54306cb213691b28d252">Install and configure Homebrew</h2>
+<h2 id="install-and-configure-homebrew">Install and configure Homebrew</h2>
 
 <p>As a very first step you need to install <em>Homebrew</em>, the friendly packet manager for Mac OS X <a href="http://mxcl.github.com/homebrew/">[3]</a>. This makes it really easy to install all the necessary stuff. While OS X already ships with versions of <code>Python</code>, <code>Ruby</code> and other stuff, the versions they provide are often deprecated and installing own packages can be quite frustrating. Homebrew installs all it&rsquo;s stuff isolated from the system under <code>/usr/local/cellar</code>. This way you can install your own libraries without touching the components installed from Apple.</p>
 
 <p>In order make sure that Terminal searches the <code>bin</code> folder of Homebrew first before the System <code>bin</code> folder (which is <code>/usr/bin</code>), you need to add it to the <code>PATH</code>-variable. This can be done by editing the <code>.bash_profile</code> file in you user root folder <code>/Users/&lt;your username&gt;/.bash_profile</code> (further referenced as <code>~/</code>). If this file doesn&rsquo;t exist, create it! Now you add
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># ~/.bash_profile</span>
-<span style="color: #f8f8f2">export PATH</span><span style="color: #f92672">=</span>/usr/local/bin:<span style="color: #f8f8f2">$PATH</span>
-<span style="color: #f8f8f2">export PATH</span><span style="color: #f92672">=</span>/usr/local/share/python:<span style="color: #f8f8f2">$PATH</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e"># ~/.bash_profile</span>
+<span style="color: #f8f8f2">export</span> <span style="color: #f8f8f2">PATH</span><span style="color: #f92672">=</span>/usr/local/bin:<span style="color: #f8f8f2">$PATH</span>
+<span style="color: #f8f8f2">export</span> <span style="color: #f8f8f2">PATH</span><span style="color: #f92672">=</span>/usr/local/share/python:<span style="color: #f8f8f2">$PATH</span>
 </pre></div>
 
 to the file. The second entry is later used to get the right version of <code>PIP</code>.
@@ -64,14 +119,14 @@ Note: If you have a Terminal session up and running you need to restart it in or
 
 <p>Before you install anything to Homebrew, be sure to run <code>brew doctor</code> and <code>brew update</code> to check if all dependencies are installed (<code>xCode</code>, <code>Command Line Tools</code> and <code>x11</code>). When <code>brew doctor</code> gives you green light you are good to go!</p>
 
-<h2 id="install-python:cfbe69256acc54306cb213691b28d252">Install Python</h2>
+<h2 id="install-python">Install Python</h2>
 
 <p>The very first step is that you install your own version of <code>Python</code> by running the following command:
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%">brew install python --framework --universal
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>brew install python --framework --universal
 </pre></div>
 
 In order to make it the default <code>Python</code> installation of the system you need to execute
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f8f8f2">cd</span> /System/Library/Frameworks/Python.framework/Versions
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">cd</span> /System/Library/Frameworks/Python.framework/Versions
 sudo rm Current
 ln -s /usr/local/Cellar/python/2.7.2/Frameworks/Python.framework/Versions/Current
 </pre></div>
@@ -81,42 +136,42 @@ This changes the symlink to our new <code>Python</code> installation. You will b
 <p>If everything worked, <code>which python</code> should return <code>/usr/local/bin/python</code>.</p>
 
 <p>Next step is the installation of <code>PIP</code> using the command
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%">easy_install pip
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>easy_install pip
 </pre></div>
 
 Now <code>which pip</code> should return <code>/usr/local/share/python/pip</code> - otherwise the <code>PATH</code> is not properly set as described above.</p>
 
 <p>Now you can install other Packages like <code>Numpy</code> or <code>Scipy</code> - depending on what you need. Note: If you want to install <code>Scipy</code> you need to install the <code>gfortran</code> compiler.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%">pip install numpy
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>pip install numpy
 brew install gfortran
 pip install scipy
 </pre></div>
 
 Note: To date of this post, you have to use the developer version of <code>Scipy</code> to make it work under Mountain Lion. This can be done using
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%">pip install -e git+https://github.com/scipy/scipy#egg<span style="color: #f92672">=</span>scipy-dev
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>pip install -e git+https://github.com/scipy/scipy#egg<span style="color: #f92672">=</span>scipy-dev
 </pre></div>
 
 This will create a folder <code>~/src</code> and install <code>Scipy</code> from there.</p>
 
-<h2 id="install-qt:cfbe69256acc54306cb213691b28d252">Install Qt</h2>
+<h2 id="install-qt">Install Qt</h2>
 
 <p>To install <code>Qt</code> and <code>Pyqt</code>-bindings you execute
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%">brew install qt
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>brew install qt
 brew install pyqt
 </pre></div>
 </p>
 
-<h2 id="install-vtk:cfbe69256acc54306cb213691b28d252">Install VTK</h2>
+<h2 id="install-vtk">Install VTK</h2>
 
 <p>To install VTK you need to run
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%">brew install vtk --tcl --qt --python --pyqt --examples
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>brew install vtk --tcl --qt --python --pyqt --examples
 </pre></div>
 
 This took about 60 minutes on my early 2008 Macbook Pro, so take your time for a well-earned rest.</p>
 
 <p>When this is done you should be able to <code>import vtk</code> into your <code>Python</code> environment without any errors.</p>
 
-<h2 id="setup-python-for-use-with-eclipse:cfbe69256acc54306cb213691b28d252">Setup Python for use with Eclipse</h2>
+<h2 id="setup-python-for-use-with-eclipse">Setup Python for use with Eclipse</h2>
 
 <p>This part is oriented on the introduction on how to include the <code>DRE</code> into <code>Eclipse</code>, which can be found under <a href="http://code.google.com/p/devide/wiki/EclipseDRE">[4]</a> and in the following screencast. I just made a few enhancements to make it work for this application. Note that the steps of the screencast don&rsquo;t work exactly on our installation!
 <iframe width="420" height="315" src="https://www.youtube.com/embed/-b1zS536R2M" frameborder="0" allowfullscreen></iframe></p>
@@ -141,7 +196,7 @@ Confirm the next Prompt which should look like the following screenshot and you 
 </p>
 
 <p>Now you are good to go. Create a new PyDev Project, select the new created interpreter and play around with <code>VTK</code> - it all should be working with auto completion and the other neat <code>Eclipse</code> features. The Code example Charl used in the Screencast should compile:
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># vtkDonutTest.py</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e"># vtkDonutTest.py</span>
 <span style="color: #f92672">import</span> <span style="color: #f8f8f2">vtk</span>
 <span style="color: #75715e"># create a donut polydata source</span>
 <span style="color: #f8f8f2">s</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">vtk</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">vtkSuperquadricSource()</span>
@@ -172,7 +227,7 @@ Confirm the next Prompt which should look like the following screenshot and you 
 </p>
 
 <p>To test the Qt-Support you can run the following code <a href="https://svn.enthought.com/svn/enthought/Mayavi/trunk/enthought/tvtk/pyface/ui/qt4/QVTKRenderWindowInteractor.py">[5]</a>:
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># vtkQtTest.py</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e"># vtkQtTest.py</span>
 <span style="color: #f92672">import</span> <span style="color: #f8f8f2">vtk</span>
 <span style="color: #f92672">from</span> <span style="color: #f8f8f2">PyQt4</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QtGui</span>
 <span style="color: #f92672">from</span> <span style="color: #f8f8f2">vtk.qt4.QVTKRenderWindowInteractor</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QVTKRenderWindowInteractor</span>
@@ -209,30 +264,30 @@ Confirm the next Prompt which should look like the following screenshot and you 
 </pre></div>
 </p>
 
-<h2 id="add-vtk-module-to-qt-designer:cfbe69256acc54306cb213691b28d252">Add VTK-Module to Qt-Designer</h2>
+<h2 id="add-vtk-module-to-qt-designer">Add VTK-Module to Qt-Designer</h2>
 
 <p>If you want to use the <code>Qt-Designer</code> for the use with <code>VTK</code>, things get a little bit tricky. The <code>Qt-Designer</code> comes with our installation of <code>Qt</code> under <code>/usr/local/Cellar/qt/4.8.2/Designer.app</code> and is a <em>WYSISWYG</em>-Editor for <code>Qt</code>-UIs. <code>VTK</code> already has installed a plugin for it, it just has to be sym-linked into the <code>Qt-Designer</code>-Path. You can do this using the following commands, but check your current versions before running these.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f8f8f2">cd</span> /usr/local/Cellar/qt/4.8.2/plugins/designer
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">cd</span> /usr/local/Cellar/qt/4.8.2/plugins/designer
 ln -s /usr/local/Cellar/vtk/5.10.0/plugins/designer/libQVTKWidgetPlugin.dylib libQVTKWidgetPlugin.dylib
 </pre></div>
 
 Now you should have a QVTKWidget available in the <code>Qt-Designer</code>. The tricky part begins now. Unfortunately when you try to include a <code>Qt</code>-UI which contains a <code>QVTKWidget</code>, it fails to compile, because <code>QVTKWidget</code> belongs to the Class <code>QVTKWidget.QVTKWidget</code>, while the correct class is <code>vtk.QVTKWidget</code>. You can fix this using the following workaround.</p>
 
 <p>When you have created your UI using the <code>Qt-Designer</code> you can convert it to <code>Python</code>-Code using the command
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%">pyuic4 myTestApp.ui &gt; myTestApp_ui.py
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>pyuic4 myTestApp.ui &gt; myTestApp_ui.py
 </pre></div>
 
 Import the new file into your Project and change the line
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f92672">from</span> <span style="color: #f8f8f2">QVTKWidget</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QVTKWidget</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f92672">from</span> <span style="color: #f8f8f2">QVTKWidget</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QVTKWidget</span>
 </pre></div>
 
 to
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f92672">from</span> <span style="color: #f8f8f2">vtk</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QVTKWidget</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f92672">from</span> <span style="color: #f8f8f2">vtk</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QVTKWidget</span>
 </pre></div>
 
 Now it will compile and run. The tradeoff is that you have to manually change this line every time you want to make changes to the UI using the <code>Qt-Designer</code>.
 To give an example for a converted UI file which runs, look at the following code.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># pythonQtVTKTest.py</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e"># pythonQtVTKTest.py</span>
 <span style="color: #f92672">import</span> <span style="color: #f8f8f2">sys</span>
 <span style="color: #f92672">import</span> <span style="color: #f8f8f2">vtk</span>
 <span style="color: #f92672">from</span> <span style="color: #f8f8f2">PyQt4</span> <span style="color: #f92672">import</span> <span style="color: #f8f8f2">QtGui</span>
@@ -280,7 +335,7 @@ To give an example for a converted UI file which runs, look at the following cod
 </pre></div>
 </p>
 
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #75715e"># pythonQtVTKTest_UI.py</span>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #75715e"># pythonQtVTKTest_UI.py</span>
 <span style="color: #75715e"># -*- coding: utf-8 -*-</span>
 
 <span style="color: #75715e"># Form implementation generated from reading ui file &#39;pythonQtVTKTest.ui&#39;</span>
@@ -317,21 +372,21 @@ To give an example for a converted UI file which runs, look at the following cod
 
 <strong>If anyone knows a simpler solution to this, please post it in the comments!</strong></p>
 
-<h2 id="using-mactex-and-homebrew:cfbe69256acc54306cb213691b28d252">Using MacTeX and Homebrew</h2>
+<h2 id="using-mactex-and-homebrew">Using MacTeX and Homebrew</h2>
 
 <p>Just a short footnote for those of you who use <code>MacTeX</code>. <code>MacTeX</code> stores it&rsquo;s files under <code>/usr/local/texlive</code> next to the <code>Homebrew</code> stuff. They coexist peaceful next to each other, you just have to apply some diplomacy using the following command <a href="https://github.com/ThinkRuby/thinkruby/wiki/">[6]</a>.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%">sudo chown -R <span style="color: #f8f8f2">$USER</span>:staff /usr/local
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>sudo chown -R <span style="color: #f8f8f2">$USER</span>:staff /usr/local
 </pre></div>
 
 You might also consult the <code>brew doctor</code>, he will tell you what to do.</p>
 
-<h2 id="thats-it:cfbe69256acc54306cb213691b28d252">Thats it</h2>
+<h2 id="thats-it">Thats it</h2>
 
 <p>Thank you for reading, I hope these instructions help you in some way. Please feel free to leave a comment. Have a nice day!</p>
 
 <hr />
 
-<h1 id="references:cfbe69256acc54306cb213691b28d252">References</h1>
+<h1 id="references">References</h1>
 
 <p><a href="http://www.thisisthegreenroom.com/2011/installing-python-numpy-scipy-matplotlib-and-ipython-on-lion/">[1] http://www.thisisthegreenroom.com/2011/installing-python-numpy-scipy-matplotlib-and-ipython-on-lion/</a><br />
 <a href="http://jbowles.github.com/blog/2012/04/22/python/">[2] http://jbowles.github.com/blog/2012/04/22/python/</a><br />
@@ -340,7 +395,7 @@ You might also consult the <code>brew doctor</code>, he will tell you what to do
 <a href="https://svn.enthought.com/svn/enthought/Mayavi/trunk/enthought/tvtk/pyface/ui/qt4/QVTKRenderWindowInteractor.py">[5] https://svn.enthought.com/svn/enthought/Mayavi/trunk/enthought/tvtk/pyface/ui/qt4/QVTKRenderWindowInteractor.py</a><br />
 <a href="https://github.com/ThinkRuby/thinkruby/wiki/">[6] https://github.com/ThinkRuby/thinkruby/wiki/</a>.</p>
 
-<h2 id="this-might-also-be-useful-for-you:cfbe69256acc54306cb213691b28d252">This might also be useful for you</h2>
+<h2 id="this-might-also-be-useful-for-you">This might also be useful for you</h2>
 
 <ul>
 <li><a href="http://graphics.tudelft.nl/Projects/DeVIDE">DeVIDE/DRE from the University of Delft</a><br /></li>
@@ -430,11 +485,41 @@ You might also consult the <code>brew doctor</code>, he will tell you what to do
         </li>
         
    
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/categories/">Categories<aside class="dates">Jan 1, 0001</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/categories/eclipse/">Eclipse<aside class="dates">Aug 20, 2012</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/categories/git/">Git<aside class="dates">Jul 16, 2014</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/categories/github/">Github<aside class="dates">Jul 16, 2014</aside></a>
+        </li>
+        
+   
 </ul>
             <footer id="footer">
     
-        
-<div id="social">
+        <div id="social">
+
+	
+	
     
     <a class="symbol" href="https://www.github.com/paulklemm">
         circlegithub
@@ -444,6 +529,8 @@ You might also consult the <code>brew doctor</code>, he will tell you what to do
         circletwitterbird
     </a>
     
+
+
 </div>
 
     
@@ -460,6 +547,9 @@ You might also consult the <code>brew doctor</code>, he will tell you what to do
 <script src="http://paulklemm.com/blog/js/main.js"></script>
 <script src="http://paulklemm.com/blog/js/highlight.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
+
+
+
 
 
     </body>

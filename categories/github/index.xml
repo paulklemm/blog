@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Github on Zenf</title>
-    <link>http://paulklemm.com/blog/categories/github/</link>
+    <link>http://paulklemm.com/blog/categories/github/index.xml</link>
     <description>Recent content in Github on Zenf</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Jul 2014 16:36:35 +0000</lastBuildDate>
     <atom:link href="http://paulklemm.com/blog/categories/github/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -17,7 +16,7 @@
       <guid>http://paulklemm.com/blog/2014-07-16-use-github-for-scientific-writing/</guid>
       <description>
 
-&lt;p&gt;&lt;em&gt;&lt;code&gt;GIT&lt;/code&gt; is a very good tool to manage scientific writing, either if you write it on your own or with collaborators. The rich set of tools supporting collaborative work makes &lt;a href=&#34;https://github.com/&#34;&gt;Github&lt;/a&gt; a good place for storing all information there.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;code&gt;GIT&lt;/code&gt; is a good tool for managing scientific writing, whether you write on your own or with collaborators. A rich set of tools for supporting collaborative work makes &lt;a href=&#34;https://github.com/&#34;&gt;Github&lt;/a&gt; a good place for storing LaTeX source there.&lt;/em&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -50,9 +49,9 @@
 
 &lt;p&gt;In this blog post I show how to set up a git repository for a scientific paper, recommend a structure and give examples on how you can use features of &lt;code&gt;GIT&lt;/code&gt; and &lt;code&gt;github&lt;/code&gt; to boost your productivity! Note that I will demonstrate the use of &lt;code&gt;GIT&lt;/code&gt; through the console. You can also use the github app (&lt;a href=&#34;https://mac.github.com/&#34;&gt;Mac&lt;/a&gt;, &lt;a href=&#34;https://windows.github.com/&#34;&gt;Windows&lt;/a&gt;) or any other &lt;code&gt;GIT&lt;/code&gt; client for this.&lt;/p&gt;
 
-&lt;h2 id=&#34;setup:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Setup&lt;/h2&gt;
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
 
-&lt;h3 id=&#34;creating-the-new-repository:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Creating the New Repository&lt;/h3&gt;
+&lt;h3 id=&#34;creating-the-new-repository&#34;&gt;Creating the New Repository&lt;/h3&gt;
 
 
 &lt;figure &gt;
@@ -86,7 +85,7 @@
 &lt;/figure&gt;
 &lt;/p&gt;
 
-&lt;h3 id=&#34;add-your-files-to-the-repository:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Add your Files to the Repository&lt;/h3&gt;
+&lt;h3 id=&#34;add-your-files-to-the-repository&#34;&gt;Add your Files to the Repository&lt;/h3&gt;
 
 &lt;p&gt;Chances are that you already wrote some stuff or have unpacked the authors packages of the conference or journal. &lt;code&gt;Git&lt;/code&gt; makes it easy to add these files to the existing repository. At first, lets clone the newly created repository. You find the &lt;code&gt;http&lt;/code&gt; address to your repository on the right bottom of its &lt;code&gt;github&lt;/code&gt; page under &lt;em&gt;HTTPS clone URL&lt;/em&gt;.&lt;/p&gt;
 
@@ -122,9 +121,9 @@ $ git clone &lt;a href=&#34;https://github.com/Powernap/My-Awesome-Paper.git&#34
 &lt;/figure&gt;
 
 
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# You can use any folder you want!&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ cd&lt;/span&gt; ~/Desktop/My-Awesome-Paper
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git status
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# You can use any folder you want!&lt;/span&gt;
+$ &lt;span style=&#34;color: #f8f8f2&#34;&gt;cd&lt;/span&gt; ~/Desktop/My-Awesome-Paper
+$ git status
     On branch master
     Your branch is up-to-date with &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;origin/master&amp;#39;&lt;/span&gt;.
 
@@ -141,9 +140,9 @@ $ git clone &lt;a href=&#34;https://github.com/Powernap/My-Awesome-Paper.git&#34
 
     nothing added to commit but untracked files present &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;use &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;git add&amp;quot;&lt;/span&gt; to track&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
 &lt;span style=&#34;color: #75715e&#34;&gt;# Now add all files under `Untracked files`&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git add -A
+$ git add -A
 &lt;span style=&#34;color: #75715e&#34;&gt;# &amp;#39;-m&amp;#39; directly adds the commit message&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git commit -m &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Added conference style files&amp;quot;&lt;/span&gt;
+$ git commit -m &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Added conference style files&amp;quot;&lt;/span&gt;
     &lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;master f01710d&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; Added conference style files
      &lt;span style=&#34;color: #ae81ff&#34;&gt;7&lt;/span&gt; files changed, &lt;span style=&#34;color: #ae81ff&#34;&gt;2318&lt;/span&gt; insertions&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;+&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
     create mode &lt;span style=&#34;color: #ae81ff&#34;&gt;100755&lt;/span&gt; Example.tex
@@ -155,7 +154,7 @@ $ git clone &lt;a href=&#34;https://github.com/Powernap/My-Awesome-Paper.git&#34
     create mode &lt;span style=&#34;color: #ae81ff&#34;&gt;100755&lt;/span&gt; example.bib
 &lt;span style=&#34;color: #75715e&#34;&gt;# Now everything is at the &amp;#39;head&amp;#39; of your local copy of the repository.&lt;/span&gt;
 &lt;span style=&#34;color: #75715e&#34;&gt;# Time to push it to the github server!&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git push
+$ git push
     Counting objects: 10, &lt;span style=&#34;color: #66d9ef&#34;&gt;done&lt;/span&gt;.
     Delta compression using up to &lt;span style=&#34;color: #ae81ff&#34;&gt;8&lt;/span&gt; threads.
     Compressing objects: 100% &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;9/9&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;, &lt;span style=&#34;color: #66d9ef&#34;&gt;done&lt;/span&gt;.
@@ -168,15 +167,15 @@ $ git clone &lt;a href=&#34;https://github.com/Powernap/My-Awesome-Paper.git&#34
 
 &lt;p&gt;If you find it hard to follow, you should look &lt;a href=&#34;https://try.github.io&#34;&gt;into this quick tutorial&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h3 id=&#34;the-gitignore-file:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;The &lt;code&gt;.gitignore&lt;/code&gt; File&lt;/h3&gt;
+&lt;h3 id=&#34;the-gitignore-file&#34;&gt;The &lt;code&gt;.gitignore&lt;/code&gt; File&lt;/h3&gt;
 
 &lt;p&gt;It is a good habit to add a &lt;code&gt;.gitignore&lt;/code&gt; file to your repository, which contains a list of files ignored by &lt;code&gt;git&lt;/code&gt;. &lt;code&gt;LaTeX&lt;/code&gt; produces many auxiliary files during its typesetting process, which differ depending on the OS you use and the installed &lt;code&gt;TeX&lt;/code&gt; version. It is a good idea to exclude them, especially when collaborating with other people on a paper. Adding files is straightforward, add file names and separate them using newlines. You can even use wildcards using the &lt;code&gt;*&lt;/code&gt; symbol, or exclude entire folders (e.g. &lt;code&gt;output/&lt;/code&gt;). Whether to add &lt;code&gt;PDF&lt;/code&gt;-files to the repository is a matter of taste. I always commit the current state of my work as pdf because it makes it easy to look at versions of previous commits.&lt;/p&gt;
 
-&lt;h2 id=&#34;use-the-power-of-git-and-github:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Use the Power of &lt;code&gt;GIT&lt;/code&gt; and &lt;code&gt;github&lt;/code&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;use-the-power-of-git-and-github&#34;&gt;Use the Power of &lt;code&gt;GIT&lt;/code&gt; and &lt;code&gt;github&lt;/code&gt;&lt;/h2&gt;
 
 &lt;p&gt;Once set up, the full power of &lt;code&gt;git&lt;/code&gt; and &lt;code&gt;github&lt;/code&gt; lies beneath your fingertips.&lt;/p&gt;
 
-&lt;h3 id=&#34;commit-often:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Commit often!&lt;/h3&gt;
+&lt;h3 id=&#34;commit-often&#34;&gt;Commit often!&lt;/h3&gt;
 
 &lt;p&gt;When working with versioning systems, it is recommended to &lt;a href=&#34;http://www.databasically.com/2011/03/14/git-commit-early-commit-often/&#34;&gt;commit early and often&lt;/a&gt;! Changes to the text are by far more comprehensible and it avoids conflicts when working with multiple people on a text!&lt;/p&gt;
 
@@ -201,21 +200,21 @@ Here you can see the changes made to the repository in every commit. Each line c
 &lt;/figure&gt;
 &lt;/p&gt;
 
-&lt;h3 id=&#34;structure-your-latex-documents:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Structure your &lt;code&gt;LaTeX&lt;/code&gt; Documents&lt;/h3&gt;
+&lt;h3 id=&#34;structure-your-latex-documents&#34;&gt;Structure your &lt;code&gt;LaTeX&lt;/code&gt; Documents&lt;/h3&gt;
 
 &lt;p&gt;It is often a good idea to divide your chapters or sections into individual files and include them in a master file via the &lt;code&gt;\input&lt;/code&gt; command. A barebone &lt;code&gt;TeX&lt;/code&gt; file could look like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;\documentclass&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;[12pt]&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;article&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;\documentclass&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;[12pt]&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;article&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
 &lt;span style=&#34;color: #66d9ef&#34;&gt;\begin&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;document&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
 &lt;span style=&#34;color: #66d9ef&#34;&gt;\input&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;Chapter-1.tex&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
 &lt;span style=&#34;color: #66d9ef&#34;&gt;\input&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;Chapter-2.tex&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
 &lt;span style=&#34;color: #66d9ef&#34;&gt;\end&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;document&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
+
 
 &lt;p&gt;Besides keeping the project structured, it reduces the number of conflicts when you also work with co-authors. I also found it useful to separate each sentence in the following way:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;\section&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;Proof of Everything&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;\section&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;{&lt;/span&gt;Proof of Everything&lt;span style=&#34;color: #f8f8f2&#34;&gt;}&lt;/span&gt;
 &lt;span style=&#34;color: #75715e&#34;&gt;%%&lt;/span&gt;
 &lt;span style=&#34;color: #66d9ef&#34;&gt;\noindent&lt;/span&gt; This is my introduction to this chapter.
 &lt;span style=&#34;color: #75715e&#34;&gt;%%&lt;/span&gt;
@@ -227,9 +226,9 @@ Sentences can also be easily commented out this way.
 &lt;span style=&#34;color: #75715e&#34;&gt;%%&lt;/span&gt;
 Changes made to Tex files structured like this are well readable using the github diff view.
 &lt;/pre&gt;&lt;/div&gt;
-&lt;/p&gt;
 
-&lt;h3 id=&#34;use-the-social-features:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Use the Social Features!&lt;/h3&gt;
+
+&lt;h3 id=&#34;use-the-social-features&#34;&gt;Use the Social Features!&lt;/h3&gt;
 
 &lt;p&gt;
 &lt;figure &gt;
@@ -243,7 +242,7 @@ Having all authors of a scientific paper in one place is rare. Exchange of ideas
 
 &lt;p&gt;The &lt;code&gt;issue&lt;/code&gt; and &lt;code&gt;milestone&lt;/code&gt; system is packed with useful features for discussing the current process of the work. Discussions can even be referenced to commits. All information is kept at one place, communication is synchronized and you don&amp;rsquo;t need to look up old mails with chunks of information any more!&lt;/p&gt;
 
-&lt;h3 id=&#34;use-branches:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Use Branches&lt;/h3&gt;
+&lt;h3 id=&#34;use-branches&#34;&gt;Use Branches&lt;/h3&gt;
 
 &lt;p&gt;Say you want to write a new section, but it will take a couple of days. At the same time, you do not want to change the repository all the time, forcing your co-authors to &lt;code&gt;git pull&lt;/code&gt; every time they also want to edit the paper. &lt;code&gt;GIT&lt;/code&gt; was designed with such cases in mind! You can simply create your own sub-repository, called a &lt;code&gt;branch&lt;/code&gt;, edit it and merge it together with the master-branch.&lt;/p&gt;
 
@@ -255,37 +254,37 @@ Having all authors of a scientific paper in one place is rare. Exchange of ideas
     
 &lt;/figure&gt;
 
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# Create new &amp;#39;my-section&amp;#39; branch&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git branch my-section
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# Create new &amp;#39;my-section&amp;#39; branch&lt;/span&gt;
+$ git branch my-section
 &lt;span style=&#34;color: #75715e&#34;&gt;# List all branches&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git branch
+$ git branch
   * master
     my-section
 &lt;span style=&#34;color: #75715e&#34;&gt;# Switch to &amp;#39;my-section&amp;#39; branch&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git checkout my-section
+$ git checkout my-section
   Switched to branch &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;my-section&amp;#39;&lt;/span&gt;
 &lt;span style=&#34;color: #75715e&#34;&gt;# Make changes and upload them (-a adds all locally changed files to the repo)&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git add my-section.tex
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git commit -a -m &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;added my new section&amp;quot;&lt;/span&gt;
+$ git add my-section.tex
+$ git commit -a -m &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;added my new section&amp;quot;&lt;/span&gt;
   &lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;my-section fce493f&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; added my new section
    &lt;span style=&#34;color: #ae81ff&#34;&gt;2&lt;/span&gt; files changed, &lt;span style=&#34;color: #ae81ff&#34;&gt;9&lt;/span&gt; insertions&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;+&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
    create mode &lt;span style=&#34;color: #ae81ff&#34;&gt;100644&lt;/span&gt; my-section.tex
 &lt;span style=&#34;color: #75715e&#34;&gt;# Switch back to the Master branch and merge the sections&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git checkout master
+$ git checkout master
   Switched to branch &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;master&amp;#39;&lt;/span&gt;
   Your branch is up-to-date with &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;#39;origin/master&amp;#39;&lt;/span&gt;.
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git merge my-section
+$ git merge my-section
   Updating f01710d..fce493f
   Fast-forward
    Example.tex    &lt;span style=&#34;color: #f8f8f2&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt; +
    my-section.tex &lt;span style=&#34;color: #f8f8f2&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;8&lt;/span&gt; ++++++++
    &lt;span style=&#34;color: #ae81ff&#34;&gt;2&lt;/span&gt; files changed, &lt;span style=&#34;color: #ae81ff&#34;&gt;9&lt;/span&gt; insertions&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;+&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
    create mode &lt;span style=&#34;color: #ae81ff&#34;&gt;100644&lt;/span&gt; my-section.tex
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;$ &lt;/span&gt;git push
+$ git push
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/p&gt;
 
-&lt;h3 id=&#34;create-releases:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Create Releases&lt;/h3&gt;
+&lt;h3 id=&#34;create-releases&#34;&gt;Create Releases&lt;/h3&gt;
 
 &lt;p&gt;
 &lt;figure &gt;
@@ -297,19 +296,19 @@ Having all authors of a scientific paper in one place is rare. Exchange of ideas
 
 &lt;code&gt;Releases&lt;/code&gt; are a great feature to freeze commits. I use it to save important milestones, such as the blind submission for reviewing.&lt;/p&gt;
 
-&lt;h3 id=&#34;use-all-the-features:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Use All the Features!&lt;/h3&gt;
+&lt;h3 id=&#34;use-all-the-features&#34;&gt;Use All the Features!&lt;/h3&gt;
 
 &lt;p&gt;Just kidding. But &lt;code&gt;github&lt;/code&gt; offers a ton of other features I did not cover in this post. To get an impression about &lt;code&gt;githubs&lt;/code&gt; power, head over to its &lt;a href=&#34;https://github.com/features&#34;&gt;feature page&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;They even work on their own editor &lt;a href=&#34;https://atom.io&#34;&gt;Atom&lt;/a&gt;, which &lt;a href=&#34;http://discuss.atom.io/t/latex-language-support/541&#34;&gt;supports LaTeX&lt;/a&gt; but isn&amp;rsquo;t as functional as the packages in &lt;a href=&#34;https://github.com/textmate/textmate&#34;&gt;Textmate&lt;/a&gt; or &lt;a href=&#34;http://www.sublimetext.com/&#34;&gt;Sublime Text&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&#34;closing-remarks:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Closing Remarks&lt;/h2&gt;
+&lt;h2 id=&#34;closing-remarks&#34;&gt;Closing Remarks&lt;/h2&gt;
 
 &lt;p&gt;There is no &lt;em&gt;right&lt;/em&gt; way to write. All these examples are based on my own experience, my own way to work and what I found enough to share it with you. Surely there are much more different ways to use &lt;code&gt;GIT&lt;/code&gt; and &lt;code&gt;github&lt;/code&gt; for writing. Also, there are great cloud-based LaTeX editors, which also allow collaborative editing (e.g. &lt;a href=&#34;https://www.sharelatex.com/&#34;&gt;ShareLaTeX&lt;/a&gt;). Please feel free to make remarks in the comment section!&lt;/p&gt;
 
 &lt;p&gt;Since I feel that openness plays a crucial role in scientific research, we do good in using these systems and break out of our isolated bubbles and have open discussions about our work and how it develops. Tools like &lt;code&gt;github&lt;/code&gt; allow us to do so!&lt;/p&gt;
 
-&lt;h2 id=&#34;encore:1c2add1e142e9fd20fe40d195fed0ef9&#34;&gt;Encore&lt;/h2&gt;
+&lt;h2 id=&#34;encore&#34;&gt;Encore&lt;/h2&gt;
 
 &lt;p&gt;This is what reviewing revisions can look like if your co-authors use this workflow. I find this pretty awesome 💙.
 

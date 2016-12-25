@@ -2,11 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Qt on Zenf</title>
-    <link>http://paulklemm.com/blog/categories/qt/</link>
+    <link>http://paulklemm.com/blog/categories/qt/index.xml</link>
     <description>Recent content in Qt on Zenf</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Aug 2012 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://paulklemm.com/blog/categories/qt/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -23,14 +22,14 @@
 
 &lt;p&gt;If you run a Windows or Linux machine and you might want to do yourself a favor and use the &lt;a href=&#34;http://graphics.tudelft.nl/Projects/DeVIDE&#34;&gt;DRE which is included in DeVIDE&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&#34;install-and-configure-homebrew:cfbe69256acc54306cb213691b28d252&#34;&gt;Install and configure Homebrew&lt;/h2&gt;
+&lt;h2 id=&#34;install-and-configure-homebrew&#34;&gt;Install and configure Homebrew&lt;/h2&gt;
 
 &lt;p&gt;As a very first step you need to install &lt;em&gt;Homebrew&lt;/em&gt;, the friendly packet manager for Mac OS X &lt;a href=&#34;http://mxcl.github.com/homebrew/&#34;&gt;[3]&lt;/a&gt;. This makes it really easy to install all the necessary stuff. While OS X already ships with versions of &lt;code&gt;Python&lt;/code&gt;, &lt;code&gt;Ruby&lt;/code&gt; and other stuff, the versions they provide are often deprecated and installing own packages can be quite frustrating. Homebrew installs all it&amp;rsquo;s stuff isolated from the system under &lt;code&gt;/usr/local/cellar&lt;/code&gt;. This way you can install your own libraries without touching the components installed from Apple.&lt;/p&gt;
 
 &lt;p&gt;In order make sure that Terminal searches the &lt;code&gt;bin&lt;/code&gt; folder of Homebrew first before the System &lt;code&gt;bin&lt;/code&gt; folder (which is &lt;code&gt;/usr/bin&lt;/code&gt;), you need to add it to the &lt;code&gt;PATH&lt;/code&gt;-variable. This can be done by editing the &lt;code&gt;.bash_profile&lt;/code&gt; file in you user root folder &lt;code&gt;/Users/&amp;lt;your username&amp;gt;/.bash_profile&lt;/code&gt; (further referenced as &lt;code&gt;~/&lt;/code&gt;). If this file doesn&amp;rsquo;t exist, create it! Now you add
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# ~/.bash_profile&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;export PATH&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;/usr/local/bin:&lt;span style=&#34;color: #f8f8f2&#34;&gt;$PATH&lt;/span&gt;
-&lt;span style=&#34;color: #f8f8f2&#34;&gt;export PATH&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;/usr/local/share/python:&lt;span style=&#34;color: #f8f8f2&#34;&gt;$PATH&lt;/span&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# ~/.bash_profile&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PATH&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;/usr/local/bin:&lt;span style=&#34;color: #f8f8f2&#34;&gt;$PATH&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;export&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PATH&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;/usr/local/share/python:&lt;span style=&#34;color: #f8f8f2&#34;&gt;$PATH&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 to the file. The second entry is later used to get the right version of &lt;code&gt;PIP&lt;/code&gt;.
@@ -38,14 +37,14 @@ Note: If you have a Terminal session up and running you need to restart it in or
 
 &lt;p&gt;Before you install anything to Homebrew, be sure to run &lt;code&gt;brew doctor&lt;/code&gt; and &lt;code&gt;brew update&lt;/code&gt; to check if all dependencies are installed (&lt;code&gt;xCode&lt;/code&gt;, &lt;code&gt;Command Line Tools&lt;/code&gt; and &lt;code&gt;x11&lt;/code&gt;). When &lt;code&gt;brew doctor&lt;/code&gt; gives you green light you are good to go!&lt;/p&gt;
 
-&lt;h2 id=&#34;install-python:cfbe69256acc54306cb213691b28d252&#34;&gt;Install Python&lt;/h2&gt;
+&lt;h2 id=&#34;install-python&#34;&gt;Install Python&lt;/h2&gt;
 
 &lt;p&gt;The very first step is that you install your own version of &lt;code&gt;Python&lt;/code&gt; by running the following command:
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;brew install python --framework --universal
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;brew install python --framework --universal
 &lt;/pre&gt;&lt;/div&gt;
 
 In order to make it the default &lt;code&gt;Python&lt;/code&gt; installation of the system you need to execute
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;cd&lt;/span&gt; /System/Library/Frameworks/Python.framework/Versions
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;cd&lt;/span&gt; /System/Library/Frameworks/Python.framework/Versions
 sudo rm Current
 ln -s /usr/local/Cellar/python/2.7.2/Frameworks/Python.framework/Versions/Current
 &lt;/pre&gt;&lt;/div&gt;
@@ -55,42 +54,42 @@ This changes the symlink to our new &lt;code&gt;Python&lt;/code&gt; installation
 &lt;p&gt;If everything worked, &lt;code&gt;which python&lt;/code&gt; should return &lt;code&gt;/usr/local/bin/python&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Next step is the installation of &lt;code&gt;PIP&lt;/code&gt; using the command
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;easy_install pip
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;easy_install pip
 &lt;/pre&gt;&lt;/div&gt;
 
 Now &lt;code&gt;which pip&lt;/code&gt; should return &lt;code&gt;/usr/local/share/python/pip&lt;/code&gt; - otherwise the &lt;code&gt;PATH&lt;/code&gt; is not properly set as described above.&lt;/p&gt;
 
 &lt;p&gt;Now you can install other Packages like &lt;code&gt;Numpy&lt;/code&gt; or &lt;code&gt;Scipy&lt;/code&gt; - depending on what you need. Note: If you want to install &lt;code&gt;Scipy&lt;/code&gt; you need to install the &lt;code&gt;gfortran&lt;/code&gt; compiler.
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;pip install numpy
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;pip install numpy
 brew install gfortran
 pip install scipy
 &lt;/pre&gt;&lt;/div&gt;
 
 Note: To date of this post, you have to use the developer version of &lt;code&gt;Scipy&lt;/code&gt; to make it work under Mountain Lion. This can be done using
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;pip install -e git+https://github.com/scipy/scipy#egg&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;scipy-dev
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;pip install -e git+https://github.com/scipy/scipy#egg&lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt;scipy-dev
 &lt;/pre&gt;&lt;/div&gt;
 
 This will create a folder &lt;code&gt;~/src&lt;/code&gt; and install &lt;code&gt;Scipy&lt;/code&gt; from there.&lt;/p&gt;
 
-&lt;h2 id=&#34;install-qt:cfbe69256acc54306cb213691b28d252&#34;&gt;Install Qt&lt;/h2&gt;
+&lt;h2 id=&#34;install-qt&#34;&gt;Install Qt&lt;/h2&gt;
 
 &lt;p&gt;To install &lt;code&gt;Qt&lt;/code&gt; and &lt;code&gt;Pyqt&lt;/code&gt;-bindings you execute
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;brew install qt
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;brew install qt
 brew install pyqt
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/p&gt;
 
-&lt;h2 id=&#34;install-vtk:cfbe69256acc54306cb213691b28d252&#34;&gt;Install VTK&lt;/h2&gt;
+&lt;h2 id=&#34;install-vtk&#34;&gt;Install VTK&lt;/h2&gt;
 
 &lt;p&gt;To install VTK you need to run
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;brew install vtk --tcl --qt --python --pyqt --examples
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;brew install vtk --tcl --qt --python --pyqt --examples
 &lt;/pre&gt;&lt;/div&gt;
 
 This took about 60 minutes on my early 2008 Macbook Pro, so take your time for a well-earned rest.&lt;/p&gt;
 
 &lt;p&gt;When this is done you should be able to &lt;code&gt;import vtk&lt;/code&gt; into your &lt;code&gt;Python&lt;/code&gt; environment without any errors.&lt;/p&gt;
 
-&lt;h2 id=&#34;setup-python-for-use-with-eclipse:cfbe69256acc54306cb213691b28d252&#34;&gt;Setup Python for use with Eclipse&lt;/h2&gt;
+&lt;h2 id=&#34;setup-python-for-use-with-eclipse&#34;&gt;Setup Python for use with Eclipse&lt;/h2&gt;
 
 &lt;p&gt;This part is oriented on the introduction on how to include the &lt;code&gt;DRE&lt;/code&gt; into &lt;code&gt;Eclipse&lt;/code&gt;, which can be found under &lt;a href=&#34;http://code.google.com/p/devide/wiki/EclipseDRE&#34;&gt;[4]&lt;/a&gt; and in the following screencast. I just made a few enhancements to make it work for this application. Note that the steps of the screencast don&amp;rsquo;t work exactly on our installation!
 &lt;iframe width=&#34;420&#34; height=&#34;315&#34; src=&#34;https://www.youtube.com/embed/-b1zS536R2M&#34; frameborder=&#34;0&#34; allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
@@ -115,7 +114,7 @@ Confirm the next Prompt which should look like the following screenshot and you 
 &lt;/p&gt;
 
 &lt;p&gt;Now you are good to go. Create a new PyDev Project, select the new created interpreter and play around with &lt;code&gt;VTK&lt;/code&gt; - it all should be working with auto completion and the other neat &lt;code&gt;Eclipse&lt;/code&gt; features. The Code example Charl used in the Screencast should compile:
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# vtkDonutTest.py&lt;/span&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# vtkDonutTest.py&lt;/span&gt;
 &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;
 &lt;span style=&#34;color: #75715e&#34;&gt;# create a donut polydata source&lt;/span&gt;
 &lt;span style=&#34;color: #f8f8f2&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;vtkSuperquadricSource()&lt;/span&gt;
@@ -146,7 +145,7 @@ Confirm the next Prompt which should look like the following screenshot and you 
 &lt;/p&gt;
 
 &lt;p&gt;To test the Qt-Support you can run the following code &lt;a href=&#34;https://svn.enthought.com/svn/enthought/Mayavi/trunk/enthought/tvtk/pyface/ui/qt4/QVTKRenderWindowInteractor.py&#34;&gt;[5]&lt;/a&gt;:
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# vtkQtTest.py&lt;/span&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# vtkQtTest.py&lt;/span&gt;
 &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;
 &lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PyQt4&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QtGui&lt;/span&gt;
 &lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk.qt4.QVTKRenderWindowInteractor&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKRenderWindowInteractor&lt;/span&gt;
@@ -183,30 +182,30 @@ Confirm the next Prompt which should look like the following screenshot and you 
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/p&gt;
 
-&lt;h2 id=&#34;add-vtk-module-to-qt-designer:cfbe69256acc54306cb213691b28d252&#34;&gt;Add VTK-Module to Qt-Designer&lt;/h2&gt;
+&lt;h2 id=&#34;add-vtk-module-to-qt-designer&#34;&gt;Add VTK-Module to Qt-Designer&lt;/h2&gt;
 
 &lt;p&gt;If you want to use the &lt;code&gt;Qt-Designer&lt;/code&gt; for the use with &lt;code&gt;VTK&lt;/code&gt;, things get a little bit tricky. The &lt;code&gt;Qt-Designer&lt;/code&gt; comes with our installation of &lt;code&gt;Qt&lt;/code&gt; under &lt;code&gt;/usr/local/Cellar/qt/4.8.2/Designer.app&lt;/code&gt; and is a &lt;em&gt;WYSISWYG&lt;/em&gt;-Editor for &lt;code&gt;Qt&lt;/code&gt;-UIs. &lt;code&gt;VTK&lt;/code&gt; already has installed a plugin for it, it just has to be sym-linked into the &lt;code&gt;Qt-Designer&lt;/code&gt;-Path. You can do this using the following commands, but check your current versions before running these.
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;cd&lt;/span&gt; /usr/local/Cellar/qt/4.8.2/plugins/designer
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;cd&lt;/span&gt; /usr/local/Cellar/qt/4.8.2/plugins/designer
 ln -s /usr/local/Cellar/vtk/5.10.0/plugins/designer/libQVTKWidgetPlugin.dylib libQVTKWidgetPlugin.dylib
 &lt;/pre&gt;&lt;/div&gt;
 
 Now you should have a QVTKWidget available in the &lt;code&gt;Qt-Designer&lt;/code&gt;. The tricky part begins now. Unfortunately when you try to include a &lt;code&gt;Qt&lt;/code&gt;-UI which contains a &lt;code&gt;QVTKWidget&lt;/code&gt;, it fails to compile, because &lt;code&gt;QVTKWidget&lt;/code&gt; belongs to the Class &lt;code&gt;QVTKWidget.QVTKWidget&lt;/code&gt;, while the correct class is &lt;code&gt;vtk.QVTKWidget&lt;/code&gt;. You can fix this using the following workaround.&lt;/p&gt;
 
 &lt;p&gt;When you have created your UI using the &lt;code&gt;Qt-Designer&lt;/code&gt; you can convert it to &lt;code&gt;Python&lt;/code&gt;-Code using the command
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;pyuic4 myTestApp.ui &amp;gt; myTestApp_ui.py
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;pyuic4 myTestApp.ui &amp;gt; myTestApp_ui.py
 &lt;/pre&gt;&lt;/div&gt;
 
 Import the new file into your Project and change the line
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKWidget&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKWidget&lt;/span&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKWidget&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKWidget&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 to
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKWidget&lt;/span&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QVTKWidget&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 Now it will compile and run. The tradeoff is that you have to manually change this line every time you want to make changes to the UI using the &lt;code&gt;Qt-Designer&lt;/code&gt;.
 To give an example for a converted UI file which runs, look at the following code.
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# pythonQtVTKTest.py&lt;/span&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# pythonQtVTKTest.py&lt;/span&gt;
 &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;sys&lt;/span&gt;
 &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;vtk&lt;/span&gt;
 &lt;span style=&#34;color: #f92672&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;PyQt4&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;QtGui&lt;/span&gt;
@@ -254,7 +253,7 @@ To give an example for a converted UI file which runs, look at the following cod
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# pythonQtVTKTest_UI.py&lt;/span&gt;
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #75715e&#34;&gt;# pythonQtVTKTest_UI.py&lt;/span&gt;
 &lt;span style=&#34;color: #75715e&#34;&gt;# -*- coding: utf-8 -*-&lt;/span&gt;
 
 &lt;span style=&#34;color: #75715e&#34;&gt;# Form implementation generated from reading ui file &amp;#39;pythonQtVTKTest.ui&amp;#39;&lt;/span&gt;
@@ -291,21 +290,21 @@ To give an example for a converted UI file which runs, look at the following cod
 
 &lt;strong&gt;If anyone knows a simpler solution to this, please post it in the comments!&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;using-mactex-and-homebrew:cfbe69256acc54306cb213691b28d252&#34;&gt;Using MacTeX and Homebrew&lt;/h2&gt;
+&lt;h2 id=&#34;using-mactex-and-homebrew&#34;&gt;Using MacTeX and Homebrew&lt;/h2&gt;
 
 &lt;p&gt;Just a short footnote for those of you who use &lt;code&gt;MacTeX&lt;/code&gt;. &lt;code&gt;MacTeX&lt;/code&gt; stores it&amp;rsquo;s files under &lt;code&gt;/usr/local/texlive&lt;/code&gt; next to the &lt;code&gt;Homebrew&lt;/code&gt; stuff. They coexist peaceful next to each other, you just have to apply some diplomacy using the following command &lt;a href=&#34;https://github.com/ThinkRuby/thinkruby/wiki/&#34;&gt;[6]&lt;/a&gt;.
-&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;sudo chown -R &lt;span style=&#34;color: #f8f8f2&#34;&gt;$USER&lt;/span&gt;:staff /usr/local
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;sudo chown -R &lt;span style=&#34;color: #f8f8f2&#34;&gt;$USER&lt;/span&gt;:staff /usr/local
 &lt;/pre&gt;&lt;/div&gt;
 
 You might also consult the &lt;code&gt;brew doctor&lt;/code&gt;, he will tell you what to do.&lt;/p&gt;
 
-&lt;h2 id=&#34;thats-it:cfbe69256acc54306cb213691b28d252&#34;&gt;Thats it&lt;/h2&gt;
+&lt;h2 id=&#34;thats-it&#34;&gt;Thats it&lt;/h2&gt;
 
 &lt;p&gt;Thank you for reading, I hope these instructions help you in some way. Please feel free to leave a comment. Have a nice day!&lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;h1 id=&#34;references:cfbe69256acc54306cb213691b28d252&#34;&gt;References&lt;/h1&gt;
+&lt;h1 id=&#34;references&#34;&gt;References&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://www.thisisthegreenroom.com/2011/installing-python-numpy-scipy-matplotlib-and-ipython-on-lion/&#34;&gt;[1] http://www.thisisthegreenroom.com/2011/installing-python-numpy-scipy-matplotlib-and-ipython-on-lion/&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;http://jbowles.github.com/blog/2012/04/22/python/&#34;&gt;[2] http://jbowles.github.com/blog/2012/04/22/python/&lt;/a&gt;&lt;br /&gt;
@@ -314,7 +313,7 @@ You might also consult the &lt;code&gt;brew doctor&lt;/code&gt;, he will tell yo
 &lt;a href=&#34;https://svn.enthought.com/svn/enthought/Mayavi/trunk/enthought/tvtk/pyface/ui/qt4/QVTKRenderWindowInteractor.py&#34;&gt;[5] https://svn.enthought.com/svn/enthought/Mayavi/trunk/enthought/tvtk/pyface/ui/qt4/QVTKRenderWindowInteractor.py&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;https://github.com/ThinkRuby/thinkruby/wiki/&#34;&gt;[6] https://github.com/ThinkRuby/thinkruby/wiki/&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&#34;this-might-also-be-useful-for-you:cfbe69256acc54306cb213691b28d252&#34;&gt;This might also be useful for you&lt;/h2&gt;
+&lt;h2 id=&#34;this-might-also-be-useful-for-you&#34;&gt;This might also be useful for you&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://graphics.tudelft.nl/Projects/DeVIDE&#34;&gt;DeVIDE/DRE from the University of Delft&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;

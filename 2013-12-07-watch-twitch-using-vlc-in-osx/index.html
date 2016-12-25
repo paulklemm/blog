@@ -6,16 +6,67 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="author" content="Paul Klemm">
 		<meta name="description" content="Paul puts in his two cents">
-		<meta name="generator" content="Hugo 0.15" />
+		<meta name="generator" content="Hugo 0.18" />
 		<title>Watch Twitch using VLC in OS X &middot; Zenf</title>
 		<link rel="shortcut icon" href="http://paulklemm.com/blog/images/favicon.ico">
 		<link rel="stylesheet" href="http://paulklemm.com/blog/css/style.css">
 		<link rel="stylesheet" href="http://paulklemm.com/blog/css/highlight.css">
+		
+
+		
 		<link rel="stylesheet" href="http://paulklemm.com/blog/css/monosocialiconsfont.css">
 		<link rel="stylesheet" href="http://paulklemm.com/blog/css/custom-img.css">
 		
+
+		
 		<link href="http://paulklemm.com/blog/index.xml" rel="alternate" type="application/rss+xml" title="Zenf" />
 		
+
+		<meta property="og:title" content="Watch Twitch using VLC in OS X" />
+<meta property="og:description" content="If you own a Retina-Macbook you problably struggle with fairly high CPU load and bad performance when watching Twitch-channels using the standard flash-based player in the browser.
+A tool called livestreamer can be used to bring Twitch streams to the beloved VLC player (which also uses the GPU to process videos). This way you are not just able to reduce the used resources, the streams also feel much smoother, especially for high resolutions." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://paulklemm.com/blog/2013-12-07-watch-twitch-using-vlc-in-osx/" />
+
+
+<meta property="og:updated_time" content="2013-12-07T00:20:42&#43;00:00"/>
+<meta property="og:site_name" content="Zenf" />
+
+
+
+
+
+
+
+
+
+
+	    
+	    
+<meta itemprop="name" content="Watch Twitch using VLC in OS X">
+<meta itemprop="description" content="If you own a Retina-Macbook you problably struggle with fairly high CPU load and bad performance when watching Twitch-channels using the standard flash-based player in the browser.
+A tool called livestreamer can be used to bring Twitch streams to the beloved VLC player (which also uses the GPU to process videos). This way you are not just able to reduce the used resources, the streams also feel much smoother, especially for high resolutions.">
+
+
+<meta itemprop="dateModified" content="2013-12-07T00:20:42&#43;00:00" />
+<meta itemprop="wordCount" content="414">
+
+
+
+<meta itemprop="keywords" content="eclipse,git,github,homebrew,latex,livestreamer,mountain-lion,os-x,osx,python,qt,rstudio-r-osx,rtmpdump,scientific-writing,streaming,twitch,vlc,vtk," />
+
+	    
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:title" content="Watch Twitch using VLC in OS X"/>
+<meta name="twitter:description" content="If you own a Retina-Macbook you problably struggle with fairly high CPU load and bad performance when watching Twitch-channels using the standard flash-based player in the browser.
+A tool called livestreamer can be used to bring Twitch streams to the beloved VLC player (which also uses the GPU to process videos). This way you are not just able to reduce the used resources, the streams also feel much smoother, especially for high resolutions."/>
+<meta name="twitter:site" content="@https://www.twitter.com/paul_klemm"/>
+
+
 	</head>
 
     <body>
@@ -38,7 +89,11 @@
             <article class="post">
                 <header>
                     <h1>Watch Twitch using VLC in OS X</h1>
-                    <h2 class="headline">December 7, 2013</h2>
+                    <h2 class="headline">
+                    December 7, 2013 
+                    <br>
+                    
+                    </h2>
                 </header>
                 <section id="post-body">
                     
@@ -58,21 +113,21 @@
 
 <p>Added updating instructions.</p>
 
-<h2 id="install-livestreamer:066f95779e6bf58a9b9a530d54af1e81">Install Livestreamer</h2>
+<h2 id="install-livestreamer">Install Livestreamer</h2>
 
 <ul>
 <li>Download and install <code>rtmpdump</code> from <a href="http://trick77.com/wp-content/uploads/2008/01/rtmpdump-2.4_mac_os.zip">here</a></li>
 <li>Download <code>python-setuptools</code> from <a href="https://pypi.python.org/packages/2.7/s/setuptools/setuptools-0.6c11-py2.7.egg#md5=fe1f997bc722265116870bc7919059ea">here</a></li>
 <li>Open <code>Terminal.app</code></li>
 <li>Navigate to the folder where you downloaded the Egg-File and install it
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f8f8f2">cd</span> ~/Downloads
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">cd</span> ~/Downloads
 sh setuptools-0.6c11-py2.7.egg
 <span style="color: #75715e"># Maybe you need to run it as sudo - `sudo sh setuptools-0.6c11-py2.7.egg`</span>
 <span style="color: #f92672">{</span>% endcodeblock %<span style="color: #f92672">}</span>
 - Clone <span style="color: #e6db74">`</span>Livestreamer<span style="color: #e6db74">`</span> GIT Repository and install <span style="color: #e6db74">`</span>Livestreamer<span style="color: #e6db74">`</span>
 <span style="color: #f92672">{</span>% codeblock lang:bash %<span style="color: #f92672">}</span>
 git clone git://github.com/chrippa/livestreamer.git
-<span style="color: #f8f8f2">cd </span>livestreamer
+<span style="color: #f8f8f2">cd</span> livestreamer
 python setup.py install
 <span style="color: #75715e"># Again, maybe you need to run it as sudo - `sudo python setup.py install`</span>
 </pre></div>
@@ -81,11 +136,11 @@ python setup.py install
 
 <p>Now you should be able to view Twitch channels in VLC</p>
 
-<h2 id="using-livestreamer:066f95779e6bf58a9b9a530d54af1e81">Using Livestreamer</h2>
+<h2 id="using-livestreamer">Using Livestreamer</h2>
 
 <p>Say you want to view this Twitch channel in VLC: <a href="http://www.twitch.tv/wcs_europe">http://www.twitch.tv/wcs_europe</a>.
 All you have to to is go into the <code>Terminal.app</code> and type
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%">livestreamer http://www.twitch.tv/wcs_europe <span style="color: #f92672">[</span>quality<span style="color: #f92672">]</span>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>livestreamer http://www.twitch.tv/wcs_europe <span style="color: #f92672">[</span>quality<span style="color: #f92672">]</span>
 <span style="color: #75715e"># You might as well skip the `http://www.` part</span>
 </pre></div>
 
@@ -101,27 +156,27 @@ Here, <code>[quality]</code> has to be a quality setting from the stream, usuall
 </figure>
 </p>
 
-<h2 id="update-livestreamer:066f95779e6bf58a9b9a530d54af1e81">Update Livestreamer</h2>
+<h2 id="update-livestreamer">Update Livestreamer</h2>
 
 <p>If you see a message like this when launching <code>livestreamer</code> you might update to the latest version:
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f92672">[</span>cli<span style="color: #f92672">][</span>info<span style="color: #f92672">]</span> A new version of Livestreamer <span style="color: #f92672">(</span>1.7.4<span style="color: #f92672">)</span> is available!
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f92672">[</span>cli<span style="color: #f92672">][</span>info<span style="color: #f92672">]</span> A new version of Livestreamer <span style="color: #f92672">(</span>1.7.4<span style="color: #f92672">)</span> is available!
 </pre></div>
 </p>
 
 <p>To do so, navigate to any folder, for example <code>~/Downloads</code>, and run the following commands:
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span style="color: #f8f8f2">cd</span> ~/Downloads
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">cd</span> ~/Downloads
 git clone git://github.com/chrippa/livestreamer.git
-<span style="color: #f8f8f2">cd </span>livestreamer
+<span style="color: #f8f8f2">cd</span> livestreamer
 python setup.py install
 </pre></div>
 </p>
 
 <p>After that you can remove the livestreamer folder from the folder you cloned the GIT repository to (<code>~/Downloads/livestreamer</code> in our example).</p>
 
-<h1 id="references:066f95779e6bf58a9b9a530d54af1e81">References</h1>
+<h1 id="references">References</h1>
 
 <ul>
-<li>Links and instructions how to install everything is taken from different Posts in this <a href="http://forum.gamesports.net/dota/showthread.php?45027-How-to-watch-Twitch-TV-in-VLC-player-(MAC-OSX-HOW-TO">Gamespot Thread</a></li>
+<li>Links and instructions how to install everything is taken from different Posts in this [Gamespot Thread](<a href="http://forum.gamesports.net/dota/showthread.php?45027-How-to-watch-Twitch-TV-in-VLC-player-(MAC-OSX-HOW-TO">http://forum.gamesports.net/dota/showthread.php?45027-How-to-watch-Twitch-TV-in-VLC-player-(MAC-OSX-HOW-TO</a>)</li>
 <li>For further information, visit <a href="http://livestreamer.tanuki.se/en/latest/">this site from the livestreamer developer</a>, which offers more detailed instructions</li>
 </ul>
 
@@ -206,11 +261,41 @@ python setup.py install
         </li>
         
    
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/categories/">Categories<aside class="dates">Jan 1, 0001</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/categories/eclipse/">Eclipse<aside class="dates">Aug 20, 2012</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/categories/git/">Git<aside class="dates">Jul 16, 2014</aside></a>
+        </li>
+        
+   
+    
+        
+        <li>
+            <a href="http://paulklemm.com/blog/categories/github/">Github<aside class="dates">Jul 16, 2014</aside></a>
+        </li>
+        
+   
 </ul>
             <footer id="footer">
     
-        
-<div id="social">
+        <div id="social">
+
+	
+	
     
     <a class="symbol" href="https://www.github.com/paulklemm">
         circlegithub
@@ -220,6 +305,8 @@ python setup.py install
         circletwitterbird
     </a>
     
+
+
 </div>
 
     
@@ -236,6 +323,9 @@ python setup.py install
 <script src="http://paulklemm.com/blog/js/main.js"></script>
 <script src="http://paulklemm.com/blog/js/highlight.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
+
+
+
 
 
     </body>
