@@ -9,12 +9,18 @@
     <atom:link href="http://paulklemm.com/blog/categories/rstudio-r-osx/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Run rJava with RStudio under OSX 10.10</title>
+      <title>Run rJava with RStudio using OSX 10.10</title>
       <link>http://paulklemm.com/blog/2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10/</link>
       <pubDate>Fri, 20 Feb 2015 14:30:10 +0000</pubDate>
       
       <guid>http://paulklemm.com/blog/2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10/</guid>
       <description>
+
+&lt;h1 id=&#34;update-2017-02-12-newer-fix-available&#34;&gt;Update 2017-02-12: Newer fix available&lt;/h1&gt;
+
+&lt;p&gt;The workaround described in this post seized working for newer version of &lt;code&gt;rJava&lt;/code&gt; and &lt;code&gt;RStudio&lt;/code&gt;. I wrote a new blog post using &lt;a href=&#34;https://disqus.com/by/disqus_yW0scDAhvn/&#34;&gt;Toontje&amp;rsquo;s&lt;/a&gt; fix here: &lt;a href=&#34;http://paulklemm.com/blog/2017-02-12-fix-onload-failed-rjava-macos/&#34;&gt;Load rJava in RStudio using macOS 10.12&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The post below refers to older version of &lt;code&gt;rJava&lt;/code&gt;, &lt;code&gt;RStudio&lt;/code&gt; and &lt;code&gt;macOS&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h1 id=&#34;the-problem&#34;&gt;The Problem&lt;/h1&gt;
 
