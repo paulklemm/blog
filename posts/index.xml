@@ -17,9 +17,9 @@
       <guid>http://paulklemm.com/blog/2017-02-12-fix-onload-failed-rjava-macos/</guid>
       <description>
 
-&lt;p&gt;This post describes a fix of the &lt;code&gt;.onLoad failed in loadNamespace() for &#39;rJava&#39;&lt;/code&gt; error, which occurs when loading &lt;code&gt;rJava&lt;/code&gt; in &lt;code&gt;RStudio&lt;/code&gt; using &lt;code&gt;macOS&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This post describes a fix of the &lt;code&gt;.onLoad failed in loadNamespace() for &#39;rJava&#39;&lt;/code&gt; error, which occurs when loading &lt;code&gt;rJava&lt;/code&gt; in &lt;code&gt;RStudio&lt;/code&gt; using &lt;code&gt;macOS&lt;/code&gt;. Credit for this fix goes to &lt;a href=&#34;https://disqus.com/by/disqus_yW0scDAhvn/&#34;&gt;Toontje&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h1 id=&#34;the-2015-workaround-stopped-working&#34;&gt;The &amp;lsquo;2015&amp;rsquo; workaround stopped working&lt;/h1&gt;
+&lt;h1 id=&#34;the-2015-fix-stopped-working&#34;&gt;The &amp;lsquo;2015&amp;rsquo; fix stopped working&lt;/h1&gt;
 
 &lt;p&gt;In beginning of &lt;a href=&#34;http://paulklemm.com/blog/2015-02-20-run-rjava-with-rstudio-under-osx-10-dot-10/&#34;&gt;2015 I wrote a blog post that shows you how to run &lt;code&gt;rJava&lt;/code&gt; in &lt;code&gt;RStudio&lt;/code&gt; using &lt;code&gt;OSX 10.10&lt;/code&gt;&lt;/a&gt;. The fix stopped working. &lt;a href=&#34;https://disqus.com/by/disqus_yW0scDAhvn/&#34;&gt;Toontje&lt;/a&gt;, a reader of my blog, came for the rescue.&lt;/p&gt;
 
